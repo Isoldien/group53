@@ -14,7 +14,7 @@ We have been tasked with developing, designing, and deploying in a functional E-
 - Deploy it online using University provided server
 
 ## Our Tech Stack
-Frontend = HTML, CSS, Javascript
+Frontend = HTML, CSS with Bootstrap, Javascript with React
 Backend = PHP with Laravel
 Database = To be decided
 Hosting = University server
