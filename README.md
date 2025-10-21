@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Group 53 (CS2TP)
 
 Group 53's Aston University Team Project Repository for CS2TP
@@ -21,6 +20,4 @@ Database = To be decided
 Hosting = University server
 Version Control = Git with GitHub (as remote)
 
-
->>>>>>> 5ee3817 (refactor: updated README.md with relevant information)
 
