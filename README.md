@@ -49,7 +49,6 @@ As the project develops we'll likely have a structure similar to:
 - frontend/
 	- public/
 	- src/ (React components)
-	- package.json
 - backend/
 	- app/
 	- routes/
