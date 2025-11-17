@@ -4,3 +4,6 @@ venv/
 
 # MkDocs site build
 site/
+
+# Cache files
+/.Cache

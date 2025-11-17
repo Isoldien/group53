@@ -1,24 +1,33 @@
 # MkDocs configuration file
 site_name: YouZoo Documentation # Site name
-site_url: https://sitename.example.com # Site URL
+site_url: https://isoldien.github.io/group53 # Site URL
 site_description: Documentation for YouZoo project by CS2TP Group 53
 site_author: Group 53
 
 repo_url: https://github.com/Isoldien/group53 # Repository URL
+edit_uri: blob/main/docs/ # Edit URI for documentation pages
 repo_name: Isoldien/group53 # Repository name
 # Navigation structure
 nav:
-  - Home: index.md 
-  - Changelog: changelog.md
-  - Roadmap: roadmap.md
+  - Home: index.md
+  - Introduction: introduction.md
   - Project Structure: project_structure.md
   - Team Members: team_members.md
+  - Changelog: changelog.md
+  - Roadmap: roadmap.md
   - Contributions: contributions.md  
   - Feedback: feedback.md
+
+
 
 # MkDocs plugins
 plugins: 
   - search
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
 
 # MkDocs Material theme configuration
 theme:
@@ -28,15 +37,15 @@ theme:
       toggle:
         icon: material/toggle-switch-off-outline
         name: Dark Mode
-      primary: cyan
+      primary: green
       accent: pink
   # Light mode color scheme
     - scheme: default
       toggle:
         icon: material/toggle-switch
         name: Light Mode
-      primary: pink
-      accent: cyan
+      primary: green
+      accent: pink
   # fonts
   font:
     text: Oxygen
@@ -44,6 +53,10 @@ theme:
   # logo
   icon:
     logo: material/paw
+    favicon: material/paw
+    repo: fontawesome/brands/github
+    edit: material/pencil
+    view: material/file-document-outline
   features:
     - navigation.tabs
     - navigation.top
@@ -53,6 +66,8 @@ theme:
     - content.code.annotate
     - navigation.footer
     - header.autohide
+    - navigation.sections
+    - content.action.edit
 
 extra:
   social:

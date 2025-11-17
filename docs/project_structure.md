@@ -22,7 +22,7 @@ This is the technologies our back-end will use:
 ### Documentation
 *Documentation Site*
 
-[![MKDocs-Material](https://img.shields.io/badge/materialformkdocs-526CFE?style=for-the-badge&logo=materialformkdocs&logoColor=white)](https://example.site.com) 
+[![MKDocs-Material](https://img.shields.io/badge/materialformkdocs-526CFE?style=for-the-badge&logo=materialformkdocs&logoColor=white)](https://isoldien.github.io/group53/) 
 
 ---
 
