@@ -1,0 +1,6 @@
+# Python Virtual Environment
+venv/
+
+
+# MkDocs site build
+site/

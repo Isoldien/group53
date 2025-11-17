@@ -1,0 +1,67 @@
+# MkDocs configuration file
+site_name: YouZoo Documentation # Site name
+site_url: https://sitename.example.com # Site URL
+site_description: Documentation for YouZoo project by CS2TP Group 53
+site_author: Group 53
+
+repo_url: https://github.com/Isoldien/group53 # Repository URL
+repo_name: Isoldien/group53 # Repository name
+# Navigation structure
+nav:
+  - Home: index.md 
+  - Changelog: changelog.md
+  - Roadmap: roadmap.md
+  - Project Structure: project_structure.md
+  - Team Members: team_members.md
+  - Contributions: contributions.md  
+  - Feedback: feedback.md
+
+# MkDocs plugins
+plugins: 
+  - search
+
+# MkDocs Material theme configuration
+theme:
+  name: material
+  palette:
+    - scheme: slate
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Dark Mode
+      primary: cyan
+      accent: pink
+  # Light mode color scheme
+    - scheme: default
+      toggle:
+        icon: material/toggle-switch
+        name: Light Mode
+      primary: pink
+      accent: cyan
+  # fonts
+  font:
+    text: Oxygen
+    code: Caveat
+  # logo
+  icon:
+    logo: material/paw
+  features:
+    - navigation.tabs
+    - navigation.top
+    - search.highlight
+    - search.suggest
+    - toc.integrated
+    - content.code.annotate
+    - navigation.footer
+    - header.autohide
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/Isoldien/group53
+      name: GitHub
+    - icon: fontawesome/brands/trello
+      link: https://trello.com/b/5VChyFJs/cs-group53
+      name: Trello
+  generator: false   
+
+copyright: "© 2025 Aston University"
