@@ -1,4 +1,10 @@
 ## Tech Stack
+This document provides an overview of the technologies and tools utilized in our project, throughout both the front-end and back-end development processes
+
+!!! Danger "Technology Notice"
+    Technologies used in our project which may change as development progresses. Any changes will be documented in the [Changelog](https://isoldien.github.io/group53/changelog/).
+---
+
 ### Front-end
 This is the technologies our front-end will use:
 
@@ -36,3 +42,5 @@ This is the technologies our back-end will use:
 [![Trello](https://img.shields.io/badge/trello-0052CC?style=for-the-badge&logo=trello&logoColor=white)](https://trello.com/b/5VChyFJs/cs-group53)
 
 ---
+
+Thanks to all the technologies and tools that have made this project possible in a collaborative and efficient manner.

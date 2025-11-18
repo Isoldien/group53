@@ -12,13 +12,10 @@ nav:
   - Home: index.md
   - Introduction: introduction.md
   - Project Structure: project_structure.md
-  - Team Members: team_members.md
   - Changelog: changelog.md
   - Roadmap: roadmap.md
   - Contributions: contributions.md  
   - Feedback: feedback.md
-
-
 
 # MkDocs plugins
 plugins: 
