@@ -1,9 +1,10 @@
 # Python Virtual Environment
 venv/
+python_venv/
 
 
 # MkDocs site build
 site/
 
 # Cache files
-/.Cache
+/.cache/*

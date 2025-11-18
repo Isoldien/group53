@@ -1,7 +1,7 @@
 # MkDocs configuration file
 site_name: YouZoo Documentation # Site name
 site_url: https://isoldien.github.io/group53 # Site URL
-site_description: Documentation for YouZoo project by CS2TP Group 53
+site_description: Documentation for YouZoo (CS2TP Group 53) # Site description
 site_author: Group 53
 
 repo_url: https://github.com/Isoldien/group53 # Repository URL
@@ -20,6 +20,7 @@ nav:
 # MkDocs plugins
 plugins: 
   - search
+  - social
 
 markdown_extensions:
   - admonition
