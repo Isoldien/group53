@@ -11,7 +11,7 @@
 /storage/pail
 /vendor
 .DS_Store
-.env
+
 .env.backup
 .env.production
 .phpactor.json
