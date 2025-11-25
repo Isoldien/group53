@@ -1,6 +1,5 @@
 /.phpunit.cache
 /bootstrap/ssr
-/node_modules
 /public/build
 /public/hot
 /public/storage
@@ -11,7 +10,9 @@
 /storage/pail
 /vendor
 .DS_Store
-
+.env
+/storage/logs
+/node_modules
 .env.backup
 .env.production
 .phpactor.json
