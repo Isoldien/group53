@@ -41,3 +41,7 @@ yarn-error.log
 /.nova
 /.vscode
 /.zed
+
+/node_modules
+/.pnp
+.pnp.js
