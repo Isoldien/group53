@@ -45,3 +45,13 @@ yarn-error.log
 /node_modules
 /.pnp
 .pnp.js
+
+# SQLite Database Files
+*.sqlite 
+*.db
+/database/*.sqlite
+/database/*.db
+
+# Environment Files
+*.env
+node_modules/.package-lock.json
