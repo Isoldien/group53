@@ -1,18 +1,12 @@
 /.phpunit.cache
-/bootstrap/ssr
+/node_modules
 /public/build
 /public/hot
 /public/storage
-/resources/js/actions
-/resources/js/routes
-/resources/js/wayfinder
 /storage/*.key
 /storage/pail
 /vendor
-.DS_Store
 .env
-/storage/logs
-/node_modules
 .env.backup
 .env.production
 .phpactor.json
@@ -22,8 +16,42 @@ Homestead.yaml
 npm-debug.log
 yarn-error.log
 /auth.json
+
+# Laravel Storage
+/storage/framework/cache/data/*
+/storage/framework/sessions/*
+/storage/framework/testing/*
+/storage/framework/views/*
+!/storage/framework/cache/data/.gitignore
+!/storage/framework/sessions/.gitignore
+!/storage/framework/testing/.gitignore
+!/storage/framework/views/.gitignore
+/storage/logs/*
+!/storage/logs/.gitignore
+
+# Custom Resource Ignores
+/resources/js/actions
+/resources/js/routes
+/resources/js/wayfinder
+
+# Editor / IDE
+.DS_Store
 /.fleet
 /.idea
 /.nova
 /.vscode
 /.zed
+
+/node_modules
+/.pnp
+.pnp.js
+
+# SQLite Database Files
+*.sqlite 
+*.db
+/database/*.sqlite
+/database/*.db
+
+# Environment Files
+*.env
+node_modules/.package-lock.json
