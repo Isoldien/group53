@@ -79,6 +79,7 @@ return array(
     'Laravel\\Wayfinder\\' => array($vendorDir . '/laravel/wayfinder/src'),
     'Laravel\\Tinker\\' => array($vendorDir . '/laravel/tinker/src'),
     'Laravel\\SerializableClosure\\' => array($vendorDir . '/laravel/serializable-closure/src'),
+    'Laravel\\Sanctum\\' => array($vendorDir . '/laravel/sanctum/src'),
     'Laravel\\Sail\\' => array($vendorDir . '/laravel/sail/src'),
     'Laravel\\Roster\\' => array($vendorDir . '/laravel/roster/src'),
     'Laravel\\Prompts\\' => array($vendorDir . '/laravel/prompts/src'),
