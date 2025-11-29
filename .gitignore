@@ -1,0 +1,60 @@
+# Python Virtual Environment
+venv/
+*venv/
+
+# MkDocs site build
+site/
+
+# Cache files
+/.cache/*
+
+# Environment Files
+.env
+.env.*
+!.env.example
+
+# Laravel Vendor & Node Modules
+/vendor/
+node_modules/
+
+# Laravel Storage (except public/app)
+storage/*.key
+storage/app/*
+storage/framework/*
+storage/logs/*
+storage/debugbar/*
+storage/*.cache
+
+# Allow public storage symlink
+!storage/app/public/
+
+# Laravel Bootstrap Cache
+bootstrap/cache/*.php
+!bootstrap/cache/.gitignore
+
+# Vite Build Output
+public/build/
+public/hot
+
+# Local Development Files
+.phpunit.result.cache
+homestead.yaml
+Homestead.json
+
+# IDE / Editor Files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# System Files
+.DS_Store
+Thumbs.db
+
+# Logs
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Misc
+coverage/
