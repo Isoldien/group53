@@ -1,0 +1,27 @@
+a[name="cart"]::after {
+    content: var(--after-content, '(0)');
+    margin-left: 2px;
+    display: inline-block
+}
+
+.miniwindow{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 99%;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    visibility: var(--visibility, hidden);
+}
+
+/*
+#stars > label:hover input:not(:checked) {
+    content: url('/public/images/star_selected3.png');
+    background: red
+}
+
+#stars > label input:not(:checked) {
+    background: red
+} */
