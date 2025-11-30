@@ -38,6 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
     var reviewtextarea = document.querySelector("textarea[name='reviewtextarea']")
     const reviewtitle = document.querySelector("input[name='title']")
     const reviewtitleplaceholder = reviewtitle.placeholder
+    const reviewtextareaplaceholder = reviewtextarea.placeholder
 
     // FORM 2 PART 2: STARS
 
@@ -142,16 +143,66 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 
     // FORM 2
+    const labels = document.querySelectorAll("#stars label");
+
+    labels.forEach(label => {
+        label.addEventListener("mouseenter", (e) => {
+            e.currentTarget.classList.add("checked-before-hover");
+
+            for (const l of labels) {
+                if (!l.classList.contains("checked-before-hover")) {
+                    l.classList.add("checked-before-hover");
+                } else {
+                    break;
+                }
+            }
+        });
+
+        label.addEventListener("mouseleave", (e) => {
+            e.currentTarget.classList.remove("checked-before-hover");
+
+            for (const l of labels) {
+                const input = l.querySelector("input");
+                if (!input.checked) {
+                    l.classList.remove("checked-before-hover");
+                }
+            }
+        });
+
+        label.addEventListener("click", (e) => {
+
+            clearstars()
+
+            for (const l of labels) {
+                const input = l.querySelector("input");
+                input.checked = true;
+                l.classList.add("checked-before-hover");
+
+                if (l === e.currentTarget) {
+                    break;
+                }
+            }
+        });
+    });
+
+    function clearstars() {
+        for (const l of labels) {
+            const input = l.querySelector("input");
+            input.checked = false;
+            l.classList.remove("checked-before-hover");
+        }
+    }
 
     reviewtitle.addEventListener("focus",()=> {
 
         if (reviewtitle.value == "") {
             reviewtitle.placeholder = ""
         }
+
         reviewlabel.setAttribute("hidden", "true")
         reviewform.removeAttribute("hidden");
         reviewtextarea.removeAttribute("hidden");
-        activateform()
+        
     })
 
     reviewtitle.addEventListener("blur",()=> {
@@ -160,24 +211,24 @@ document.addEventListener("DOMContentLoaded", () => {
             reviewlabel.removeAttribute("hidden")
             reviewform.setAttribute("hidden", "true")
             reviewtextarea.setAttribute("hidden", "true")
-
+            reviewtextarea.value = ""
+            clearstars()
         }
+    })
 
+    reviewtextarea.addEventListener("focus",()=>{
+        if (reviewtextarea.value == "") {
+            reviewtextarea.placeholder = ""
+        }
+    })
+
+    reviewtextarea.addEventListener("blur",()=>{
+        if (reviewtextarea.value=="") {
+            reviewtextarea.placeholder = reviewtextareaplaceholder
+        }
     })
 
     // FORM 2 PART 2
-
-    var ratingform = document.querySelector("#rating")
-    var ratinghover = document.querySelector("#rating > label:hover input:not(:checked) img")
-    var ratingselected = document.querySelector("#rating > label input:not(:checked)")
-
-    function activateform(){
-        ratingform.addEventListener("hover", ()=> {
-            console.log("print")
-            ratinghover.src = starImg
-        })
-    }
-
     // CUSTOMER REVIEWS
 
 

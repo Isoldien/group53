@@ -19,4 +19,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 Route::get('/product', function () {
     return view('product_detail');
 });
+
+
 require __DIR__.'/settings.php';

@@ -101,24 +101,24 @@
                         <div class="flex gap-1 items-center">
                             <label for="stars" class="font-bold text-white text-[20px]"> Your Rating: </label>
                             
-                            <div class="flex" id="stars" >
+                            <div class="flex flex-row" id="stars" >
                                 <label>
-                                    <input class="hidden" name="star_5" type="radio"/>
+                                    <input class="hidden" name="star_1" type="radio"/>
                                     <img class="w-10 h-auto bg-transparent hover:opacity-80" src="{{asset('images/star_unselected.png')}}"/>
                                 </label>
 
                                 <label>
-                                    <input class="hidden" name="star_5" type="radio"/>
+                                    <input class="hidden" name="star_2" type="radio"/>
                                     <img class="w-10 h-auto bg-transparent hover:opacity-80" src="{{asset('images/star_unselected.png')}}"/>
                                 </label>
 
                                 <label>
-                                    <input class="hidden" name="star_5" type="radio"/>
+                                    <input class="hidden" name="star_3" type="radio"/>
                                     <img class="w-10 h-auto bg-transparent hover:opacity-80" src="{{asset('images/star_unselected.png')}}"/> 
                                 </label>
 
                                 <label>
-                                    <input class="hidden" name="star_5" type="radio"/>
+                                    <input class="hidden" name="star_4" type="radio"/>
                                     <img class="w-10 h-auto bg-transparent hover:opacity-80" src="{{asset('images/star_unselected.png')}}"/>
                                 </label>
 

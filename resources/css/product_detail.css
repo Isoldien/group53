@@ -25,3 +25,25 @@ a[name="cart"]::after {
 #stars > label input:not(:checked) {
     background: red
 } */
+
+/*
+#stars label:hover ~ label:not(:checked) img, label:hover img {
+    content: url("/public/images/star_selected3.png");
+} */
+
+/*
+#stars label > input:checked + img {
+    content: url("/public/images/star_selected3.png");
+} */
+
+#stars label.checked-before-hover > img {
+    content: url("/public/images/star_selected3.png");
+}
+
+#stars label > input:checked + img {
+    content: url("/public/images/star_selected3.png");
+}
+
+#stars label > img {
+    content: url("/public/images/star_unselected.png");
+}
