@@ -226,19 +226,31 @@
             <!-- TODO Increase height of page based on articles displayed -->
         </main>
 
-        <footer class="flex mt-15 justify-between items-center h-12 w-full p-3 bg-green-primary dark:bg-black">
+        <footer class="grid grid-cols-3 items-center h-12 w-full mt-15 bg-green-primary dark:bg-black px-4">
             <div class="flex gap-2 items-center text-white font-bold">
                 <img src="{{ asset('/images/Logo.jpg') }}" alt="Logo" class="h-11 w-auto rounded-3xl"/> <!-- Logo -->
                 <p> YOUZOO </p>
             </div>
-            
-            <nav> <!-- Navigation -->
-                 <ul class="flex gap-2.5 font-bold text-white" > <!-- AT END. Insert href links -->
-                    <li><a class=" hover:text-beige-third" href="x">About </a></li>
-                    <li><a class=" hover:text-beige-third" href="x">Contact</a></li>
-                    <li><a class=" hover:text-beige-third" href="x">Policies</a></li>
-                </ul>
-            </nav>
+
+            <div class="font-bold justify-center items-center text-white flex gap-2">
+                <p> [Links: </p>
+
+                <nav> <!-- Navigation -->
+                    <ul class="flex gap-1 " > <!-- AT END. Insert href links -->
+                        <li><a class="after:content-['|'] after:mx-1 hover:text-beige-third" href="x">About </a></li>
+                        <li><a class="after:content-['\|'] after:mx-1 hover:text-beige-third" href="x">Contact</a></li>
+                        <li><a class="after:content-['\]'] after:mx-1 hover:text-beige-third" href="x">Policies</a></li>
+                    </ul>
+                </nav>
+            </div>
+
+            <div class="font-bold text-white items-center justify-end flex gap-2">
+                <p> [Newspaper Signup: </p>
+
+                <nav>
+                    <a class=" hover:text-beige-third after:content-['\]']" href="x">Subscribe</a>  <!-- AT END. Insert href links -->
+                </nav>
+            </div>
         </footer>
 
         <div id="starconfig" data-star="{{ asset('images/star_selected3.png') }}" hidden></div>
