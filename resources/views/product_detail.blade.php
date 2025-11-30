@@ -8,7 +8,7 @@
         @vite(['resources/css/app.css','resources/css/product_detail.css','resources/js/product_detail.js'])
         
     </head>
-    <body class="h-[110vh] bg-white flex flex-col">
+    <body class="bg-white flex flex-col h-full">
 
         <header class="flex justify-between items-center h-12 w-full p-3 bg-green-primary dark:bg-black ">
             <img src="{{ asset('/images/logo.jpg') }}" alt="Logo" class="h-11 w-auto rounded-3xl"/> <!-- Logo -->
@@ -25,7 +25,7 @@
             </nav>
         </header>
 
-        <main class="flex flex-col grow items-center w-full gap-5">
+        <main class="flex flex-col items-center w-full gap-5 flex-1">
 
             <div class="flex flex-col items-center">
                 <h1 class="font-bold text-5xl text-green-secondary mt-5">Product Name Here</h1> <!-- XX. php insertion-->
@@ -76,158 +76,154 @@
                 <h2 class="text-3xl font-bold text-green-secondary"> FULL DESCRIPTION </h2>
                 <p class="text-center font-medium leading-relaxed"> [Long product description] </p>
             </section>
-
-            <div class="flex flex-col w-full h-6 items-center gap-4" >
-
-                <hr class="mb-5 border-black border-[1.5px] w-[95%] h-[2px]">
+            
+            <hr class="mb-5 border-black border-[1.5px] w-[95%] h-[2px]">
 
                 <!-- TODO They need to be a signed in user to make a review. Reload page after login/signup -->
-                <section class="flex flex-col gap-2 items-center w-full p-5 pb-4 bg-green-secondary">
-                    <h2 class=" text-white text-3xl font-bold"> WRITE A PRODUCT REVIEW </h2>
+            <section class="flex flex-col gap-2 items-center w-full p-5 pb-4 bg-green-secondary">
+                <h2 class=" text-white text-3xl font-bold"> WRITE A PRODUCT REVIEW </h2>
 
-                    <div class="flex flex-col gap-2 items-start w-full">
-                        <input form="product_review" placeholder="Title" name="title" class="w-full bg-white text-black placeholder-black p-1 pl-4 text-[20px] rounded-[5px]">
-                        <label class="text-white font-medium" name="reviewdescription" > Share your experience with the product..</label>
-                    </div>
+                <div class="flex flex-col gap-2 items-start w-full">
+                    <input form="product_review" placeholder="Title" name="title" class="w-full bg-white text-black placeholder-black p-1 pl-4 text-[20px] rounded-[5px]">
+                    <label class="text-white font-medium" name="reviewdescription" > Share your experience with the product..</label>
+                </div>
 
-                    <textarea form="product_review" name="reviewtextarea" style="resize: none;" placeholder="Share your experience with the product…" rows="3" class="bg-white shadow-xl border-2 border-beige-third rounded-[5px] text-black placeholder-stone-700 pl-1 w-full overflow-y-scroll" hidden></textarea>
-                    
-                    <form  method=POST id="product_review" class="flex flex-col w-full h-[30%] items-center gap-3 " hidden>
-
-                        <div class="flex gap-1 items-center">
-                            <label for="stars" class="font-bold text-white text-[20px]"> Your Rating: </label>
-                            
-                            <div class="flex flex-row" id="stars" >
-                                <label>
-                                    <input class="hidden" name="star_1" type="radio"/>
-                                    <img class="w-10 h-auto bg-transparent hover:opacity-80" src="{{asset('images/star_unselected.png')}}"/>
-                                </label>
-
-                                <label>
-                                    <input class="hidden" name="star_2" type="radio"/>
-                                    <img class="w-10 h-auto bg-transparent hover:opacity-80" src="{{asset('images/star_unselected.png')}}"/>
-                                </label>
-
-                                <label>
-                                    <input class="hidden" name="star_3" type="radio"/>
-                                    <img class="w-10 h-auto bg-transparent hover:opacity-80" src="{{asset('images/star_unselected.png')}}"/> 
-                                </label>
-
-                                <label>
-                                    <input class="hidden" name="star_4" type="radio"/>
-                                    <img class="w-10 h-auto bg-transparent hover:opacity-80" src="{{asset('images/star_unselected.png')}}"/>
-                                </label>
-
-                                <label>
-                                    <input class="hidden" name="star_5" type="radio"/>
-                                    <img class="w-10 h-auto bg-transparent hover:opacity-80" src="{{asset('images/star_unselected.png')}}"/>
-                                </label>
-                            </div>
-                        </div>
-                            
-                    </form>
-                    
-                    <input form="product_review" type="button" class="p-1.5 px-6 rounded-[10px] bg-orange-primary text-white text-[18px] font-medium hover:opacity-90 " value="Submit Review">
-
-                </section>
+                <textarea form="product_review" name="reviewtextarea" style="resize: none;" placeholder="Share your experience with the product…" rows="3" class="bg-white shadow-xl border-2 border-beige-third rounded-[5px] text-black placeholder-stone-700 pl-1 w-full overflow-y-scroll" hidden></textarea>
                 
-                <div class="flex flex-col gap-10 w-full items-center">
-                    <hr class="mt-5 border-black border-[1.5px] w-[95%] h-[2px]">
+                <form  method=POST id="product_review" class="flex flex-col w-full h-[30%] items-center gap-3 " hidden>
+
+                    <div class="flex gap-1 items-center">
+                        <label for="stars" class="font-bold text-white text-[20px]"> Your Rating: </label>
+                        
+                        <div class="flex flex-row" id="stars" >
+                            <label>
+                                <input class="hidden" name="star_1" type="radio"/>
+                                <img class="w-10 h-auto bg-transparent hover:opacity-80" src="{{asset('images/star_unselected.png')}}"/>
+                            </label>
+
+                            <label>
+                                <input class="hidden" name="star_2" type="radio"/>
+                                <img class="w-10 h-auto bg-transparent hover:opacity-80" src="{{asset('images/star_unselected.png')}}"/>
+                            </label>
+
+                            <label>
+                                <input class="hidden" name="star_3" type="radio"/>
+                                <img class="w-10 h-auto bg-transparent hover:opacity-80" src="{{asset('images/star_unselected.png')}}"/> 
+                            </label>
+
+                            <label>
+                                <input class="hidden" name="star_4" type="radio"/>
+                                <img class="w-10 h-auto bg-transparent hover:opacity-80" src="{{asset('images/star_unselected.png')}}"/>
+                            </label>
+
+                            <label>
+                                <input class="hidden" name="star_5" type="radio"/>
+                                <img class="w-10 h-auto bg-transparent hover:opacity-80" src="{{asset('images/star_unselected.png')}}"/>
+                            </label>
+                        </div>
+                    </div>
+                        
+                </form>
+                
+                <input form="product_review" type="button" class="p-1.5 px-6 rounded-[10px] bg-orange-primary text-white text-[18px] font-medium hover:opacity-90 " value="Submit Review">
+
+            </section>
+                
+            <hr class="mt-5 border-black border-[1.5px] w-[95%] h-[2px]">
 
                     <!-- TODO Say "no reviews" if there are none -->
-                    <div class="flex flex-col items-center w-[95%] bg-beige-primary rounded-3xl pt-4 p-5">
+            <div class="flex mt-5 flex-col items-center w-[95%] bg-beige-primary rounded-3xl pt-4 p-5">
 
-                        <h2 class="text-3xl font-bold text-green-secondary"> CUSTOMER REVIEWS </h2>
+                <h2 class="text-3xl font-bold text-green-secondary"> CUSTOMER REVIEWS </h2>
 
-                        <form class="flex w-full justify-end pr-5">
-                            <select id="filters" class="text-center text-black bg-white p-1 border-3 border-green-secondary rounded-[10px]">
-                                    <option selected hidden class="text-white">Sort By</option>
-                                    <option name="recent" value="recent">Most Recent</option>
-                                    <option name="oldest" value="oldest">Oldest Review</option>
-                                    <option name="ratings" value="ratings">Ratings</option>
-                            </select>
+                <form class="flex w-full justify-end pr-5">
+                    <select id="filters" class="text-center text-black bg-white p-1 border-3 border-green-secondary rounded-[10px]">
+                            <option selected hidden class="text-white">Sort By</option>
+                            <option name="recent" value="recent">Most Recent</option>
+                            <option name="oldest" value="oldest">Oldest Review</option>
+                            <option name="ratings" value="ratings">Ratings</option>
+                    </select>
+                </form>
+
+                <section class="bg-white rounded-lg shadow-xl border w-[95%] mt-5 border-gray-200 p-5 text-black gap-2 flex flex-col">
+                    <article id="article_1" class="flex gap-3 items-center w-full ">
+
+                        <form class="flex items-center">
+                            <label>
+                                <input class="hidden" name="star_5" type="radio" readonly/>
+                                <img class="w-10 h-auto bg-transparent hover:opacity-80" src="{{asset('images/star_selected3.png')}}"/> 
+                            </label>
+
+                            <label>
+                                <input class="hidden" name="star_5" type="radio" readonly/>
+                                <img class="w-10 h-auto bg-transparent hover:opacity-80" src="{{asset('images/star_selected3.png')}}"/> 
+                            </label>
+
+                            <label>
+                                <input class="hidden" name="star_5" type="radio" readonly/>
+                                <img class="w-10 h-auto bg-transparent hover:opacity-80" src="{{asset('images/star_selected3.png')}}"/> 
+                            </label>
+
+                            <label>
+                                <input class="hidden" name="star_5" type="radio" readonly/>
+                                <img class="w-10 h-auto bg-transparent hover:opacity-80" src="{{asset('images/star_selected3.png')}}"/> 
+                            </label>
+
+                            <label>
+                                <input class="hidden" name="star_5" type="radio" readonly/>
+                                <img class="w-10 h-auto bg-transparent hover:opacity-80" src="{{asset('images/star_selected3.png')}}"/>
+                            </label>
                         </form>
 
-                        <section class="bg-white rounded-lg shadow-xl border w-[95%] mt-5 border-gray-200 p-5 text-black gap-2 flex flex-col">
-                            <article id="article_1" class="flex gap-3 items-center w-full ">
+                        <p class="font-bold text-[18px]"> Username </p>
 
-                                <form class="flex items-center">
-                                    <label>
-                                        <input class="hidden" name="star_5" type="radio" readonly/>
-                                        <img class="w-10 h-auto bg-transparent hover:opacity-80" src="{{asset('images/star_selected3.png')}}"/> 
-                                    </label>
+                        <p class="font-medium"> "Comments" </p>
 
-                                    <label>
-                                        <input class="hidden" name="star_5" type="radio" readonly/>
-                                        <img class="w-10 h-auto bg-transparent hover:opacity-80" src="{{asset('images/star_selected3.png')}}"/> 
-                                    </label>
+                        <p class="flex w-full justify-end font-medium"> Date </p>
+                        
+                    </article>
+                    <article id="article_2" class="flex gap-3 items-center w-full ">
 
-                                    <label>
-                                        <input class="hidden" name="star_5" type="radio" readonly/>
-                                        <img class="w-10 h-auto bg-transparent hover:opacity-80" src="{{asset('images/star_selected3.png')}}"/> 
-                                    </label>
+                        <form class="flex items-center">
+                            <label>
+                                <input class="hidden" name="star_5" type="radio" readonly/>
+                                <img class="w-10 h-auto bg-transparent hover:opacity-80" src="{{asset('images/star_selected3.png')}}"/> 
+                            </label>
 
-                                    <label>
-                                        <input class="hidden" name="star_5" type="radio" readonly/>
-                                        <img class="w-10 h-auto bg-transparent hover:opacity-80" src="{{asset('images/star_selected3.png')}}"/> 
-                                    </label>
+                            <label>
+                                <input class="hidden" name="star_5" type="radio" readonly/>
+                                <img class="w-10 h-auto bg-transparent hover:opacity-80" src="{{asset('images/star_selected3.png')}}"/> 
+                            </label>
 
-                                    <label>
-                                        <input class="hidden" name="star_5" type="radio" readonly/>
-                                        <img class="w-10 h-auto bg-transparent hover:opacity-80" src="{{asset('images/star_selected3.png')}}"/>
-                                    </label>
-                                </form>
+                            <label>
+                                <input class="hidden" name="star_5" type="radio" readonly/>
+                                <img class="w-10 h-auto bg-transparent hover:opacity-80" src="{{asset('images/star_selected3.png')}}"/> 
+                            </label>
 
-                                <p class="font-bold text-[18px]"> Username </p>
+                            <label>
+                                <input class="hidden" name="star_5" type="radio" readonly/>
+                                <img class="w-10 h-auto bg-transparent hover:opacity-80" src="{{asset('images/star_selected3.png')}}"/> 
+                            </label>
 
-                                <p class="font-medium"> "Comments" </p>
+                            <label>
+                                <input class="hidden" name="star_5" type="radio" readonly/>
+                                <img class="w-10 h-auto bg-transparent hover:opacity-80" src="{{asset('images/star_selected3.png')}}"/>
+                            </label>
+                        </form>
 
-                                <p class="flex w-full justify-end font-medium"> Date </p>
-                                
-                            </article>
-                            <article id="article_2" class="flex gap-3 items-center w-full ">
+                        <p class="font-bold text-[18px]"> Username </p>
 
-                                <form class="flex items-center">
-                                    <label>
-                                        <input class="hidden" name="star_5" type="radio" readonly/>
-                                        <img class="w-10 h-auto bg-transparent hover:opacity-80" src="{{asset('images/star_selected3.png')}}"/> 
-                                    </label>
+                        <p class="font-medium"> "Comments" </p>
 
-                                    <label>
-                                        <input class="hidden" name="star_5" type="radio" readonly/>
-                                        <img class="w-10 h-auto bg-transparent hover:opacity-80" src="{{asset('images/star_selected3.png')}}"/> 
-                                    </label>
-
-                                    <label>
-                                        <input class="hidden" name="star_5" type="radio" readonly/>
-                                        <img class="w-10 h-auto bg-transparent hover:opacity-80" src="{{asset('images/star_selected3.png')}}"/> 
-                                    </label>
-
-                                    <label>
-                                        <input class="hidden" name="star_5" type="radio" readonly/>
-                                        <img class="w-10 h-auto bg-transparent hover:opacity-80" src="{{asset('images/star_selected3.png')}}"/> 
-                                    </label>
-
-                                    <label>
-                                        <input class="hidden" name="star_5" type="radio" readonly/>
-                                        <img class="w-10 h-auto bg-transparent hover:opacity-80" src="{{asset('images/star_selected3.png')}}"/>
-                                    </label>
-                                </form>
-
-                                <p class="font-bold text-[18px]"> Username </p>
-
-                                <p class="font-medium"> "Comments" </p>
-
-                                <p class="flex w-full justify-end font-medium"> Date </p>
-                                
-                            </article>
-                        </section>
-                    </div>
-                </div>
-            </div> <!-- TODO Increase height of page based on articles displayed -->
+                        <p class="flex w-full justify-end font-medium"> Date </p>
+                        
+                    </article>
+                </section>
+            </div>
+            <!-- TODO Increase height of page based on articles displayed -->
         </main>
 
-        <footer class="flex justify-between items-center h-12 w-full p-3 bg-green-primary dark:bg-black top-[100%]">
+        <footer class="flex mt-15 justify-between items-center h-12 w-full p-3 bg-green-primary dark:bg-black">
             <img src="{{ asset('/images/logo.jpg') }}" alt="Logo" class="h-11 w-auto rounded-3xl"/> <!-- Logo -->
 
             <nav> <!-- Navigation -->
