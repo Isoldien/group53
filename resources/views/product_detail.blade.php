@@ -11,7 +11,10 @@
     <body class="bg-white flex flex-col h-full">
 
         <header class="flex justify-between items-center h-12 w-full p-3 bg-green-primary dark:bg-black ">
-            <img src="{{ asset('/images/logo.jpg') }}" alt="Logo" class="h-11 w-auto rounded-3xl"/> <!-- Logo -->
+            <div class="flex gap-2 items-center text-white font-bold">
+                <img src="{{ asset('/images/Logo.jpg') }}" alt="Logo" class="h-11 w-auto rounded-3xl"/> <!-- Logo -->
+                <p> YOUZOO </p>
+            </div>
 
             <nav> <!-- Navigation -->
                  <ul class="flex gap-2.5 font-bold text-white" > <!-- AT END. Insert href links -->
@@ -224,8 +227,11 @@
         </main>
 
         <footer class="flex mt-15 justify-between items-center h-12 w-full p-3 bg-green-primary dark:bg-black">
-            <img src="{{ asset('/images/logo.jpg') }}" alt="Logo" class="h-11 w-auto rounded-3xl"/> <!-- Logo -->
-
+            <div class="flex gap-2 items-center text-white font-bold">
+                <img src="{{ asset('/images/Logo.jpg') }}" alt="Logo" class="h-11 w-auto rounded-3xl"/> <!-- Logo -->
+                <p> YOUZOO </p>
+            </div>
+            
             <nav> <!-- Navigation -->
                  <ul class="flex gap-2.5 font-bold text-white" > <!-- AT END. Insert href links -->
                     <li><a class=" hover:text-beige-third" href="x">About </a></li>
