@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }},
     {"section" : {
-        class: "flex gap-2 items-center rounded-2xl border-beige-third border-2 w-full p-2",
+        class: "flex gap-2 items-center rounded-2xl border-beige-primary border-2 w-full p-2",
         img : {
             src: placeholderImg,
             alt: "profile photo",
@@ -102,7 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const mini_window = document.createElement("div")
     mini_window.className = "miniwindow flex flex-col items-center justify-center bg-green-primary p-5"
     const mini_article = document.createElement("article")
-    mini_article.className = "w-[50%] bg-beige-primary rounded-lg shadow-md hover:shadow-kg border border-gray-200 transition-shadow p-5 text-black gap-4 flex flex-col"
+    mini_article.className = "w-[50%] bg-white rounded-lg shadow-md hover:shadow-kg border border-gray-200 transition-shadow p-5 text-black gap-4 flex flex-col"
     generate_once(once_elements, mini_article)
     mini_window.appendChild(mini_article)
 
