@@ -16,4 +16,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('dashboard');
 });
 
+Route::get('/product', function () {
+    return view('product_detail');
+});
+
+
 require __DIR__.'/settings.php';
