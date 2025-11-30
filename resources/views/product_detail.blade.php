@@ -43,24 +43,21 @@
                 <img class="w-[50%] h-[50%] rounded-2xl" src="{{asset('images/placeholder1.png')}}" alt="product image"/> <!-- XX. php insertion. Insert product name in alt Product Image -->
 
                 <section class="flex flex-col w-[50%] h-full gap-3 p-5 bg-beige-primary rounded-3xl"> <!-- Product details -->
-                    <div class="flex items-center gap-5">                                     
-                        <h3 class="text-2xl font-bold text-green-secondary"> Product Title </h2>
-                        <p> Star Ratings </p> <!-- XX. php insertion. Insert calculated ratings -->
-                    </div>
+                    <h3 class="text-2xl font-bold text-green-secondary"> Product Title </h2>
 
-                    <p class="font-bold text-2xl text-green-secondary"> £ Price </p> <!-- POTENTIAL consider currencies. -->
+                    <p class="font-bold text-2xl text-green-secondary"> £ Price </p>
                     
-                    <p class=" eading-relaxed max-w-[90%] text-gray-900"> <!-- TODO Limit how long the text can be -->
+                    <p class=" eading-relaxed max-w-[90%] text-gray-900">
                         Short description text here
                     </p>
 
                     <form method=POST id="append_cart" class="flex flex-col gap-3 items-start">
                         <div class="flex border-1 border-black rounded-[5px] p-1">
                             <input type="button" name="decrease" value="-" class="w-5 m-0">
-                            <input type="number" name="quantity" min="0" value="0" class="w-10 font-bold text-center [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"> <!-- XX. php insertion. Insert min and max of quantities from db -->
+                            <input type="number" name="quantity" min="0" value="0" class="w-10 font-bold text-center [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"> <!-- XX. php insertion. Insert max quantities from db -->
                             <input type="button" name="increase" value="+" class="w-5 m-0">
                         </div>
-                        <input type="submit" name="to_basket" value="Add to Cart" class="text-white font-medium px-8 p-1.5 bg-orange-primary hover:opacity-90 rounded-[10px]"> <!-- POTENTIAL Add Buy Now-->
+                        <input type="submit" name="to_basket" value="Add to Cart" class="text-white font-medium px-8 p-1.5 bg-orange-primary hover:opacity-90 rounded-[10px]">
                     </form>
 
                     <div class="flex flex-col w-full bg-green-secondary p-5 text-white rounded-2xl">
@@ -71,14 +68,13 @@
                             <li> Feature 3 </li>
                         </ul>
                     </div>
-                    <!-- POTENTIAL Aside links to skip to reviews area -->
                 </section>
             </div>
             
 
             <section class="m-5">
                 <h2 class="text-3xl font-bold text-green-secondary"> FULL DESCRIPTION </h2>
-                <p class="text-center font-medium leading-relaxed"> [Long product description] </p> <!-- TODO  Ensure it doesnt take up 100% screen width. Add read more -->
+                <p class="text-center font-medium leading-relaxed"> [Long product description] </p>
             </section>
 
             <div class="flex flex-col w-full h-6 items-center gap-4" >
@@ -228,7 +224,7 @@
                         </section>
                     </div>
                 </div>
-            </div> <!-- TODO Increase height of page dynamically based on articles displayed -->
+            </div> <!-- TODO Increase height of page based on articles displayed -->
         </main>
 
         <footer class="flex justify-between items-center h-12 w-full p-3 bg-green-primary dark:bg-black top-[100%]">
@@ -249,10 +245,3 @@
 
     </body>
 </html>
-
-<!--Future:
-    login_form
-
-filter_reviews_form
-
-newsletter_signup_form  -->
