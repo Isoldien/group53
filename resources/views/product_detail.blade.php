@@ -237,9 +237,9 @@
 
                 <nav> <!-- Navigation -->
                     <ul class="flex gap-1 " > <!-- AT END. Insert href links -->
-                        <li><a class="after:content-['|'] after:mx-1 hover:text-beige-third" href="x">About </a></li>
-                        <li><a class="after:content-['\|'] after:mx-1 hover:text-beige-third" href="x">Contact</a></li>
-                        <li><a class="after:content-['\]'] after:mx-1 hover:text-beige-third" href="x">Policies</a></li>
+                        <li><a class="after:content-['|'] after:mx-1 hover:text-beige-third hover:after:text-white" href="x">About </a></li>
+                        <li><a class="after:content-['\|'] after:mx-1 hover:text-beige-third hover:after:text-white" href="x">Contact</a></li>
+                        <li><a class="after:content-['\]'] after:mx-1 hover:text-beige-third hover:after:text-white" href="x">Policies</a></li>
                     </ul>
                 </nav>
             </div>
@@ -248,7 +248,7 @@
                 <p> [Newspaper Signup: </p>
 
                 <nav>
-                    <a class=" hover:text-beige-third after:content-['\]']" href="x">Subscribe</a>  <!-- AT END. Insert href links -->
+                    <a class=" hover:text-beige-third after:content-['\]'] hover:after:text-white" href="x">Subscribe</a>  <!-- AT END. Insert href links -->
                 </nav>
             </div>
         </footer>
