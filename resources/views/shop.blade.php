@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>YouZoo | Shop</title>
-    <link rel="stylesheet" href="styles.css">
+    @vite(['resources/css/app.css',])
 </head>
 <body>
 
