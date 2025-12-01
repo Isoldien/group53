@@ -15,12 +15,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render('dashboard');
     })->name('dashboard');
 });
-
-Route::get('/products', function () {
-    return view("product");
-});
 Route::get('/products/{category_id}',[ProductController::class,'showProductsUnderCategory'])->name('show_products');
 
 Route::get('/product/{product}',[ProductController::class,'showProductDetails'])->name('show_product_details');
-
 require __DIR__.'/settings.php';

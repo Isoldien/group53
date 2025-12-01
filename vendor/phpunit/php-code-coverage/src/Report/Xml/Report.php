@@ -20,88 +20,117 @@ use DOMElement;
  */
 final class Report extends File
 {
-    public function __construct(string $name)
+    private readonly string $name;
+    private readonly string $sha1;
+
+    public function __construct(string $name, string $sha1)
     {
         $dom = new DOMDocument;
         $dom->loadXML('<?xml version="1.0" ?><phpunit xmlns="https://schema.phpunit.de/coverage/1.0"><file /></phpunit>');
 
         $contextNode = $dom->getElementsByTagNameNS(
-            'https://schema.phpunit.de/coverage/1.0',
+            Facade::XML_NAMESPACE,
             'file',
         )->item(0);
 
         parent::__construct($contextNode);
 
-        $this->setName($name);
+        $this->name = $name;
+        $this->sha1 = $sha1;
     }
 
     public function asDom(): DOMDocument
     {
-        return $this->dom();
+        $this->contextNode()->setAttribute('name', basename($this->name));
+        $this->contextNode()->setAttribute('path', dirname($this->name));
+        $this->contextNode()->setAttribute('hash', $this->sha1);
+
+        return $this->dom;
     }
 
-    public function functionObject(string $name): Method
-    {
+    public function functionObject(
+        string $name,
+        string $signature,
+        string $start,
+        ?string $end,
+        string $executable,
+        string $executed,
+        string $coverage,
+        string $crap
+    ): void {
         $node = $this->contextNode()->appendChild(
-            $this->dom()->createElementNS(
-                'https://schema.phpunit.de/coverage/1.0',
+            $this->dom->createElementNS(
+                Facade::XML_NAMESPACE,
                 'function',
             ),
         );
 
         assert($node instanceof DOMElement);
 
-        return new Method($node, $name);
+        new Method(
+            $node,
+            $name,
+            $signature,
+            $start,
+            $end,
+            $executable,
+            $executed,
+            $coverage,
+            $crap,
+        );
     }
 
-    public function classObject(string $name): Unit
-    {
-        return $this->unitObject('class', $name);
-    }
-
-    public function traitObject(string $name): Unit
-    {
-        return $this->unitObject('trait', $name);
-    }
-
-    public function source(): Source
-    {
-        $source = $this->contextNode()->getElementsByTagNameNS(
-            'https://schema.phpunit.de/coverage/1.0',
-            'source',
-        )->item(0);
-
-        if ($source === null) {
-            $source = $this->contextNode()->appendChild(
-                $this->dom()->createElementNS(
-                    'https://schema.phpunit.de/coverage/1.0',
-                    'source',
-                ),
-            );
-        }
-
-        assert($source instanceof DOMElement);
-
-        return new Source($source);
-    }
-
-    private function setName(string $name): void
-    {
-        $this->contextNode()->setAttribute('name', basename($name));
-        $this->contextNode()->setAttribute('path', dirname($name));
-    }
-
-    private function unitObject(string $tagName, string $name): Unit
-    {
+    public function classObject(
+        string $name,
+        string $namespace,
+        int $start,
+        int $executable,
+        int $executed,
+        float $crap
+    ): Unit {
         $node = $this->contextNode()->appendChild(
-            $this->dom()->createElementNS(
-                'https://schema.phpunit.de/coverage/1.0',
-                $tagName,
+            $this->dom->createElementNS(
+                Facade::XML_NAMESPACE,
+                'class',
             ),
         );
 
         assert($node instanceof DOMElement);
 
-        return new Unit($node, $name);
+        return new Unit($node, $name, $namespace, $start, $executable, $executed, $crap);
+    }
+
+    public function traitObject(
+        string $name,
+        string $namespace,
+        int $start,
+        int $executable,
+        int $executed,
+        float $crap
+    ): Unit {
+        $node = $this->contextNode()->appendChild(
+            $this->dom->createElementNS(
+                Facade::XML_NAMESPACE,
+                'trait',
+            ),
+        );
+
+        assert($node instanceof DOMElement);
+
+        return new Unit($node, $name, $namespace, $start, $executable, $executed, $crap);
+    }
+
+    public function source(): Source
+    {
+        $source = $this->contextNode()->appendChild(
+            $this->dom->createElementNS(
+                Facade::XML_NAMESPACE,
+                'source',
+            ),
+        );
+
+        assert($source instanceof DOMElement);
+
+        return new Source($source);
     }
 }

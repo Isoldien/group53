@@ -19,62 +19,63 @@ final readonly class Unit
 {
     private DOMElement $contextNode;
 
-    public function __construct(DOMElement $context, string $name)
-    {
+    public function __construct(
+        DOMElement $context,
+        string $name,
+        string $namespace,
+        int $start,
+        int $executable,
+        int $executed,
+        float $crap
+    ) {
         $this->contextNode = $context;
 
-        $this->setName($name);
-    }
-
-    public function setLines(int $start, int $executable, int $executed): void
-    {
+        $this->contextNode->setAttribute('name', $name);
         $this->contextNode->setAttribute('start', (string) $start);
         $this->contextNode->setAttribute('executable', (string) $executable);
         $this->contextNode->setAttribute('executed', (string) $executed);
-    }
-
-    public function setCrap(float $crap): void
-    {
         $this->contextNode->setAttribute('crap', (string) $crap);
-    }
 
-    public function setNamespace(string $namespace): void
-    {
-        $node = $this->contextNode->getElementsByTagNameNS(
-            'https://schema.phpunit.de/coverage/1.0',
-            'namespace',
-        )->item(0);
-
-        if ($node === null) {
-            $node = $this->contextNode->appendChild(
-                $this->contextNode->ownerDocument->createElementNS(
-                    'https://schema.phpunit.de/coverage/1.0',
-                    'namespace',
-                ),
-            );
-        }
-
+        $node = $this->contextNode->appendChild(
+            $this->contextNode->ownerDocument->createElementNS(
+                Facade::XML_NAMESPACE,
+                'namespace',
+            ),
+        );
         assert($node instanceof DOMElement);
 
         $node->setAttribute('name', $namespace);
     }
 
-    public function addMethod(string $name): Method
-    {
+    public function addMethod(
+        string $name,
+        string $signature,
+        string $start,
+        ?string $end,
+        string $executable,
+        string $executed,
+        string $coverage,
+        string $crap
+    ): void {
         $node = $this->contextNode->appendChild(
             $this->contextNode->ownerDocument->createElementNS(
-                'https://schema.phpunit.de/coverage/1.0',
+                Facade::XML_NAMESPACE,
                 'method',
             ),
         );
 
         assert($node instanceof DOMElement);
 
-        return new Method($node, $name);
-    }
-
-    private function setName(string $name): void
-    {
-        $this->contextNode->setAttribute('name', $name);
+        new Method(
+            $node,
+            $name,
+            $signature,
+            $start,
+            $end,
+            $executable,
+            $executed,
+            $coverage,
+            $crap,
+        );
     }
 }
