@@ -1,48 +1,50 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>YouZoo | Login</title>
-    @vite(['resources/css/app.css',])
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<nav>
-    <h2>YouZoo</h2>
-    <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="shop.html">Shop</a></li>
-        <li><a href="login.html">Login</a></li>
+<nav class="navbar">
+    <h2 class="logo">YouZoo</h2>
+    <ul class="nav-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Shop</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
         <li><a href="#">Cart (0)</a></li>
+        <li><a href="#">Login</a></li>
     </ul>
 </nav>
 
-<div class="login-box">
-    <h2>Login To Your Account</h2>
+<section class="login-section">
+    <div class="login-box">
+        <h3>LOGIN TO YOUR ACCOUNT</h3>
 
-    <label>Email Address</label>
-    <input type="email" id="loginEmail" placeholder="Enter email">
+        <label>Email Address:</label>
+        <input type="email" id="email" placeholder="Enter your email">
 
-    <label>Password</label>
-    <input type="password" id="loginPassword" placeholder="Enter password">
+        <label>Password:</label>
+        <input type="password" id="password" placeholder="Enter your password">
 
-    <button onclick="loginUser()">Login</button>
+        <button onclick="loginUser()">Login</button>
 
-    <p style="margin-top:10px;">
-        Forgot Password? <a href="#">Reset Here</a><br><br>
-        Don’t have an account? <a href="#">Register</a>
-    </p>
-</div>
+        <p class="small-links">
+            Forgot Password? <a href="#">Reset Link</a>
+        </p>
+
+        <p class="small-links">
+            Don't have an account? <a href="#">Register Here</a>
+        </p>
+    </div>
+</section>
 
 <footer>
-    <div>
-        <a href="#">About</a> |
-        <a href="#">Contact</a> |
-        <a href="#">Policies</a>
-    </div>
-
-    <div class="newsletter">
-        <input id="emailInput" type="email" placeholder="Email">
-        <button onclick="signup()">Subscribe</button>
+    <div class="footer-content">
+        <p>[Logo] | Links: About | Contact | Policies</p>
+        <p>Newsletter Signup: [Email] [Subscribe]</p>
     </div>
 </footer>
 
