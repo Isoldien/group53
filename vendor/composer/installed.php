@@ -3,7 +3,7 @@
         'name' => 'laravel/react-starter-kit',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '4a9c751b2002e005c1843c5a1fafcf4327a69354',
+        'reference' => '5eef7d777877380912bd4124ffd257e91fb8ee17',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -76,6 +76,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'doctrine/dbal' => array(
+            'pretty_version' => '4.4.0',
+            'version' => '4.4.0.0',
+            'reference' => 'e8c5163fbec0f34e357431bd1e5fc4056cdf4fdc',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../doctrine/dbal',
+            'aliases' => array(),
+            'dev_requirement' => true,
+        ),
         'doctrine/deprecations' => array(
             'pretty_version' => '1.1.5',
             'version' => '1.1.5.0',
@@ -83,7 +92,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../doctrine/deprecations',
             'aliases' => array(),
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'doctrine/inflector' => array(
             'pretty_version' => '2.1.0',
@@ -511,7 +520,7 @@
         'laravel/react-starter-kit' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '4a9c751b2002e005c1843c5a1fafcf4327a69354',
+            'reference' => '5eef7d777877380912bd4124ffd257e91fb8ee17',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -802,6 +811,15 @@
             'aliases' => array(),
             'dev_requirement' => true,
         ),
+        'phpdocumentor/reflection' => array(
+            'pretty_version' => '6.4.4',
+            'version' => '6.4.4.0',
+            'reference' => '5e5db15b34e6eae755cb97beaa7fe076ae9e8d4c',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../phpdocumentor/reflection',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'phpdocumentor/reflection-common' => array(
             'pretty_version' => '2.2.0',
             'version' => '2.2.0.0',
@@ -809,7 +827,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../phpdocumentor/reflection-common',
             'aliases' => array(),
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'phpdocumentor/reflection-docblock' => array(
             'pretty_version' => '5.6.4',
@@ -818,7 +836,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../phpdocumentor/reflection-docblock',
             'aliases' => array(),
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'phpdocumentor/type-resolver' => array(
             'pretty_version' => '1.12.0',
@@ -827,7 +845,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../phpdocumentor/type-resolver',
             'aliases' => array(),
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'phpoption/phpoption' => array(
             'pretty_version' => '1.9.4',
@@ -909,6 +927,15 @@
             'install_path' => __DIR__ . '/../pragmarx/google2fa',
             'aliases' => array(),
             'dev_requirement' => false,
+        ),
+        'psr/cache' => array(
+            'pretty_version' => '3.0.0',
+            'version' => '3.0.0.0',
+            'reference' => 'aa5030cfa5405eccfdcb1083ce040c2cb8d253bf',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../psr/cache',
+            'aliases' => array(),
+            'dev_requirement' => true,
         ),
         'psr/clock' => array(
             'pretty_version' => '1.0.0',
@@ -1067,6 +1094,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'reliese/laravel' => array(
+            'pretty_version' => 'v1.4.0',
+            'version' => '1.4.0.0',
+            'reference' => '2181113d420cae67ec68b6bbe6f325900856d6b9',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../reliese/laravel',
+            'aliases' => array(),
+            'dev_requirement' => true,
+        ),
         'rhumsaa/uuid' => array(
             'dev_requirement' => false,
             'replaced' => array(
@@ -1190,11 +1226,38 @@
             'aliases' => array(),
             'dev_requirement' => true,
         ),
+        'spatie/laravel-data' => array(
+            'pretty_version' => '4.18.0',
+            'version' => '4.18.0.0',
+            'reference' => 'c10784f1133d540a702bd6db36ed659f4bc0606a',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../spatie/laravel-data',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'spatie/laravel-package-tools' => array(
+            'pretty_version' => '1.92.7',
+            'version' => '1.92.7.0',
+            'reference' => 'f09a799850b1ed765103a4f0b4355006360c49a5',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../spatie/laravel-package-tools',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'spatie/once' => array(
             'dev_requirement' => false,
             'replaced' => array(
                 0 => '*',
             ),
+        ),
+        'spatie/php-structure-discoverer' => array(
+            'pretty_version' => '2.3.3',
+            'version' => '2.3.3.0',
+            'reference' => '552a5b974a9853a32e5677a66e85ae615a96a90b',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../spatie/php-structure-discoverer',
+            'aliases' => array(),
+            'dev_requirement' => false,
         ),
         'staabm/side-effects-detector' => array(
             'pretty_version' => '1.0.5',
@@ -1548,7 +1611,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../webmozart/assert',
             'aliases' => array(),
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
     ),
 );
