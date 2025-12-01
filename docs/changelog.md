@@ -31,5 +31,12 @@ This document chronicles the significant milestones and updates in the developme
 
 - Set up initial documentation structure with sections for project overview, setup instructions, and contribution guidelines. <mark> [Habibur Rahman](https://github.com/Isoldien/) </mark>
 
+<<<<<<< HEAD
 **2025-12-05**:
 MVP Showcase
+=======
+**2025-12-05**: 
+
+- MVP Showcase
+
+>>>>>>> 2f4a6929 (docs: Add changelog entry for MVP Showcase)
