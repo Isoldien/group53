@@ -1,22 +1,8 @@
 
 document.addEventListener("DOMContentLoaded", () => {
-    // TODO Learn when to use const, var or let
+    // TODO Adjust the use of const, var or let in js
 
-    // values to retrieve once you load page
-    /*
-    - Product name or product id
-    - user_id
-    */
-
-    // values to retrieve from page to db [needed for add_to_cart function]
-    /*
-    - Product name or product id
-    - user_id
-    - quantity
-    */
-
-
-    // -------------------------------------------------------------------------------- //
+    // -------------------------------------- VARIABLES ------------------------------------------ //
 
     const starImg = document.getElementById("starconfig").dataset.star;
     const placeholderImg = document.getElementById("placeholderconfig").dataset.star;
@@ -24,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // CART VALUE IN HEADER
     const cart = document.querySelector("a[name='cart']")
-    var add = 0 // Temp variable. TODO retrieve count() of rows in db from user's checkout page - retrieval from db
+    var add = 0 // Temp variable. PHP insertion, count the number of items in user's cart from db
 
     // FORM 1: Add To Cart
     const append_cart_form = document.querySelector("#append_cart");
@@ -39,9 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const reviewtitle = document.querySelector("input[name='title']")
     const reviewtitleplaceholder = reviewtitle.placeholder
     const reviewtextareaplaceholder = reviewtextarea.placeholder
-
-    // FORM 2 PART 2: STARS
-
+    const labels = document.querySelectorAll("#stars label");
 
     // CUSTOMER REVIEWS
 
@@ -110,6 +94,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const filter = document.getElementById("filters")
 
+
+    // -------------------------------------- FUNCTIONS ------------------------------------------ //
+
+
     // FORM 1
 
     function add_to_cart(quantity) {
@@ -123,7 +111,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         cart.style.setProperty('--after-content','"(' + add + ')"')
-        // TODO Send product_id and quantity of page db. Check if product_id is on db for this user_id, if not then add. Continuously update quantity.
+        // PHP Insertion, send product_id and quantity of the item to db (to user's cart list).
 
     }
 
@@ -135,7 +123,7 @@ document.addEventListener("DOMContentLoaded", () => {
         quantity.stepDown()
     })
     
-    append_cart_form.addEventListener("submit", (e)=>{ // TODO Have a pop up on the left saying it was successful
+    append_cart_form.addEventListener("submit", (e)=>{
         e.preventDefault()
 
         add_to_cart(quantity.value)
@@ -143,7 +131,6 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 
     // FORM 2
-    const labels = document.querySelectorAll("#stars label");
 
     labels.forEach(label => {
         label.addEventListener("mouseenter", (e) => {
@@ -228,26 +215,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     })
 
-    // FORM 2 PART 2
     // CUSTOMER REVIEWS
-
-
-    function open_article() {
-        mini_window.style.setProperty('--visibility','visible')
-
-        document.body.appendChild(mini_window);
-
-        const closebutton = document.getElementById("closebutton");
-
-        closebutton.addEventListener("click", () => {
-            close_article()
-        })
-
-    }
-
-    function close_article() {
-        mini_window.style.setProperty('--visibility','hidden')
-    }
 
     function validHTMLTag(tag) {
         const el = document.createElement(tag);
@@ -270,7 +238,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (children === "textContent") {
                 parent.textContent = value;
 
-            } else if ( validHTMLTag(children) ) { // checks if key is tag
+            } else if ( validHTMLTag(children) ) {
 
                 if (children == "label") {
                     for (let i = 0; i< 5; i++) {
@@ -316,17 +284,30 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    function open_article() {
+        mini_window.style.setProperty('--visibility','visible')
+
+        document.body.appendChild(mini_window);
+
+        const closebutton = document.getElementById("closebutton");
+
+        closebutton.addEventListener("click", () => {
+            close_article()
+        })
+
+    }
+
+    function close_article() {
+        mini_window.style.setProperty('--visibility','hidden')
+    }
 
     article.addEventListener("click", ()=>{
-        console.log("clicked")
-        
         open_article()
-        
     })
 
-
     // FORM 3
-    filter.addEventListener("change", (e) => {
+
+    filter.addEventListener("change", (e) => { // TODO. Detect when option is reselected.
 
         const selected = e.target.value
 
@@ -366,11 +347,7 @@ document.addEventListener("DOMContentLoaded", () => {
             filter.add(oldest,undefined)
             filter.add(ratings,undefined)
         }
-        
-        // Include other options.
-        
+                
     });
-
-
     
 });
