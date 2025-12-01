@@ -30,3 +30,6 @@ This document chronicles the significant milestones and updates in the developme
 - Added Github Actions workflow for CI/CD to mkdocs.yml file. <mark> [Habibur Rahman](https://github.com/Isoldien/) </mark>
 
 - Set up initial documentation structure with sections for project overview, setup instructions, and contribution guidelines. <mark> [Habibur Rahman](https://github.com/Isoldien/) </mark>
+
+**2025-12-05**:
+MVP Showcase
