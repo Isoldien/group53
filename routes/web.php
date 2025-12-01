@@ -16,4 +16,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('dashboard');
 });
 
+/*
+@author: Habibur Rahman <240217006@aston.ac.uk>
+@Description: This route is used to test the database connection, shouldn't be used for production
+*/
+Route::get('/database-connection', [App\Http\Controllers\DatabaseConnectionController::class, 'index']);
+
 require __DIR__.'/settings.php';
