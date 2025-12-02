@@ -1,0 +1,40 @@
+.checkout-container {
+    padding: 60px;
+}
+
+.checkout-wrapper {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+}
+
+.checkout-box,
+.checkout-summary {
+    width: 48%;
+    padding: 20px;
+    border: 1px solid #ddd;
+    background: #fafafa;
+}
+
+.checkout-form input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 14px;
+    border: 1px solid #ccc;
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.checkout-btn {
+    background: #333;
+    color: white;
+    padding: 14px;
+    width: 100%;
+    border: none;
+    margin-top: 20px;
+    cursor: pointer;
+}
