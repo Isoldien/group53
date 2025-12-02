@@ -2,18 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>YouZoo | Login</title>
+    <title>YouZoo | Reset Password</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
 <nav class="navbar">
     <div class="logo-area">
-    <img src="youzoo.png" class="logo-img">
-    <h2 class="logo">YouZoo</h2>
-   
-</div>
-
+        <img src="youzoo.png" alt="YouZoo Logo" class="logo-img">
+         <h2 class="logo">YouZoo</h2>
+    </div>
    
     <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
@@ -27,22 +25,19 @@
 
 <section class="login-section">
     <div class="login-box">
-        <h3>LOGIN TO YOUR ACCOUNT</h3>
+        <h3>RESET YOUR PASSWORD</h3>
 
         <label>Email Address:</label>
-        <input type="email" id="email" placeholder="Enter your email">
+        <input type="email" id="resetEmail" placeholder="Enter your email">
 
-        <label>Password:</label>
-        <input type="password" id="password" placeholder="Enter your password">
-
-        <button onclick="loginUser()">Login</button>
+        <button onclick="sendReset()">Send Reset Link</button>
 
         <p class="small-links">
-            Forgot Password? <a href="resetpassword.html">Reset Link</a>
+            Back to <a href="login.html">Login</a>
         </p>
 
         <p class="small-links">
-            Don't have an account? <a href="register.html">Register Here</a>
+            Don’t have an account? <a href="register.html">Register Here</a>
         </p>
     </div>
 </section>
