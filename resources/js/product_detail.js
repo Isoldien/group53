@@ -203,6 +203,11 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         reviewarticles.appendChild(new_review)
+
+        new_review.addEventListener("click", ()=> {
+            open_article()
+            console.log("clicked")
+        })
     }
 
     function create_reviews(username, stars, comment, date) { // PHP Insertion. USE THIS FOR CREATING REVIEWS FROM DB
@@ -417,12 +422,6 @@ document.addEventListener("DOMContentLoaded", () => {
     function close_article() {
         mini_window.style.setProperty('--visibility','hidden')
     }
-
-    reviewarticleslist.forEach((article)=> {
-        article.addEventListener("click", ()=> {
-            open_article()
-        })
-    })
 
     /* FORM 3
 
