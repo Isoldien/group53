@@ -20,5 +20,8 @@ Route::get('/product', function () {
     return view('product_detail');
 });
 
+Route::get('/cart_checkout', function () {
+    return view('cart_checkout');
+});
 
 require __DIR__.'/settings.php';
