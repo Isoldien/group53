@@ -93,13 +93,13 @@
                 <h2 class=" text-white text-3xl font-bold"> WRITE A PRODUCT REVIEW </h2>
 
                 <div class="flex flex-col gap-2 items-start w-full">
-                    <input form="product_review" placeholder="Title" name="title" class="w-full bg-white text-black placeholder-black p-1 pl-4 text-[20px] rounded-[5px]">
+                    <input form="product_review" placeholder="Title" name="title" class="w-full bg-white text-black placeholder-black p-1 pl-4 text-[20px] rounded-[5px]" required>
                     <label class="text-white font-medium" name="reviewdescription" > Share your experience with the product..</label>
                 </div>
 
-                <textarea form="product_review" name="reviewtextarea" style="resize: none;" placeholder="Share your experience with the product…" rows="3" class="bg-white shadow-xl border-2 border-beige-third rounded-[5px] text-black placeholder-stone-700 pl-1 w-full overflow-y-scroll" hidden></textarea>
+                <textarea form="product_review" name="reviewtextarea" style="resize: none;" placeholder="Share your experience with the product…" rows="3" class="bg-white shadow-xl border-2 border-beige-third rounded-[5px] text-black placeholder-stone-700 pl-1 w-full overflow-y-scroll" hidden required></textarea>
                 
-                <form  method=POST id="product_review" class="flex flex-col w-full h-[30%] items-center gap-3 " hidden>
+                <form id="product_review" class="flex flex-col w-full h-[30%] items-center gap-3 " hidden>
 
                     <div class="flex gap-1 items-center">
                         <label for="stars" class="font-bold text-white text-[20px]"> Your Rating: </label>
@@ -134,7 +134,7 @@
                         
                 </form>
                 
-                <input form="product_review" type="button" class="p-1.5 px-6 rounded-[10px] bg-orange-primary text-white text-[18px] font-medium hover:opacity-90 " value="Submit Review"> <!-- TODO. Send error if button is clicked with fields empty --> <!-- PHP insertion. Send review info of form to db when button clicked -->
+                <input form="product_review" type="submit" class="p-1.5 px-6 rounded-[10px] bg-orange-primary text-white text-[18px] font-medium hover:opacity-90 " value="Submit Review"> <!-- TODO. Send error if button is clicked with fields empty --> <!-- PHP insertion. Send review info of form to db when button clicked -->
 
             </section>
                 
@@ -145,92 +145,20 @@
 
                 <h2 class="text-3xl font-bold text-green-secondary"> CUSTOMER REVIEWS </h2>
 
-                <!-- Sort By/Filters Feature -->
-                <form class="flex w-full justify-end pr-5"> <!-- Note: Feel free to delete/comment this sort by feature in html and js if it is unable to be functional in time for Live Demo -->
+                <!-- Sort By/Filters Feature - commented this sort by feature in html and js since it won't be functional in time for the Live Demo
+                <form class="flex w-full justify-end pr-5"> 
                     <select id="filters" class="text-center text-black bg-white p-1 border-3 border-green-secondary rounded-[10px]">
                             <option selected hidden class="text-white">Sort By</option>
                             <option name="recent" value="recent">Most Recent</option>
                             <option name="oldest" value="oldest">Oldest Review</option>
                             <option name="ratings" value="ratings">Ratings</option>
                     </select>
-                </form>
+                </form> -->
 
                 <!-- List of Reviews -->
-                <section class="bg-white rounded-lg shadow-xl border w-[95%] mt-5 border-gray-200 p-5 text-black gap-2 flex flex-col"> <!-- TODO. Create new article in js format --> <!-- PHP Insertion. Display Customer Reviews from db and use js to create new article -->
-                    
-                    <article id="article_1" class="flex gap-3 items-center w-full ">
-
-                        <form class="flex items-center">
-                            <label>
-                                <input class="hidden" name="star_5" type="radio" readonly/>
-                                <img class="w-10 h-auto bg-transparent hover:opacity-80" src="{{asset('images/star_selected3.png')}}"/> 
-                            </label>
-
-                            <label>
-                                <input class="hidden" name="star_5" type="radio" readonly/>
-                                <img class="w-10 h-auto bg-transparent hover:opacity-80" src="{{asset('images/star_selected3.png')}}"/> 
-                            </label>
-
-                            <label>
-                                <input class="hidden" name="star_5" type="radio" readonly/>
-                                <img class="w-10 h-auto bg-transparent hover:opacity-80" src="{{asset('images/star_selected3.png')}}"/> 
-                            </label>
-
-                            <label>
-                                <input class="hidden" name="star_5" type="radio" readonly/>
-                                <img class="w-10 h-auto bg-transparent hover:opacity-80" src="{{asset('images/star_selected3.png')}}"/> 
-                            </label>
-
-                            <label>
-                                <input class="hidden" name="star_5" type="radio" readonly/>
-                                <img class="w-10 h-auto bg-transparent hover:opacity-80" src="{{asset('images/star_selected3.png')}}"/>
-                            </label>
-                        </form>
-
-                        <p class="font-bold text-[18px]"> Username </p>
-
-                        <p class="font-medium"> "Comments" </p>
-
-                        <p class="flex w-full justify-end font-medium"> Date </p>
-                        
-                    </article>
-
-                    <article id="article_2" class="flex gap-3 items-center w-full ">
-
-                        <form class="flex items-center">
-                            <label>
-                                <input class="hidden" name="star_5" type="radio" readonly/>
-                                <img class="w-10 h-auto bg-transparent hover:opacity-80" src="{{asset('images/star_selected3.png')}}"/> 
-                            </label>
-
-                            <label>
-                                <input class="hidden" name="star_5" type="radio" readonly/>
-                                <img class="w-10 h-auto bg-transparent hover:opacity-80" src="{{asset('images/star_selected3.png')}}"/> 
-                            </label>
-
-                            <label>
-                                <input class="hidden" name="star_5" type="radio" readonly/>
-                                <img class="w-10 h-auto bg-transparent hover:opacity-80" src="{{asset('images/star_selected3.png')}}"/> 
-                            </label>
-
-                            <label>
-                                <input class="hidden" name="star_5" type="radio" readonly/>
-                                <img class="w-10 h-auto bg-transparent hover:opacity-80" src="{{asset('images/star_selected3.png')}}"/> 
-                            </label>
-
-                            <label>
-                                <input class="hidden" name="star_5" type="radio" readonly/>
-                                <img class="w-10 h-auto bg-transparent hover:opacity-80" src="{{asset('images/star_selected3.png')}}"/>
-                            </label>
-                        </form>
-
-                        <p class="font-bold text-[18px]"> Username </p>
-
-                        <p class="font-medium"> "Comments" </p>
-
-                        <p class="flex w-full justify-end font-medium"> Date </p>
-                        
-                    </article>
+                <section id="reviewarticles" class="bg-white rounded-lg shadow-xl border w-[95%] mt-5 border-gray-200 p-5 text-black gap-2 flex flex-col"> <!-- PHP Insertion. Display Customer Reviews from db and use js to create new article -->
+                    <!-- If there are no reviews display this -->
+                    <p id="noreviews"> There are no reviews </p>
                 </section>
             </div>
         </main>
@@ -267,7 +195,8 @@
         </footer>
 
         <!-- Image assets used in js -->
-        <div id="starconfig" data-star="{{ asset('images/star_selected3.png') }}" hidden></div>
+        <div id="selectedstarconfig" data-star="{{ asset('images/star_selected3.png') }}" hidden></div>
+        <div id="unselectedstarconfig" data-star="{{ asset('images/star_unselected.png') }}" hidden></div>
         <div id="placeholderconfig" data-star="{{ asset('images/placeholder5.png') }}" hidden></div>
         <div id="closeconfig" data-star="{{ asset('images/x-mark.png') }}" hidden></div>
 

@@ -4,7 +4,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // -------------------------------------- VARIABLES ------------------------------------------ //
 
-    const starImg = document.getElementById("starconfig").dataset.star;
+    const selectedstarImg = document.getElementById("selectedstarconfig").dataset.star;
+    const unselectedstarImg = document.getElementById("unselectedstarconfig").dataset.star;
     const placeholderImg = document.getElementById("placeholderconfig").dataset.star;
     const closeImg = document.getElementById("closeconfig").dataset.star;
 
@@ -18,7 +19,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const decrease = document.querySelector("input[name='decrease']") 
     const quantity = document.querySelector("input[name='quantity']")
 
-    // FORM 2 PART 1: Add Product Review
+    /* FORM 2 PART 1: Add Product Review
+    * Use the create_review() when generating reviews from db. Check what values are required.
+    */
     var reviewform = document.querySelector("form[id='product_review']");
     var reviewlabel = document.querySelector("label[name='reviewdescription']")
     var reviewtextarea = document.querySelector("textarea[name='reviewtextarea']")
@@ -26,8 +29,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const reviewtitleplaceholder = reviewtitle.placeholder
     const reviewtextareaplaceholder = reviewtextarea.placeholder
     const labels = document.querySelectorAll("#stars label");
+    const reviewarticleslist = document.querySelectorAll("#reviewarticles article")
+    const noreviewsmsg = document.querySelector("#noreviews")
 
-    // CUSTOMER REVIEWS
+    // CUSTOMER REVIEWS: Mini Window
 
     var once_elements = [
     {"div": {
@@ -43,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     },
                 "img": {
                     class:"w-6 h-auto bg-transparent hover:opacity-80",
-                    src: starImg 
+                    src: selectedstarImg 
                 }
             }
         },
@@ -82,18 +87,19 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }}]
 
-    const article = document.querySelector('#article_1');
+    const reviewarticles = document.querySelector("#reviewarticles")
     const mini_window = document.createElement("div")
     mini_window.className = "miniwindow flex flex-col items-center justify-center bg-green-primary p-5"
     const mini_article = document.createElement("article")
     mini_article.className = "w-[50%] bg-white rounded-lg shadow-md hover:shadow-kg border border-gray-200 transition-shadow p-5 text-black gap-4 flex flex-col"
-    generate_once(once_elements, mini_article)
+    generate_article(once_elements, mini_article)
     mini_window.appendChild(mini_article)
 
-    // FORM 3: FILTERS
+    /* FORM 3: FILTERS
 
     const filter = document.getElementById("filters")
 
+    */
 
     // -------------------------------------- FUNCTIONS ------------------------------------------ //
 
@@ -131,6 +137,88 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 
     // FORM 2
+
+    function generate_reviews(username, rating, comment, date) {
+        const new_review = document.createElement("article")
+        new_review.className = "flex gap-3 items-center w-full"
+        
+        var new_review_components = [
+            {form : rating},
+            {p : null}
+        ]
+
+        for (var keys of new_review_components) {
+            for (var tag in keys) {
+
+                if (tag == "form") {
+                    const form = document.createElement("form")
+                    const star_rating = keys[tag]
+                    form.className = "flex items-center flex-row-reverse"
+
+                    for (let i = 1; i < 6; i++) {
+
+                        const star_label = document.createElement("label")
+                        var star_img = selectedstarImg
+
+                        if (star_rating >= i) {
+                            star_img = unselectedstarImg
+                        }
+
+                        const input = document.createElement("input")
+                        input.className = "star"
+                        input.type = "radio"
+                        input.readOnly = true
+                        input.className = "hidden"
+                        star_label.appendChild(input)
+                        const img = document.createElement("img")
+                        img.className = "w-8 h-auto bg-transparent hover:opacity-80"
+                        img.setAttribute("src", star_img)
+                        star_label.appendChild(img)
+                        
+                        form.appendChild(star_label);
+                    }
+
+                    new_review.appendChild(form)
+
+                } else if (tag == "p") {
+
+                    for (let i = 1; i < 4; i++) {
+                        var p_tag = document.createElement("p")
+
+                        if (i == 1) {
+                            p_tag.className = "font-bold text-[18px]"
+                            p_tag.textContent = username
+                        } else if (i == 2) {
+                            p_tag.className = "font-medium"
+                            p_tag.textContent = comment
+                        } else {
+                            p_tag.className = "flex w-full justify-end font-medium"
+                            p_tag.textContent = date
+                        }
+                        new_review.appendChild(p_tag)
+                    }
+
+                }
+            }
+        }
+
+        reviewarticles.appendChild(new_review)
+    }
+
+    function create_reviews(username, stars, comment, date) { // PHP Insertion. USE THIS FOR CREATING REVIEWS FROM DB
+
+        generate_reviews(username, stars ,comment, date)
+
+        if (reviewarticles.contains(noreviewsmsg)) {
+            reviewarticles.removeChild(noreviewsmsg)
+        }
+        
+        // location.reload()
+
+        reviewtitle.value = "";
+        reviewtextarea.value = "";
+        clearstars();
+    }
 
     labels.forEach(label => {
         label.addEventListener("mouseenter", (e) => {
@@ -215,7 +303,36 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     })
 
-    // CUSTOMER REVIEWS
+    reviewform.addEventListener("submit", (e)=> {
+        e.preventDefault(); 
+        var total_stars = 0
+
+        for (const l of labels) {
+            const input = l.querySelector("input");
+            
+            if (input.checked) {
+                total_stars += 1
+            }
+        }
+
+        const username = "Username";
+        const comment = reviewtextarea.value;
+        const date = new Date()
+        const date_format = date.getDay() + "/" + date.getMonth() + "/" + date.getFullYear()
+
+        if (reviewarticles.contains(noreviewsmsg)) {
+            reviewarticles.removeChild(noreviewsmsg)
+        }
+
+        generate_reviews(username, total_stars ,comment, date_format)
+        //location.reload()
+
+        reviewtitle.value = "";
+        reviewtextarea.value = "";
+        clearstars();
+    })
+
+    // CUSTOMER REVIEWS Mini Window
 
     function validHTMLTag(tag) {
         const el = document.createElement(tag);
@@ -235,7 +352,7 @@ document.addEventListener("DOMContentLoaded", () => {
         for (var children in dictionary) {
             const value = dictionary[children]
 
-            if (children === "textContent") {
+            if (children === "textContent") { // TODO Check if I can remove this.
                 parent.textContent = value;
 
             } else if ( validHTMLTag(children) ) {
@@ -267,7 +384,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    function generate_once(list , parent) {
+    function generate_article(list , parent) {
 
         for (var keys of list) {
 
@@ -301,11 +418,13 @@ document.addEventListener("DOMContentLoaded", () => {
         mini_window.style.setProperty('--visibility','hidden')
     }
 
-    article.addEventListener("click", ()=>{
-        open_article()
+    reviewarticleslist.forEach((article)=> {
+        article.addEventListener("click", ()=> {
+            open_article()
+        })
     })
 
-    // FORM 3
+    /* FORM 3
 
     filter.addEventListener("change", (e) => { // TODO. Detect when option is reselected.
 
@@ -348,6 +467,6 @@ document.addEventListener("DOMContentLoaded", () => {
             filter.add(ratings,undefined)
         }
                 
-    });
+    }); */
     
 });
