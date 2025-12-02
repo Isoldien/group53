@@ -333,8 +333,7 @@ document.addEventListener("DOMContentLoaded", () => {
         //location.reload()
 
         reviewtitle.value = "";
-        reviewtextarea.value = "";
-        clearstars();
+        reviewtitle.dispatchEvent(new Event("blur"));
     })
 
     // CUSTOMER REVIEWS Mini Window
