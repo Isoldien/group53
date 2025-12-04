@@ -16,4 +16,4 @@
 
 </footer>
 
-<link rel="stylesheet" href="{{ asset('css/footer.css') }}">
+@vite('resources/css/footer.css')

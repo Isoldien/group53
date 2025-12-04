@@ -1,69 +1,71 @@
 @extends('layout')
 
 @section('content')
-<link rel="stylesheet" href="{{ asset('css/checkout.css') }}">
 
-<div class="checkout-container">
+{{-- Page Background Wrapper --}}
+<div class="checkout-page">
 
-    <h2>Checkout</h2>
+    {{-- Checkout Styles --}}
+    <link rel="stylesheet" href="{{ asset('css/checkout.css') }}">
 
-    <div class="checkout-wrapper">
+    <div class="checkout-container">
 
-        <!-- Billing -->
-        <div class="checkout-box">
+        <h2>CHECKOUT PAGE</h2>
 
-            <h3>Billing Information</h3>
-            <form class="checkout-form">
+        <div class="checkout-wrapper">
 
-                <label>Full Name *</label>
-                <input type="text" required>
+            {{-- DELIVERY INFORMATION --}}
+            <div class="checkout-box">
+                <h3>Delivery Information</h3>
 
-                <label>Email *</label>
-                <input type="email" required>
+                <form class="checkout-form">
+                    <input type="text" placeholder="Full Name">
+                    <input type="email" placeholder="Email">
+                    <input type="text" placeholder="Phone">
 
-                <label>Phone Number</label>
-                <input type="text">
+                    <input type="text" placeholder="Address Line">
+                    <input type="text" placeholder="City">
+                    <input type="text" placeholder="Postcode">
+                </form>
+            </div>
 
-                <label>Address *</label>
-                <input type="text" required>
+            {{-- PAYMENT INFORMATION --}}
+            <div class="checkout-box">
+                <h3>Payment Information</h3>
 
-                <label>City *</label>
-                <input type="text" required>
+                <form class="checkout-form">
+                    <input type="text" placeholder="Cardholder Name">
+                    <input type="text" placeholder="Card Number">
+                    <input type="text" placeholder="Expiry Date">
 
-                <label>Postcode *</label>
-                <input type="text" required>
+                    <input type="text" placeholder="CVV">
+                </form>
+            </div>
 
-            </form>
+            {{-- ORDER SUMMARY --}}
+            <div class="checkout-summary">
+                <h3>Order Summary</h3>
+
+                <div class="summary-item">
+                    <span>Dog Toy</span>
+                    <span>£10.99</span>
+                </div>
+
+                <div class="summary-item">
+                    <span>Cat Treats</span>
+                    <span>£5.99</span>
+                </div>
+
+                <div class="summary-item total">
+                    <span>Total</span>
+                    <span>£16.98</span>
+                </div>
+
+                <button class="checkout-btn">Place Order</button>
+            </div>
 
         </div>
-
-        <!-- Order Summary -->
-        <div class="checkout-summary">
-
-            <h3>Order Summary</h3>
-
-            <div class="summary-item">
-                <span>Dog Toy</span>
-                <span>£10.99</span>
-            </div>
-
-            <div class="summary-item">
-                <span>Cat Treats</span>
-                <span>£5.99</span>
-            </div>
-
-            <hr>
-
-            <div class="summary-item total">
-                <strong>Total:</strong>
-                <strong>£16.98</strong>
-            </div>
-
-            <button class="checkout-btn">Place Order</button>
-
-        </div>
-
     </div>
-
 </div>
+
 @endsection

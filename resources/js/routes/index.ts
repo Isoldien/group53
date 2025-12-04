@@ -211,7 +211,7 @@ register.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     
     register.form = registerForm
 /**
- * @see routes/web.php:7
+ * @see routes/web.php:8
  * @route '/'
  */
 export const home = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -225,7 +225,7 @@ home.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
- * @see routes/web.php:7
+ * @see routes/web.php:8
  * @route '/'
  */
 home.url = (options?: RouteQueryOptions) => {
@@ -233,7 +233,7 @@ home.url = (options?: RouteQueryOptions) => {
 }
 
 /**
- * @see routes/web.php:7
+ * @see routes/web.php:8
  * @route '/'
  */
 home.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -241,7 +241,7 @@ home.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     method: 'get',
 })
 /**
- * @see routes/web.php:7
+ * @see routes/web.php:8
  * @route '/'
  */
 home.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -250,7 +250,7 @@ home.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
     /**
- * @see routes/web.php:7
+ * @see routes/web.php:8
  * @route '/'
  */
     const homeForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -259,7 +259,7 @@ home.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     })
 
             /**
- * @see routes/web.php:7
+ * @see routes/web.php:8
  * @route '/'
  */
         homeForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -267,7 +267,7 @@ home.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
             method: 'get',
         })
             /**
- * @see routes/web.php:7
+ * @see routes/web.php:8
  * @route '/'
  */
         homeForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -282,7 +282,7 @@ home.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     
     home.form = homeForm
 /**
- * @see routes/web.php:14
+ * @see routes/web.php:15
  * @route '/dashboard'
  */
 export const dashboard = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -296,7 +296,7 @@ dashboard.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
- * @see routes/web.php:14
+ * @see routes/web.php:15
  * @route '/dashboard'
  */
 dashboard.url = (options?: RouteQueryOptions) => {
@@ -304,7 +304,7 @@ dashboard.url = (options?: RouteQueryOptions) => {
 }
 
 /**
- * @see routes/web.php:14
+ * @see routes/web.php:15
  * @route '/dashboard'
  */
 dashboard.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -312,7 +312,7 @@ dashboard.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     method: 'get',
 })
 /**
- * @see routes/web.php:14
+ * @see routes/web.php:15
  * @route '/dashboard'
  */
 dashboard.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -321,7 +321,7 @@ dashboard.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
     /**
- * @see routes/web.php:14
+ * @see routes/web.php:15
  * @route '/dashboard'
  */
     const dashboardForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -330,7 +330,7 @@ dashboard.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     })
 
             /**
- * @see routes/web.php:14
+ * @see routes/web.php:15
  * @route '/dashboard'
  */
         dashboardForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -338,7 +338,7 @@ dashboard.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
             method: 'get',
         })
             /**
- * @see routes/web.php:14
+ * @see routes/web.php:15
  * @route '/dashboard'
  */
         dashboardForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -352,3 +352,159 @@ dashboard.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
         })
     
     dashboard.form = dashboardForm
+/**
+* @see \Illuminate\Routing\ViewController::__invoke
+ * @see vendor/laravel/framework/src/Illuminate/Routing/ViewController.php:32
+ * @route '/about'
+ */
+export const about = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: about.url(options),
+    method: 'get',
+})
+
+about.definition = {
+    methods: ["get","head"],
+    url: '/about',
+} satisfies RouteDefinition<["get","head"]>
+
+/**
+* @see \Illuminate\Routing\ViewController::__invoke
+ * @see vendor/laravel/framework/src/Illuminate/Routing/ViewController.php:32
+ * @route '/about'
+ */
+about.url = (options?: RouteQueryOptions) => {
+    return about.definition.url + queryParams(options)
+}
+
+/**
+* @see \Illuminate\Routing\ViewController::__invoke
+ * @see vendor/laravel/framework/src/Illuminate/Routing/ViewController.php:32
+ * @route '/about'
+ */
+about.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: about.url(options),
+    method: 'get',
+})
+/**
+* @see \Illuminate\Routing\ViewController::__invoke
+ * @see vendor/laravel/framework/src/Illuminate/Routing/ViewController.php:32
+ * @route '/about'
+ */
+about.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: about.url(options),
+    method: 'head',
+})
+
+    /**
+* @see \Illuminate\Routing\ViewController::__invoke
+ * @see vendor/laravel/framework/src/Illuminate/Routing/ViewController.php:32
+ * @route '/about'
+ */
+    const aboutForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: about.url(options),
+        method: 'get',
+    })
+
+            /**
+* @see \Illuminate\Routing\ViewController::__invoke
+ * @see vendor/laravel/framework/src/Illuminate/Routing/ViewController.php:32
+ * @route '/about'
+ */
+        aboutForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: about.url(options),
+            method: 'get',
+        })
+            /**
+* @see \Illuminate\Routing\ViewController::__invoke
+ * @see vendor/laravel/framework/src/Illuminate/Routing/ViewController.php:32
+ * @route '/about'
+ */
+        aboutForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: about.url({
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    about.form = aboutForm
+/**
+* @see \Illuminate\Routing\ViewController::__invoke
+ * @see vendor/laravel/framework/src/Illuminate/Routing/ViewController.php:32
+ * @route '/checkout'
+ */
+export const checkout = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: checkout.url(options),
+    method: 'get',
+})
+
+checkout.definition = {
+    methods: ["get","head"],
+    url: '/checkout',
+} satisfies RouteDefinition<["get","head"]>
+
+/**
+* @see \Illuminate\Routing\ViewController::__invoke
+ * @see vendor/laravel/framework/src/Illuminate/Routing/ViewController.php:32
+ * @route '/checkout'
+ */
+checkout.url = (options?: RouteQueryOptions) => {
+    return checkout.definition.url + queryParams(options)
+}
+
+/**
+* @see \Illuminate\Routing\ViewController::__invoke
+ * @see vendor/laravel/framework/src/Illuminate/Routing/ViewController.php:32
+ * @route '/checkout'
+ */
+checkout.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: checkout.url(options),
+    method: 'get',
+})
+/**
+* @see \Illuminate\Routing\ViewController::__invoke
+ * @see vendor/laravel/framework/src/Illuminate/Routing/ViewController.php:32
+ * @route '/checkout'
+ */
+checkout.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: checkout.url(options),
+    method: 'head',
+})
+
+    /**
+* @see \Illuminate\Routing\ViewController::__invoke
+ * @see vendor/laravel/framework/src/Illuminate/Routing/ViewController.php:32
+ * @route '/checkout'
+ */
+    const checkoutForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: checkout.url(options),
+        method: 'get',
+    })
+
+            /**
+* @see \Illuminate\Routing\ViewController::__invoke
+ * @see vendor/laravel/framework/src/Illuminate/Routing/ViewController.php:32
+ * @route '/checkout'
+ */
+        checkoutForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: checkout.url(options),
+            method: 'get',
+        })
+            /**
+* @see \Illuminate\Routing\ViewController::__invoke
+ * @see vendor/laravel/framework/src/Illuminate/Routing/ViewController.php:32
+ * @route '/checkout'
+ */
+        checkoutForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: checkout.url({
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    checkout.form = checkoutForm

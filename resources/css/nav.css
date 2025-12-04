@@ -1,20 +1,44 @@
+/* NAVBAR WRAPPER */
 .navbar {
     display: flex;
     justify-content: space-between;
-    padding: 20px 40px;
-    background: #ffffff;
-    border-bottom: 1px solid #ddd;
+    align-items: center;
+    padding: 18px 50px;
+    background-color: #556046; /* dark sage */
+    border-bottom: 1px solid #d6d0b8;
 }
 
+/* LOGO */
+.logo {
+    font-size: 28px;
+    font-weight: 700;
+    color: #d6d0b8; /* dark sage */
+}
+
+/* NAV LINKS */
 .nav-links {
     display: flex;
-    gap: 20px;
+    gap: 28px;
     list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
 .nav-links a {
     text-decoration: none;
-    color: #333;
+    font-size: 16px;
     font-weight: 500;
+    color: #d6d0b8;
+    transition: 0.2s ease-in-out;
 }
 
+/* HOVER EFFECT */
+.nav-links a:hover {
+    color: #3e4634; /* darker sage */
+    text-decoration: underline;
+}
+
+/* OPTIONAL: CART HIGHLIGHT */
+.nav-links li:last-child a {
+    font-weight: 600;
+}

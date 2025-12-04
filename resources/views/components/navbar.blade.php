@@ -11,4 +11,5 @@
     </ul>
 </nav>
 
-<link rel="stylesheet" href="{{ asset('css/nav.css') }}">
+
+@vite('resources/css/nav.css')

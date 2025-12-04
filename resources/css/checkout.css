@@ -1,40 +1,101 @@
-.checkout-container {
-    padding: 60px;
+/* Page Background */
+.checkout-page {
+    background-color: #F3EFD8; /* light cream */
+    padding: 60px 0;
+    min-height: 100vh;
 }
 
+/* Main Container */
+.checkout-container {
+    width: 85%;
+    margin: auto;
+}
+
+.checkout-container h2 {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 32px;
+    font-weight: 600;
+    color: #556046;
+}
+
+/* Layout Wrapper */
 .checkout-wrapper {
     display: flex;
     justify-content: space-between;
     gap: 40px;
 }
 
-.checkout-box,
-.checkout-summary {
-    width: 48%;
-    padding: 20px;
+/* Left + Middle Boxes */
+.checkout-box {
+    width: 33%;
+    background: #efe7c8; /* cream box */
     border: 1px solid #ddd;
-    background: #fafafa;
+    padding: 25px;
+    border-radius: 8px;
 }
 
+.checkout-box h3 {
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+}
+
+/* Input Styling */
 .checkout-form input {
     width: 100%;
     padding: 12px;
-    margin-bottom: 14px;
+    margin-bottom: 15px;
     border: 1px solid #ccc;
+    border-radius: 6px;
+    background: #fff;
+    font-size: 15px;
 }
 
+/* RIGHT SIDE — ORDER SUMMARY */
+.checkout-summary {
+    width: 25%;
+    background: #4D5B3B; /* dark green */
+    color: white;
+    padding: 25px;
+    border-radius: 8px;
+}
+
+.checkout-summary h3 {
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+/* Item rows */
 .summary-item {
     display: flex;
     justify-content: space-between;
     margin-bottom: 12px;
+    font-size: 16px;
 }
 
+.summary-item.total {
+    margin-top: 18px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.6);
+    font-weight: bold;
+}
+
+/* BUTTON */
 .checkout-btn {
-    background: #333;
-    color: white;
-    padding: 14px;
+    margin-top: 25px;
     width: 100%;
+    background: #F3EFD8; /* cream button */
+    color: #333;
+    padding: 14px;
     border: none;
-    margin-top: 20px;
+    border-radius: 6px;
+    font-size: 16px;
     cursor: pointer;
+    font-weight: 600;
+}
+
+.checkout-btn:hover {
+    background: #e9e2c0;
 }

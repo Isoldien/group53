@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
+use App\Http\Controllers\ContactController;
 
 Route::get('/', function () {
     return Inertia::render('welcome', [
@@ -15,6 +16,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render('dashboard');
     })->name('dashboard');
 });
+
+Route::view('/about', 'about')->name('about');
+Route::view('/checkout', 'checkout')->name('checkout');
+Route::get('/contact', [ContactController::class, 'show'])->name('contact.show');
+Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');
+
+
 
 /*
 @author: Habibur Rahman <240217006@aston.ac.uk>
