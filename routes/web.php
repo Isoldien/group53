@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
+use App\Http\Controllers\ProductController;
 
 Route::get('/', function () {
     return Inertia::render('welcome', [
@@ -16,12 +17,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('dashboard');
 });
 
-Route::get('/product_detail', function () {
-    return view('product_detail');
-});
+// 🔹 Product detail page (uses ProductController@show)
+Route::get('/product_detail', [ProductController::class, 'show'])
+    ->name('product.detail');
 
-Route::get('/cart_checkout', function () {
-    return view('cart_checkout');
-});
+// 🔹 Cart page placeholder (your teammate can replace later)
+Route::view('/cart_checkout', 'cart_checkout')
+    ->name('cart.checkout');
 
 require __DIR__.'/settings.php';
