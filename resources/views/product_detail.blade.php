@@ -37,7 +37,7 @@
                     <li><a class=" hover:text-beige-third" href="x">Shop</a></li>
                     <li><a class=" hover:text-beige-third" href="x">About</a></li>
                     <li><a class=" hover:text-beige-third" href="x">Contact</a></li>
-                    <li><a name="cart2" class=" hover:text-beige-third" href="x">Cart</a></li>
+                    <li><a name="cart2" class=" hover:text-beige-third" href="/cart_checkout">Cart</a></li>
                     <li><a class=" hover:text-beige-third" href="x">Login</a></li>
                 </ul>
             </nav>
@@ -218,5 +218,3 @@
 
     </body>
 </html>
-
-<!-- TODO. Adjust the use of name attribute in html -->
