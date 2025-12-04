@@ -313,5 +313,10 @@ document.addEventListener("DOMContentLoaded", () => {
         total.textContent = (parseFloat(subtotalprice.textContent) + parseFloat(delivery.textContent)).toFixed(2)
     }
 
-    append_item("article_2") // DEMO Example
+    // DEMO Examples
+    append_item("article_2")
+    append_item("article_2")
+    append_item("article_1")
+    append_item("article_3")
+    append_item("article_5")
 })

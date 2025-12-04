@@ -42,7 +42,7 @@
             </nav>
         </div>
 
-        <main class="flex flex-col items-center w-full gap-5 flex-1">
+        <main class="flex flex-col items-center w-full gap-5">
 
             <div class="flex flex-col items-center">
 
@@ -59,10 +59,13 @@
 
             </div>
 
-            <section id="productlist" class="w-full p-5 items-center bg-beige-primary gap-5 flex flex-col">
+            <section class="w-full p-5 items-center bg-beige-primary gap-5 flex flex-col">
                 <h2 class="text-2xl font-bold text-green-secondary text-center"> PRODUCT LIST SECTION </h2>
                 
-                <hr class=" border-green-secondary border-[1.5px] w-full h-0.5">
+                <div id="productlist" class="w-full p-5 items-center bg-beige-primary gap-5 max-h-[90%] overflow-y-scroll">
+                    <hr class=" border-green-secondary border-[1.5px] w-full h-0.5">
+
+                </div>
 
             </section>
 
