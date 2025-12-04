@@ -3,10 +3,9 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Cart Checkout</title>
-        @vite(['resources/css/app.css'])
+        @vite(['resources/css/app.css','resources/js/cart_checkout.js'])
     </head>
     <body class="bg-white flex flex-col h-full">
-
         
         <header class="flex justify-between items-center h-12 w-full p-3 bg-green-primary dark:bg-black ">
 
@@ -16,19 +15,32 @@
                 <p> YOUZOO </p>
             </div>
 
-                    <!-- Navigation -->
+            <!-- Navigation -->
             <nav>
                     <ul class="flex gap-2.5 font-bold text-white" > <!-- TODO. Insert href links -->
                     <li><a class=" hover:text-orange-primary" href="x">Home</a></li>
                     <li><a class=" hover:text-orange-primary" href="x">Shop</a></li>
                     <li><a class=" hover:text-orange-primary" href="x">About</a></li>
                     <li><a class=" hover:text-orange-primary" href="x">Contact</a></li>
-                    <li><a name="cart" class=" hover:text-orange-primary" href="x">Cart</a></li>
                     <li><a class=" hover:text-orange-primary" href="x">Login</a></li>
                 </ul>
             </nav>
         
         </header>
+
+        <!-- Menu Tab for small screens -->
+        <div id="menu" class="mt-12 w-[20%] flex flex-col items-center p-5 bg-green-primary text-white fixed right-0" hidden>
+            <nav>
+                <ul class="flex w-full h-full flex-col gap-2.5 font-bold text-white" > <!-- TODO. Insert href links -->
+                    <li><a class=" hover:text-beige-third" href="x">Home</a></li>
+                    <li><a class=" hover:text-beige-third" href="x">Shop</a></li>
+                    <li><a class=" hover:text-beige-third" href="x">About</a></li>
+                    <li><a class=" hover:text-beige-third" href="x">Contact</a></li>
+                    <li><a name="cart2" class="text-beige-third" href="/cart_checkout">Cart</a></li>
+                    <li><a class=" hover:text-beige-third" href="x">Login</a></li>
+                </ul>
+            </nav>
+        </div>
 
         <main class="flex flex-col items-center w-full gap-5 flex-1">
 
@@ -47,35 +59,10 @@
 
             </div>
 
-            <section class="w-full p-5 items-center bg-beige-primary gap-5 flex flex-col">
+            <section id="productlist" class="w-full p-5 items-center bg-beige-primary gap-5 flex flex-col">
                 <h2 class="text-2xl font-bold text-green-secondary text-center"> PRODUCT LIST SECTION </h2>
                 
-                <hr class=" border-green-secondary border-[1.5px] w-full h-[2px]">
-
-                <article class="flex w-full items-center gap-5">
-                    <img class="h-15 w-auto" src="{{asset('/images/placeholder5.png')}}"/>
-
-                    <div class="flex flex-col gap-2 w-full">
-                        <div class="flex w-full justify-between">
-                            <h3 class="text-[20px] font-bold text-green-secondary"> Product Name </h3>
-                            <button> Remove </button>
-                        </div>
-
-                        <div class="flex gap-3">
-                            <h3 class="text-[20px] font-bold text-green-secondary"> £ Price</h3>
-                            <div class="flex gap-1">
-                                <input type="button" name="decrease" value="-" class="w-5 m-0">
-                                <input type="number" name="quantity" min="0" value="0" class="w-10 font-bold text-center [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"> <!-- PHP insertion. Dynamically change the max quantity of the product [available items should decrease if added to cart (even if not bought yet) ] -->
-                                <input type="button" name="increase" value="+" class="w-5 m-0">
-                            </div>
-                        </div>
-
-                    </div>
-                </article>
-
-                <hr class=" border-green-secondary border-[1.5px] w-full h-[2px]">
-
-                <!-- TODO Create new product article js -->
+                <hr class=" border-green-secondary border-[1.5px] w-full h-0.5">
 
             </section>
 
@@ -90,16 +77,16 @@
                         <h3 class="text-3xl font-bold text-green-secondary"> Delivery: </h3>
                     </div>
                     <div class="flex flex-col gap-3 items-end">
-                        <h3 class=" text-3xl font-bold text-green-secondary"> £ 00.00 </h3>
-                        <h3 class="text-3xl font-bold text-green-secondary"> £ xx.xx (est) </h3>
+                        <h3 id="subtotalprice" class=" before:content-['£'] before:mr-1 text-3xl font-bold text-green-secondary">00.00</h3>
+                        <h3 id="delivery" class=" before:content-['£'] before:mr-1 after:content-['(est)'] after:ml-1 text-3xl font-bold text-green-secondary">xx.xx</h3>
                     </div>
                 </article>
 
-                <hr class=" border-green-secondary border-[1.5px] w-full h-[2px]">
+                <hr class=" border-green-secondary border-[1.5px] w-full h-0.5">
 
                 <div class="flex justify-between w-full">
                     <h3 class=" text-3xl font-bold text-green-secondary"> Price: </h3>
-                    <h3 class="text-3xl font-bold text-green-secondary"> £ 00.00 </h3>
+                    <h3 id="total" class="before:content-['£'] before:mr-1 text-3xl font-bold text-green-secondary"> £ 00.00 </h3>
                 </div>
             </section>
 
@@ -108,20 +95,20 @@
                 
         </main>
         
-        <footer class="grid grid-cols-3 items-center h-12 w-full mt-10 bg-green-primary dark:bg-black px-4">
+        <footer class="flex items-center h-12 w-full mt-10 bg-green-primary dark:bg-black px-4">
             
             <!-- Logo -->
-            <div class="flex gap-2 items-center text-white font-bold">
+            <div id="logofooter" class="flex gap-2 items-center justify-start text-white font-bold w-[calc(100%/3)]">
                 <img src="{{ asset('/images/Logo.jpg') }}" alt="Logo" class="h-11 w-auto rounded-3xl"/> <!-- Logo -->
                 <p> YOUZOO </p>
             </div>
 
             <!-- Links Navigation -->
-            <div class="font-bold justify-center items-center text-white flex gap-2">
+            <div id="linksfooter" class="font-bold justify-center items-center text-white flex gap-2 w-[calc(100%/3)]">
                 <p> [Links: </p>
 
                 <nav>
-                    <ul class="flex gap-1 " > <!-- TODO. Insert href links -->
+                    <ul class="flex gap-1 w-full " > <!-- TODO. Insert href links -->
                         <li><a class="after:content-['|'] after:mx-1 hover:text-orange-primary hover:after:text-white" href="x">About </a></li>
                         <li><a class="after:content-['\|'] after:mx-1 hover:text-orange-primary hover:after:text-white" href="x">Contact</a></li>
                         <li><a class="after:content-['\]'] after:mx-1 hover:text-orange-primary hover:after:text-white" href="x">Policies</a></li>
@@ -130,7 +117,7 @@
             </div>
 
             <!-- Newspaper Signup Navigation -->
-            <div class="font-bold text-white items-center justify-end flex gap-2">
+            <div id="newsfooter" class="font-bold text-white items-center justify-end flex gap-2 w-[calc(100%/3)]">
                 <p> [Newspaper Signup: </p>
 
                 <nav>
@@ -138,6 +125,9 @@
                 </nav>
             </div>
         </footer>
-        
+
+        <div id="placeholderconfig" data-star="{{ asset('images/placeholder5.png') }}" hidden></div>
+        <div id="menuconfig" data-star="{{ asset('images/menu1.png') }}" hidden></div>
+
     </body>
 </html>
