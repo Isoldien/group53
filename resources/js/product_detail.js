@@ -104,6 +104,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function smallscreen(size) {
 
+        const logo_justify = footertag.querySelector("#logofooter")
+        const links_justify = footertag.querySelector("#linksfooter")
+        const news_justify = footertag.querySelector("#newsfooter")
+
         if (size.matches == true) { 
             navbar.replaceChild(menu_icon,navlinks)
             footertag.classList.remove("h-12")
