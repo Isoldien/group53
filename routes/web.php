@@ -1,8 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
-use Laravel\Fortify\Features;
+use App\Http\Controllers\BasketController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ContactController;
 
 Route::get('/', function () {
     return Inertia::render('welcome', [
@@ -34,6 +35,11 @@ Route::get('/contact', [App\Http\Controllers\ContactController::class, 'show'])-
 Route::post('/contact', [App\Http\Controllers\ContactController::class, 'submit'])->name('contact.submit');
 
 // CHECKOUT PAGE
-Route::get('/checkout', function () {
-    return view('checkout');
-})->name('checkout');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/basket', [BasketController::class, 'getCustomerBasket'])->name('checkout');
+});
+
+//PRODUCT PAGE(s)
+
+route::get('/products/{category_id}',[ProductController::class,'showProductsUnderCategory']);
+route::get('/products/{product}',[ProductController::class,'showProductDetails']);

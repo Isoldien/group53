@@ -24,3 +24,9 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::get('/test', function(Request $request) {
     return "hello";
 });
+Route::middleware('auth:sanctum')->group(function () {
+    
+    Route::post('/basket/add', [BasketController::class, 'addProduct']);
+    Route::post('/basket/increase', [BasketController::class, 'increaseQuantity']);
+    Route::post('/basket/decrease', [BasketController::class, 'decreaseQuantity']);
+});
