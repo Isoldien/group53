@@ -24,4 +24,17 @@ Route::get('/products/{category_id}',[ProductController::class,'showProductsUnde
 Route::get('/database-connection', [App\Http\Controllers\DatabaseConnectionController::class, 'index']);
 
 Route::get('/product/{product}',[ProductController::class,'showProductDetails'])->name('show_product_details');
+
+Route::get('/login', function () {
+    return view('login');
+});
+Route::get('/register', function () {
+    return view('register');
+});
+Route::get('/resetpassword', function () {
+    return view('resetpassword');
+});
+Route::get('/shoplisting', function () {
+    return view('shoplisting');
+});
 require __DIR__.'/settings.php';
