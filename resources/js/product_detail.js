@@ -1,6 +1,5 @@
 
 document.addEventListener("DOMContentLoaded", () => {
-    // TODO Adjust the use of const, var or let in js
 
     // -------------------------------------- VARIABLES ------------------------------------------ //
 
@@ -15,10 +14,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // CART VALUE IN HEADER
     let add = 0 // Temp variable. PHP insertion, count the number of items in user's cart from db
-    let screen_size = window.matchMedia('(max-width: 640px)')
+    let screen_size = window.matchMedia('(max-width: 900px)')
     const navbar = document.querySelector("header")
     const navlinks = document.querySelector("header nav")
     const menutab = document.querySelector("#menu")
+    const menu_icon = document.createElement("img")
     let menu_toggle = false
 
     // FORM 1: Add To Cart
@@ -97,7 +97,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Header
 
-    const menu_icon = document.createElement("img")
     menu_icon.setAttribute("src", menuImg)
     menu_icon.setAttribute("class","h-11 w-auto")
     menu_icon.setAttribute("alt", "Menu")
@@ -107,13 +106,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (size.matches == true) { 
             navbar.replaceChild(menu_icon,navlinks)
-            footertag.classList.remove("grid","grid-col-3","h-12")
-            footertag.classList.add("flex","flex-col")
+            footertag.classList.remove("h-12")
+            footertag.classList.add("flex-col","h-grow")
+            logo_justify.classList.replace("justify-start","justify-center")
+            news_justify.classList.replace("justify-end","justify-center")
+
+            logo_justify.classList.replace("w-[calc(100%/3)]", "w-full")
+            news_justify.classList.replace("w-[calc(100%/3)]", "w-full")
+            links_justify.classList.replace("w-[calc(100%/3)]", "w-full")
+
         } else {
             if (navbar.contains(navlinks) == false) {
                 navbar.replaceChild(navlinks, menu_icon)
-                footertag.classList.add("grid","grid-col-3","h-12")
-                footertag.classList.remove("flex","flex-col")
+                footertag.classList.add("h-12")
+                footertag.classList.remove("flex-col","h-grow")
+                logo_justify.classList.add("justify-start")
+                news_justify.classList.add("justify-end")
+            
+                logo_justify.classList.replace("w-full", "w-[calc(100%/3)]")
+                news_justify.classList.replace("w-full", "w-[calc(100%/3)]")
+                links_justify.classList.replace("w-full", "w-[calc(100%/3)]")
             }
             
             if (menu_toggle == true && navbar.contains(navlinks)) {

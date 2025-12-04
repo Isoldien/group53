@@ -23,7 +23,7 @@
                     <li><a class=" hover:text-beige-third" href="x">Shop</a></li>
                     <li><a class=" hover:text-beige-third" href="x">About</a></li>
                     <li><a class=" hover:text-beige-third" href="x">Contact</a></li>
-                    <li><a name="cart1" class=" hover:text-beige-third" href="x">Cart</a></li>
+                    <li><a name="cart1" class=" hover:text-beige-third" href="/cart_checkout">Cart</a></li>
                     <li><a class=" hover:text-beige-third" href="x">Login</a></li>
                 </ul>
             </nav>
@@ -54,7 +54,7 @@
                     <ul class="flex mb-5 font-bold text-black items-center" > <!-- TODO. Insert href links -->
                         <li><a class="after:content-['›'] after:mx-3 hover:text-orange-primary " href="x">Home</a></li>
                         <li><a class="after:content-['›'] after:mx-3 hover:text-orange-primary " href="x">Shop</a></li>
-                        <li><a class="text-orange-primary " href="x">Category</a></li>
+                        <li><a class="hover:text-orange-primary " href="x">Category</a></li>
                     </ul>
                 </nav>
 
@@ -178,33 +178,33 @@
             </div>
         </main>
 
-        <footer class="grid grid-cols-3 items-center h-12 w-full mt-15 bg-green-primary dark:bg-black px-4">
+        <footer class="flex items-center h-12 w-full mt-10 bg-green-primary dark:bg-black px-4">
             
             <!-- Logo -->
-            <div class="flex gap-2 items-center text-white font-bold">
+            <div id="logofooter" class="flex gap-2 items-center justify-start text-white font-bold w-[calc(100%/3)]">
                 <img src="{{ asset('/images/Logo.jpg') }}" alt="Logo" class="h-11 w-auto rounded-3xl"/> <!-- Logo -->
                 <p> YOUZOO </p>
             </div>
 
             <!-- Links Navigation -->
-            <div class="font-bold justify-center items-center text-white flex gap-2">
+            <div id="linksfooter" class="font-bold justify-center items-center text-white flex gap-2 w-[calc(100%/3)]">
                 <p> [Links: </p>
 
                 <nav>
-                    <ul class="flex gap-1 " > <!-- TODO. Insert href links -->
-                        <li><a class="after:content-['|'] after:mx-1 hover:text-beige-third hover:after:text-white" href="x">About </a></li>
-                        <li><a class="after:content-['\|'] after:mx-1 hover:text-beige-third hover:after:text-white" href="x">Contact</a></li>
-                        <li><a class="after:content-['\]'] after:mx-1 hover:text-beige-third hover:after:text-white" href="x">Policies</a></li>
+                    <ul class="flex gap-1 w-full " > <!-- TODO. Insert href links -->
+                        <li><a class="after:content-['|'] after:mx-1 hover:text-orange-primary hover:after:text-white" href="x">About </a></li>
+                        <li><a class="after:content-['\|'] after:mx-1 hover:text-orange-primary hover:after:text-white" href="x">Contact</a></li>
+                        <li><a class="after:content-['\]'] after:mx-1 hover:text-orange-primary hover:after:text-white" href="x">Policies</a></li>
                     </ul>
                 </nav>
             </div>
 
             <!-- Newspaper Signup Navigation -->
-            <div class="font-bold text-white items-center justify-end flex gap-2">
+            <div id="newsfooter" class="font-bold text-white items-center justify-end flex gap-2 w-[calc(100%/3)]">
                 <p> [Newspaper Signup: </p>
 
                 <nav>
-                    <a class=" hover:text-beige-third after:content-['\]'] hover:after:text-white" href="x">Subscribe</a>  <!-- TODO. Insert href links -->
+                    <a class=" hover:text-orange-primary after:content-['\]'] hover:after:text-white" href="x">Subscribe</a>  <!-- TODO. Insert href links -->
                 </nav>
             </div>
         </footer>
