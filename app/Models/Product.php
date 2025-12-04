@@ -59,12 +59,12 @@ class Product extends Model
 		'is_active'
 	];
 
-	public function category()
+	public function category():BelongsTo
 	{
 		return $this->belongsTo(Category::class);
 	}
 
-	public function reviews()
+	public function reviews():HasMany
 	{
 		return $this->hasMany(Review::class);
 	}

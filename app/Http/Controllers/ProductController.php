@@ -12,59 +12,31 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view("home");
+        $products = Product::paginate($perPage = 15, $columns = ['product_name','description','price','image_url','pet_type','brand'], $pageName = 'products_all');
+
+        return view("shoplisting");
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+   
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+   
 
     /**
      * Display the specified resource.
      */
     public function showProductsUnderCategory(int $category_id)
     {
-        $products = Product::where('category_id',$category_id)->get();
+        $productsOfCategory = Product::where('category_id',$category_id)->paginate($perPage = 15, $columns = ['product_name','description','price','image_url','pet_type','brand'], $pageName = 'products_of_category');
 
-        return view("products_category",['products' => $products]);
+        return view("products_category",['productsOfCategory' => $productsOfCategory]);
     }
+
+
+
+    
     public function showProductDetails(Product $product){
 
         return view("product_detail",['product' => $product]);
     }
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Product $product)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Product $product)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Product $product)
-    {
-        //
-    }
+   
 }

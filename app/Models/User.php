@@ -10,7 +10,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Fortify\TwoFactorAuthenticatable;
+
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -34,7 +34,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class User extends Authenticatable implements MustVerifyEmail
 {
-	use HasFactory, Notifiable, TwoFactorAuthenticatable;
+	use HasFactory, Notifiable;
 	protected $table = 'users';
 	protected $primaryKey = 'user_id';
 
@@ -42,10 +42,6 @@ class User extends Authenticatable implements MustVerifyEmail
 
 
 
-class User extends Authenticatable
-{
-    /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, TwoFactorAuthenticatable;
 
     /**
      *
@@ -56,11 +52,17 @@ class User extends Authenticatable
         'email',
         'password',
     ];
-
-     * Get the attributes that should be cast.
+/**
+     * The attributes that should be hidden for serialization.
      *
-     * @return array<string, string>
+     * @var list<string>
      */
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    
     protected function casts(): array
     {
         return [
@@ -73,8 +75,28 @@ class User extends Authenticatable
 
 		
 
-	public function reviews()
+	public function reviews():HasMany
 	{
 		return $this->hasMany(Review::class);
+	}
+    public function contactMessages():HasMany
+	{
+		return $this->hasMany(ContactMessage::class);
+	}
+    public function addresses():HasMany
+	{
+		return $this->hasMany(Address::class);
+	}
+    public function orders():HasMany
+	{
+		return $this->hasMany(Order::class);
+	}
+    public function cart():HasOne
+	{
+		return $this->hasOne(Cart::class);
+	}
+    public function returnRequests():HasMany
+	{
+		return $this->hasMany(ReturnRequest::class);
 	}
 }
