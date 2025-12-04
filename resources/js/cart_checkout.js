@@ -319,4 +319,8 @@ document.addEventListener("DOMContentLoaded", () => {
     append_item("article_1")
     append_item("article_3")
     append_item("article_5")
+    append_item("article_6")
+    append_item("article_7")
+   append_item("article_8")
+    append_item("article_10")
 })
