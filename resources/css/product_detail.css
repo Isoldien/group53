@@ -1,4 +1,4 @@
-a[name="cart"]::after {
+a[name="cart1"]::after, a[name="cart2"]::after {
     content: var(--after-content, '(0)');
     margin-left: 2px;
     display: inline-block

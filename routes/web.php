@@ -16,7 +16,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('dashboard');
 });
 
-Route::get('/product', function () {
+Route::get('/product_detail', function () {
     return view('product_detail');
 });
 

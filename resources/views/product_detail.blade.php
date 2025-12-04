@@ -18,22 +18,36 @@
 
             <!-- Navigation -->
             <nav>
-                 <ul class="flex gap-2.5 font-bold text-white" > <!-- TODO. Insert href links -->
+                <ul class="flex gap-2.5 font-bold text-white" > <!-- TODO. Insert href links -->
                     <li><a class=" hover:text-beige-third" href="x">Home</a></li>
                     <li><a class=" hover:text-beige-third" href="x">Shop</a></li>
                     <li><a class=" hover:text-beige-third" href="x">About</a></li>
                     <li><a class=" hover:text-beige-third" href="x">Contact</a></li>
-                    <li><a name="cart" class=" hover:text-beige-third" href="x">Cart</a></li>
+                    <li><a name="cart1" class=" hover:text-beige-third" href="x">Cart</a></li>
                     <li><a class=" hover:text-beige-third" href="x">Login</a></li>
                 </ul>
             </nav>
         </header>
 
+        <!-- Menu Tab for small screens -->
+        <div id="menu" class="mt-12 w-[20%] flex flex-col items-center p-5 bg-green-primary text-white fixed right-0" hidden>
+            <nav>
+                <ul class="flex w-full h-full flex-col gap-2.5 font-bold text-white" > <!-- TODO. Insert href links -->
+                    <li><a class=" hover:text-beige-third" href="x">Home</a></li>
+                    <li><a class=" hover:text-beige-third" href="x">Shop</a></li>
+                    <li><a class=" hover:text-beige-third" href="x">About</a></li>
+                    <li><a class=" hover:text-beige-third" href="x">Contact</a></li>
+                    <li><a name="cart2" class=" hover:text-beige-third" href="x">Cart</a></li>
+                    <li><a class=" hover:text-beige-third" href="x">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+
         <main class="flex flex-col items-center w-full gap-5 flex-1">
 
             <div class="flex flex-col items-center">
                 <!-- Product Header -->
-                <h1 class="font-bold text-5xl text-green-secondary mt-5">Product Name Here</h1> <!-- PHP insertion. Include name of product -->
+                <h1 class="font-bold text-5xl text-green-secondary mt-5 text-center">Product Name Here</h1> <!-- PHP insertion. Include name of product -->
                 
                 <!-- Secondary Navigation -->
                 <nav>
@@ -43,20 +57,21 @@
                         <li><a class="text-orange-primary " href="x">Category</a></li>
                     </ul>
                 </nav>
+
             </div>
 
-            <div class="flex w-[95%] mb-5 gap-3"> <!-- TODO Apply wrap when some size is reached -->
+            <div class="flex w-[95%] mb-5 gap-3 max-sm:flex-wrap"> <!-- TODO Apply wrap when some size is reached -->
 
                 <!-- Product Image -->
-                <img class="w-[50%] h-[50%] rounded-2xl" src="{{asset('images/placeholder1.png')}}" alt="product image"/> <!-- PHP insertion. Include image of product, set src and alt attributes -->
+                <img class="w-[50%] h-full rounded-2xl max-sm:w-full max-sm:h-[50%]" src="{{asset('images/placeholder1.png')}}" alt="product image"/> <!-- PHP insertion. Include image of product, set src and alt attributes -->
 
                 <!-- Product Details -->
-                <section class="flex flex-col w-[50%] h-full gap-3 p-5 bg-beige-primary rounded-3xl">
+                <section class="flex flex-col w-[50%] max-h-full max-sm:w-full gap-3 p-5 bg-beige-primary rounded-3xl">
                     <h3 class="text-2xl font-bold text-green-secondary"> Product Title </h2> <!-- PHP insertion. Include title of product -->
 
                     <p class="font-bold text-2xl text-green-secondary"> £ Price </p> <!-- PHP insertion. Include price of product -->
                     
-                    <p class=" eading-relaxed max-w-[90%] text-gray-900"> <!-- PHP insertion. Include short description of product [read more button is activated if the text is longer than 100 characters] -->
+                    <p class=" w-[90%] text-gray-900"> <!-- PHP insertion. Include short description of product [read more button is activated if the text is longer than 100 characters] -->
                         Short description text here
                     </p>
 
@@ -90,7 +105,7 @@
 
             <!-- Create Review -->
             <section class="flex flex-col gap-2 items-center w-full p-5 pb-4 bg-green-secondary"> <!-- TODO They need to be a signed in user to make a review. Reload page after login/signup. Generate new comment -->
-                <h2 class=" text-white text-3xl font-bold"> WRITE A PRODUCT REVIEW </h2>
+                <h2 class=" text-white text-3xl font-bold text-center"> WRITE A PRODUCT REVIEW </h2>
 
                 <div class="flex flex-col gap-2 items-start w-full">
                     <input form="product_review" placeholder="Title" name="title" class="w-full bg-white text-black placeholder-black p-1 pl-4 text-[20px] rounded-[5px]" required>
@@ -145,7 +160,7 @@
 
                 <h2 class="text-3xl font-bold text-green-secondary"> CUSTOMER REVIEWS </h2>
 
-                <!-- Sort By/Filters Feature - commented this sort by feature in html and js since it won't be functional in time for the Live Demo
+                <!-- Sort By/Filters Feature -->
                 <form class="flex w-full justify-end pr-5"> 
                     <select id="filters" class="text-center text-black bg-white p-1 border-3 border-green-secondary rounded-[10px]">
                             <option selected hidden class="text-white">Sort By</option>
@@ -153,7 +168,7 @@
                             <option name="oldest" value="oldest">Oldest Review</option>
                             <option name="ratings" value="ratings">Ratings</option>
                     </select>
-                </form> -->
+                </form>
 
                 <!-- List of Reviews -->
                 <section id="reviewarticles" class="bg-white rounded-lg shadow-xl border w-[95%] mt-5 border-gray-200 p-5 text-black gap-2 flex flex-col"> <!-- PHP Insertion. Display Customer Reviews from db and use js to create new article -->
@@ -199,6 +214,7 @@
         <div id="unselectedstarconfig" data-star="{{ asset('images/star_unselected.png') }}" hidden></div>
         <div id="placeholderconfig" data-star="{{ asset('images/placeholder5.png') }}" hidden></div>
         <div id="closeconfig" data-star="{{ asset('images/x-mark.png') }}" hidden></div>
+        <div id="menuconfig" data-star="{{ asset('images/menu1.png') }}" hidden></div>
 
     </body>
 </html>
