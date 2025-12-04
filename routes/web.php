@@ -15,19 +15,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render('dashboard');
     })->name('dashboard');
 });
-Route::get('homepage', function () {
-    return view('homepage');
-});
-Route::get('login', function () {
+
+Route::get('/login', function () {
     return view('login');
 });
-Route::get('register', function () {
+Route::get('/register', function () {
     return view('register');
 });
-Route::get('resetpassword', function () {
+Route::get('/resetpassword', function () {
     return view('resetpassword');
 });
-Route::get('shoplisting', function () {
+Route::get('/shoplisting', function () {
     return view('shoplisting');
 });
 require __DIR__.'/settings.php';
