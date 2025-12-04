@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>YouZoo | Home</title>
-    @vite(['resources/css/app.css',])
+    @vite(['resources/css/app.css'])
 </head>
 <body>
 

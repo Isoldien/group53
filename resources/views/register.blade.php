@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>YouZoo | Register</title>
-    <link rel="stylesheet" href="styles.css">
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+    @vite(['resources/css/styles.css'])
+
 </head>
 <body>
 

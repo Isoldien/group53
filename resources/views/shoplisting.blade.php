@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YouZoo | Shop</title>
-    <link rel="stylesheet" href="shoplisting.css">
+    <!-- <link rel="stylesheet" href="shoplisting.css"> -->
+    @vite(['resources/css/shoplisting.css'])
+
 </head>
 
 <body>
