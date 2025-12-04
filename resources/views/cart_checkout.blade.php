@@ -42,12 +42,12 @@
             </nav>
         </div>
 
-        <main class="flex flex-col items-center w-full gap-5">
+        <main class="flex flex-col items-center w-full gap-5 justify-evenly">
 
             <div class="flex flex-col items-center">
 
                 <!-- Your Cart Header -->
-                <h1 class="font-bold text-3xl text-green-secondary mt-5">YOUR CART</h1>
+                <h1 class="font-bold text-4xl text-green-secondary mt-5">YOUR CART</h1>
                 
                 <!-- Secondary Navigation -->
                 <nav>
@@ -59,18 +59,17 @@
 
             </div>
 
-            <section class="w-full p-5 items-center bg-beige-primary gap-5 flex flex-col">
+            <section class="w-full p-5 items-center bg-beige-primary gap-5 flex flex-col max-h-[40%]">
                 <h2 class="text-2xl font-bold text-green-secondary text-center"> PRODUCT LIST SECTION </h2>
                 
-                <div id="productlist" class="w-full p-5 items-center bg-beige-primary gap-5 max-h-[90%] overflow-y-scroll">
+                <div id="productlist" class="w-full p-5 items-center bg-beige-primary gap-5 max-h-[80%] overflow-y-scroll">
                     <hr class=" border-green-secondary border-[1.5px] w-full h-0.5">
 
                 </div>
-
             </section>
 
             <!-- Cart Summary Header -->
-            <h1 class="font-bold text-3xl text-green-secondary "> CART SUMMARY </h1>
+            <h1 class="font-bold text-4xl text-green-secondary "> CART SUMMARY </h1>
 
             <section class="w-full p-5 items-center bg-beige-primary gap-3 flex flex-col">
 
@@ -94,11 +93,11 @@
             </section>
 
             <!-- Proceed to check out -->
-            <button class="p-1.5 px-8 rounded-[10px] bg-orange-primary text-white text-[24px] font-medium hover:bg-green-secondary"> Proceed to Check out </button>
+            <button class="p-2 px-9 rounded-[10px] bg-orange-primary text-white text-[28px] font-medium hover:bg-green-secondary -mt-3 mb-2"> Proceed to Check out </button>
                 
         </main>
         
-        <footer class="flex items-center h-12 w-full mt-10 bg-green-primary dark:bg-black px-4">
+        <footer class="flex items-center h-12 w-full bg-green-primary dark:bg-black px-4">
             
             <!-- Logo -->
             <div id="logofooter" class="flex gap-2 items-center justify-start text-white font-bold w-[calc(100%/3)]">
