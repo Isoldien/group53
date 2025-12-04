@@ -1,3 +1,10 @@
+@import './contact.css';
+@import './about.css';
+@import './checkout.css';
+@import './nav.css';
+@import './footer.css';
+
+
 @import 'tailwindcss';
 
 @import "tw-animate-css";

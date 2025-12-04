@@ -1,0 +1,52 @@
+/* FOOTER WRAPPER */
+.footer {
+    background-color: #556046; /* dark sage */
+    color: #EEE9D1; /* light cream */
+    padding: 24px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 40px;
+}
+
+/* LEFT SIDE (LOGO OR TEXT) */
+.footer-left {
+    font-size: 18px;
+    font-weight: 600;
+    color: #EEE9D1;
+}
+
+/* CENTER LINKS */
+.footer-center a {
+    color: #EEE9D1;
+    text-decoration: none;
+    margin: 0 8px;
+    font-size: 15px;
+}
+
+.footer-center a:hover {
+    text-decoration: underline;
+}
+
+/* RIGHT SIDE INPUT + BUTTON */
+.footer-right input {
+    padding: 8px 10px;
+    border-radius: 4px;
+    border: none;
+    outline: none;
+    margin-right: 6px;
+}
+
+.footer-right button {
+    padding: 8px 14px;
+    border-radius: 4px;
+    border: none;
+    background-color: #EEE9D1; /* cream */
+    color: #556046; /* sage */
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.footer-right button:hover {
+    background: #e7e2cb;
+}
