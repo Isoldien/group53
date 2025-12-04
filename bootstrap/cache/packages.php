@@ -1,23 +1,9 @@
 <?php return array (
-  'inertiajs/inertia-laravel' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Inertia\\ServiceProvider',
-    ),
-  ),
   'laravel/boost' => 
   array (
     'providers' => 
     array (
       0 => 'Laravel\\Boost\\BoostServiceProvider',
-    ),
-  ),
-  'laravel/fortify' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Laravel\\Fortify\\FortifyServiceProvider',
     ),
   ),
   'laravel/mcp' => 
@@ -52,13 +38,6 @@
       0 => 'Laravel\\Sail\\SailServiceProvider',
     ),
   ),
-  'laravel/sanctum' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Laravel\\Sanctum\\SanctumServiceProvider',
-    ),
-  ),
   'laravel/tinker' => 
   array (
     'providers' => 
@@ -66,11 +45,11 @@
       0 => 'Laravel\\Tinker\\TinkerServiceProvider',
     ),
   ),
-  'laravel/wayfinder' => 
+  'laravel/ui' => 
   array (
     'providers' => 
     array (
-      0 => 'Laravel\\Wayfinder\\WayfinderServiceProvider',
+      0 => 'Laravel\\Ui\\UiServiceProvider',
     ),
   ),
   'nesbot/carbon' => 
@@ -99,6 +78,27 @@
     'providers' => 
     array (
       0 => 'Pest\\Laravel\\PestServiceProvider',
+    ),
+  ),
+  'reliese/laravel' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Reliese\\Coders\\CodersServiceProvider',
+    ),
+  ),
+  'spatie/laravel-data' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Spatie\\LaravelData\\LaravelDataServiceProvider',
+    ),
+  ),
+  'spatie/php-structure-discoverer' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Spatie\\StructureDiscoverer\\StructureDiscovererServiceProvider',
     ),
   ),
 );

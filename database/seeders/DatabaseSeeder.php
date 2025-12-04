@@ -9,6 +9,8 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+=======
+use App\Models\User;
 
 class DatabaseSeeder extends Seeder
 {
@@ -53,5 +55,15 @@ class DatabaseSeeder extends Seeder
             ContactMessagesTableSeeder::class,
             InventoryTransactionsTableSeeder::class,
         ]);
+        // User::factory(10)->create();
+
+        User::firstOrCreate(
+            ['email' => 'test@example.com'],
+            [
+                'name' => 'Test User',
+                'password' => 'password',
+                'email_verified_at' => now(),
+            ]
+        );
     }
 }
