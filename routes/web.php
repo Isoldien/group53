@@ -42,14 +42,14 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/basket/decrease/{productId}', [BasketController::class, 'decreaseQuantity']);
     Route::post('/basket/place_order', [OrderController::class, 'placeOrder'])->name("placeOrder");
 });
-
+route::get('/',function (){
+    return view("homepage");
+});
 //PRODUCT PAGE(s)
 
 route::get('/products/{category_id}',[ProductController::class,'showProductsUnderCategory']);
 route::get('/products/{product}',[ProductController::class,'showProductDetails']);
-route::get('/',function (){
-    return view("homepage");
-});
+
 // Home page
 Route::get('/', function () {
     return view('welcome');

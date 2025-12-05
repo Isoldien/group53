@@ -23,9 +23,7 @@ class BasketController extends Controller
     public function getCustomerBasket()
     {
         $cart = $this->getActiveCart();
-        $cartItems = CartItem::where('cart_id', $cart->cart_id)
-                              ->with('product')
-                              ->get();
+        $cartItems = CartItem::where('cart_id', $cart->cart_id)->with('product')->get();
 
         return view('checkout', compact('cartItems'));
     }
@@ -37,9 +35,7 @@ class BasketController extends Controller
 
         $product = Product::findOrFail($productId);
 
-        $item = CartItem::where('cart_id', $cartId)
-                        ->where('product_id', $productId)
-                        ->first();
+        $item = CartItem::where('cart_id', $cartId)->where('product_id', $productId)->first();
 
         if ($item) {
             $item->quantity++;
@@ -65,9 +61,7 @@ class BasketController extends Controller
         $cart = $this->getActiveCart();
         $cartId = $cart->cart_id;
 
-        $item = CartItem::where('cart_id', $cartId)
-                        ->where('product_id', $productId)
-                        ->firstOrFail();
+        $item = CartItem::where('cart_id', $cartId)->where('product_id', $productId)->firstOrFail();
 
         $product = Product::findOrFail($productId);
 
@@ -90,9 +84,7 @@ class BasketController extends Controller
         $cart = $this->getActiveCart();
         $cartId = $cart->cart_id;
 
-        $item = CartItem::where('cart_id', $cartId)
-                        ->where('product_id', $productId)
-                        ->firstOrFail();
+        $item = CartItem::where('cart_id', $cartId)->where('product_id', $productId)->firstOrFail();
 
         if ($item->quantity > 1) {
             $item->quantity--;

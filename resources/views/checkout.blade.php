@@ -11,22 +11,34 @@
     <div class="checkout-container">
 
         <h2>CHECKOUT PAGE</h2>
-
-        <form class="checkout-wrapper">
+       @if(session('error'))
+    <div style="
+        padding: 10px 15px;
+        background-color: #f8d7da;
+        color: #842029;
+        border: 1px solid #f5c2c7;
+        border-radius: 5px;
+        margin-bottom: 15px;
+    ">
+        {{ session('error') }}
+    </div>
+@endif
+        <form action="{{route('placeOrder')}}" method="POST" class="checkout-wrapper">
+                 @csrf
 
             
             <div class="checkout-box">
                 <h3>Delivery Information</h3>
 
                 <div class="checkout-form">
-                    <input name="name" type="text" placeholder="Full Name">
-                    <input name="email" type="email" placeholder="Email">
-                    <input name="phone" type="text" placeholder="Phone">
+                    <input required name="name" type="text" placeholder="Full Name">
+                    <input required name="email" type="email" placeholder="Email">
+                    <input required name="phone" type="text" placeholder="Phone">
 
-                    <input name="adress_line" type="text" placeholder="Address Line">
-                    <input name="city" type="text" placeholder="City">
-                    <input name="postcode" type="text" placeholder="Postcode">
-                    <input name="country" type="text" placeholder="Country">
+                    <input required name="adress_line" type="text" placeholder="Address Line">
+                    <input required name="city" type="text" placeholder="City">
+                    <input required name="postcode" type="text" placeholder="Postcode">
+                    <input required name="country" type="text" placeholder="Country">
                     
                 </div>
             </div>
@@ -36,9 +48,9 @@
                 <h3>Payment Information</h3>
 
                 <div class="checkout-form">
-                    <input name="c_name" type="text" placeholder="Cardholder Name">
-                    <input name="c_number" type="text" placeholder="Card Number">
-                    <input name="expiry" type="text" placeholder="Expiry Date">
+                    <input required name="c_name" type="text" placeholder="Cardholder Name">
+                    <input required  name="c_number" type="text" placeholder="Card Number">
+                    <input required name="expiry" type="text" placeholder="Expiry Date">
 
                     <input name="cvv" type="text" placeholder="CVV">
                 </div>
@@ -123,9 +135,7 @@ document.querySelectorAll('.decrease-qty').forEach(btn => {
 });
 
 
-document.querySelector('.checkout-wrapper').addEventListener('submit', e => {
-    e.preventDefault();
-});
+
 </script>
 
 @endsection
