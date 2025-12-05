@@ -60,7 +60,7 @@
 
             </div>
 
-            <div class="flex w-[95%] mb-5 gap-3 max-sm:flex-wrap"> <!-- TODO Apply wrap when some size is reached -->
+            <div class="flex w-[95%] mb-5 gap-3 max-sm:flex-wrap">
 
                 <!-- Product Image -->
                 <img class="w-[50%] h-full rounded-2xl max-sm:w-full max-sm:h-[50%]" src="{{asset('images/placeholder1.png')}}" alt="product image"/> <!-- PHP insertion. Include image of product, set src and alt attributes -->
@@ -71,7 +71,7 @@
 
                     <p class="font-bold text-2xl text-green-secondary"> £ Price </p> <!-- PHP insertion. Include price of product -->
                     
-                    <p class=" w-[90%] text-gray-900"> <!-- PHP insertion. Include short description of product [read more button is activated if the text is longer than 100 characters] -->
+                    <p class=" w-[90%] text-gray-900"> <!-- PHP insertion. Include short description of product [TODO: read more button is activated if the text is longer than 100 characters] -->
                         Short description text here
                     </p>
 
