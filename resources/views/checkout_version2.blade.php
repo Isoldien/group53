@@ -12,7 +12,7 @@
 
             <!-- Logo -->
             <div class="flex gap-2 items-center text-white font-bold">
-                <img src="{{ asset('/images/Logo.jpg') }}" alt="Logo" class="h-11 w-auto rounded-3xl"/>
+                <img src="{{ asset('/images/logo.jpg') }}" alt="Logo" class="h-11 w-auto rounded-3xl"/>
                 <p> YOUZOO </p>
             </div>
 
@@ -116,7 +116,7 @@
            
             <!-- Logo -->
             <div id="logofooter" class="flex gap-2 items-center justify-start text-white font-bold w-[calc(100%/3)]">
-                <img src="{{ asset('/images/Logo.jpg') }}" alt="Logo" class="h-11 w-auto rounded-3xl"/> <!-- Logo -->
+                <img src="{{ asset('/images/logo.jpg') }}" alt="Logo" class="h-11 w-auto rounded-3xl"/> <!-- Logo -->
                 <p> YOUZOO </p>
             </div>
 
