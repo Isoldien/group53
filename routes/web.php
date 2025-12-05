@@ -8,9 +8,7 @@ use App\Http\Controllers\ProductController;
 
 use App\Http\Controllers\CartController;
 
-Route::get('/', function () {
-    return view('homepage');
-})->name('home');
+Route::get('/', [ProductController::class, 'home'])->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
@@ -43,4 +41,11 @@ Route::get('/resetpassword', function () {
     return view('resetpassword');
 });
 Route::get('/shoplisting', [ProductController::class, 'index'])->name('shop.index');
+
+Route::get('/contact', function () {
+    return view('contact');
+});
+Route::get('/about', function () {
+    return view('about');
+})->name('about');
 require __DIR__.'/settings.php';

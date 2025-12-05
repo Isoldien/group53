@@ -91,5 +91,11 @@ class ProductController extends Controller
 
         return view("product_detail",['product' => $product]);
     }
-   
+
+    public function home()
+    {
+        $featuredProducts = Product::where('is_active', 1)->inRandomOrder()->take(3)->get();
+        $categories = \App\Models\Category::take(3)->get(); // Taking 3 to match the design layout
+        return view('homepage', compact('featuredProducts', 'categories'));
+    }
 }
