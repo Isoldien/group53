@@ -22,7 +22,7 @@ class BasketController extends Controller
         return view('checkout',compact("cartItems"));
     }
 
-    public function addProduct(Request $request,int $cartId,int $productId){
+    public function addProduct(Request $request,int $productId){
          
 
          $user = Auth::user();
@@ -31,6 +31,7 @@ class BasketController extends Controller
             ['user_id' => $userId, 'status' => 'active'],
             ['total_amount' => 0]
         );
+        $cartId = $cart->cart_id;
 
         $product = Product::find($productId);
 
@@ -61,15 +62,21 @@ class BasketController extends Controller
 
     }
 
-    public function increaseQuantity(Request $request,int $cartId, int $cartItemId,int $productId)
+    public function increaseQuantity(Request $request, int $cartItemId,int $productId)
     {
         $request->validate([
             'product_id' => 'required|integer'
         ]);
-
+        $user = Auth::user();
+         $user_id = $user->user_id;
+         $cart = Cart::firstOrCreate(
+            ['user_id' => $userId, 'status' => 'active'],
+            ['total_amount' => 0]
+        );
+        $cartId = $cart->cart_id;
        
 
-        $cart = Cart::where(['cart_id'=>$cartId,'status'=>'active'])->firstOrFail();
+        
 
         $item = CartItem::where(['cart_id' => $cartId,'product_id' => $productId])->firstOrFail();
 
@@ -86,15 +93,18 @@ class BasketController extends Controller
         return response()->json(['message' => 'Quantity increased']);
     }
 
-    public function decreaseQuantity(Request $request,int $cartId, int $cartItemId,int $productId)
+    public function decreaseQuantity(Request $request, int $cartItemId,int $productId)
     {
         $request->validate([
             'product_id' => 'required|integer'
         ]);
-
-        $userId = Auth::user()->user_id;
-
-        $cart = Cart::where(['cart_id'=>$cartId,'status'=>'active'])->firstOrFail();
+        $user = Auth::user();
+         $user_id = $user->user_id;
+         $cart = Cart::firstOrCreate(
+            ['user_id' => $userId, 'status' => 'active'],
+            ['total_amount' => 0]
+        );
+        $cartId = $cart->cart_id;
 
         $item = CartItem::where(['cart_id' => $cartId,'product_id' => $productId])->firstOrFail();
 
@@ -110,7 +120,7 @@ class BasketController extends Controller
         }
 
         
-        $cart->total_amount = CartItem::where('cart_id', $cart->cart_id)->sum('subtotal');
+        $cart->total_amount = CartItem::where('cart_id', $cartId)->sum('subtotal');
         $cart->save();
 
         return response()->json(['message' => 'Quantity updated']);

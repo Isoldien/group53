@@ -12,59 +12,53 @@
 
         <h2>CHECKOUT PAGE</h2>
 
-        <div class="checkout-wrapper">
+        <form class="checkout-wrapper" action="">
 
             {{-- DELIVERY INFORMATION --}}
             <div class="checkout-box">
                 <h3>Delivery Information</h3>
 
-                <form class="checkout-form">
-                    <input type="text" placeholder="Full Name">
-                    <input type="email" placeholder="Email">
-                    <input type="text" placeholder="Phone">
+                <div class="checkout-form">
+                    <input name="name" type="text" placeholder="Full Name">
+                    <input name="email" type="email" placeholder="Email">
+                    <input name="phone" type="text" placeholder="Phone">
 
-                    <input type="text" placeholder="Address Line">
-                    <input type="text" placeholder="City">
-                    <input type="text" placeholder="Postcode">
-                </form>
+                    <input name="adress_line" type="text" placeholder="Address Line">
+                    <input name="city" type="text" placeholder="City">
+                    <input name="postcode" type="text" placeholder="Postcode">
+                    <input name="country" type="text" placeholder="Country">
+                    
+                </div>
             </div>
 
             {{-- PAYMENT INFORMATION --}}
             <div class="checkout-box">
                 <h3>Payment Information</h3>
 
-                <form class="checkout-form">
-                    <input type="text" placeholder="Cardholder Name">
-                    <input type="text" placeholder="Card Number">
-                    <input type="text" placeholder="Expiry Date">
+                <div class="checkout-form">
+                    <input name="c_name" type="text" placeholder="Cardholder Name">
+                    <input name="c_number" type="text" placeholder="Card Number">
+                    <input name="expiry" type="text" placeholder="Expiry Date">
 
-                    <input type="text" placeholder="CVV">
-                </form>
+                    <input name="cvv" type="text" placeholder="CVV">
+                </div>
             </div>
 
             {{-- ORDER SUMMARY --}}
             <div class="checkout-summary">
                 <h3>Order Summary</h3>
-
-                <div class="summary-item">
-                    <span>Dog Toy</span>
-                    <span>£10.99</span>
+               @foreach($cartItems as $cartItem)
+                <div data-cart-id="{{$cartItem->cart_item_id}}" data-product-id="{{$cartItem->product->product_id}}" class="summary-item">
+                    <span>$cartItem->product->product_name</span>
+                    <span>$cartItem->product->price</span>
                 </div>
+                @endforeach
+                
 
-                <div class="summary-item">
-                    <span>Cat Treats</span>
-                    <span>£5.99</span>
-                </div>
-
-                <div class="summary-item total">
-                    <span>Total</span>
-                    <span>£16.98</span>
-                </div>
-
-                <button class="checkout-btn">Place Order</button>
+                <button type="submit" class="checkout-btn">Place Order</button>
             </div>
 
-        </div>
+        </form>
     </div>
 </div>
 
