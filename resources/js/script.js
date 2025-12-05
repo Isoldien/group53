@@ -45,7 +45,7 @@ function loginUser() {
         return showError("password", "Password must be at least 6 characters.");
 
     // Example success
-    alert("✔ Login successful!\nWelcome back: " + email);
+    alert("Login successful!\nWelcome back: " + email);
 }
 
 /* ------------------------------
@@ -70,7 +70,7 @@ function registerUser() {
     if (pass !== confirm)
         return showError("regConfirmPassword", "Passwords do not match!");
 
-    alert("🎉 Account created successfully!\nWelcome " + name);
+    alert("Account created successfully!\nWelcome " + name);
 }
 
 
@@ -81,5 +81,5 @@ function sendReset() {
 
     if (!isValidEmail(email)) return showError("resetEmail", "Please enter a valid email format.");
 
-    alert("📩 Password reset link sent to:\n" + email);
+    alert("Password reset link sent to:\n" + email);
 }
