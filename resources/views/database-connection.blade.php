@@ -47,6 +47,9 @@
         }
     </script>
 </head>
+
+@include('partials.navbar')
+
 <body class="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 min-h-screen text-gray-800 dark:text-gray-100 transition-colors duration-300">
 
     <div class="container mx-auto px-4 py-8">
@@ -299,10 +302,9 @@
                 </table>
             </div>
         </div>
-        
-        <div class="mt-8 text-center text-xs text-gray-400">
-            <p>© {{ date('Y') }} YouZoo • Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }}) (This is a test page, shouldn't be used for production)</p>
-        </div>
+
+        @include('partials.footer')
+
     </div>
 </body>
 </html>

@@ -9,6 +9,8 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class Product
@@ -61,7 +63,7 @@ class Product extends Model
 
 	public function category():BelongsTo
 	{
-		return $this->belongsTo(Category::class);
+		return $this->belongsTo(Category::class, 'category_id', 'category_id');
 	}
 
 	public function reviews():HasMany
