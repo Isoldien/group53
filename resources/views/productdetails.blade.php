@@ -3,7 +3,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Product Details</title>
-        @vite(['resources/css/app.css','resources/css/product_details.css','resources/js/product_details.js'])
+        @vite(['resources/css/app.css','resources/css/productdetails.css','resources/js/productdetails.js'])
        
     </head>
     <body class="bg-white flex flex-col h-full">
@@ -88,7 +88,7 @@
 
 
                     <form method=POST id="append_cart" class="flex flex-col gap-3 items-start">
-                        <div class="flex border-1 border-black rounded-[5px] p-1">
+                        <div class="flex border border-black rounded-[5px] p-1">
                             <input type="button" name="decrease" value="-" class="w-5 m-0">
                             <input type="number" name="quantity" min="0" value="0" class="w-10 font-bold text-center [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"> <!-- PHP insertion. Dynamically change the max quantity of the product [available items should decrease if added to cart (even if not bought yet) ] -->
                             <input type="button" name="increase" value="+" class="w-5 m-0">
@@ -114,7 +114,7 @@
                 <p class="text-center font-medium leading-relaxed"> [Long product description] </p> <!-- PHP insertion. Include long description of product [TODO. read more button will be displayed if text is longer than 300 characters] -->
             </section>
            
-            <hr class="mb-5 border-black border-[1.5px] w-[95%] h-[2px]">
+            <hr class="mb-5 border-black border-[1.5px] w-[95%] h-0.5">
 
 
             <!-- Create Review -->
@@ -175,7 +175,7 @@
 
             </section>
                
-            <hr class="mt-5 border-black border-[1.5px] w-[95%] h-[2px]">
+            <hr class="mt-5 border-black border-[1.5px] w-[95%] h-0.5">
 
 
             <!-- All Reviews -->

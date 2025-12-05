@@ -84,7 +84,6 @@
 
             <section class="w-full p-5 items-center bg-beige-primary gap-3 flex flex-col">
 
-
                 <article class="flex w-full items-center justify-between">
                     <div class="flex flex-col gap-3">
                         <h3 class="text-3xl font-bold text-green-secondary"> Subtotal: </h3>
@@ -96,9 +95,7 @@
                     </div>
                 </article>
 
-
                 <hr class=" border-green-secondary border-[1.5px] w-full h-0.5">
-
 
                 <div class="flex justify-between w-full">
                     <h3 class=" text-3xl font-bold text-green-secondary"> Price: </h3>

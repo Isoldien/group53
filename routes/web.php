@@ -57,4 +57,14 @@ Route::get('/', function () {
 // Signup
 Route::view('/signup', 'register')->name('signup');
 
+// Checkout cart
+Route::get('/checkoutpage', function () {
+    return view('checkout_version2');
+});
+
+// Product details
+Route::get('/productdetail', function () {
+    return view('productdetails');
+});
+
 
