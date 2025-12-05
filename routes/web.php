@@ -46,4 +46,11 @@ route::get('/products/{product}',[ProductController::class,'showProductDetails']
 route::get('/',function (){
     return view("homepage");
 });
+// Home page
+Route::get('/', function () {
+    return view('welcome');
+});
+// Signup
+Route::view('/signup', 'register')->name('signup');
+
 
