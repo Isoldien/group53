@@ -55,6 +55,24 @@ class BasketController extends Controller
 
         return response()->json(['message' => 'Product added to basket!']);
     }
+    public function removeProduct(Request $request, int $productId)
+    {
+        $cart = $this->getActiveCart();
+        $cartId = $cart->cart_id;
+
+        $product = Product::findOrFail($productId);
+
+        $item = CartItem::where('cart_id', $cartId)->where('product_id', $productId)->first();
+
+        $item->delete();
+
+        
+
+        $totalAmount = $cart->total_amount = CartItem::where('cart_id', $cartId)->sum('subtotal');
+        $cart->save();
+
+        return response()->json(['message' => 'Product added to basket!','totalAmount' => $totalAmount]);
+    }
 
     public function increaseQuantity(int $productId)
     {
