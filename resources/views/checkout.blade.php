@@ -12,9 +12,9 @@
 
         <h2>CHECKOUT PAGE</h2>
 
-        <form class="checkout-wrapper" action="">
+        <form class="checkout-wrapper">
 
-            {{-- DELIVERY INFORMATION --}}
+            
             <div class="checkout-box">
                 <h3>Delivery Information</h3>
 
@@ -31,7 +31,7 @@
                 </div>
             </div>
 
-            {{-- PAYMENT INFORMATION --}}
+          
             <div class="checkout-box">
                 <h3>Payment Information</h3>
 
@@ -44,16 +44,36 @@
                 </div>
             </div>
 
-            {{-- ORDER SUMMARY --}}
+          
             <div class="checkout-summary">
                 <h3>Order Summary</h3>
                @foreach($cartItems as $cartItem)
-                <div data-cart-id="{{$cartItem->cart_item_id}}" data-product-id="{{$cartItem->product->product_id}}" class="summary-item">
-                    <span>$cartItem->product->product_name</span>
-                    <span>$cartItem->product->price</span>
-                </div>
+                <div class="summary-item"
+             
+                  data-product-id="{{ $cartItem->product->product_id }}"
+                  style="display:flex;justify-content:space-between;align-items:center;margin:10px 0;gap:10px;">
+            
+            <span>{{ $cartItem->product->product_name }}</span>
+
+            <div style="display:flex;align-items:center;gap:6px;">
+                <button class="decrease-qty checkout-btn" style="padding:4px 8px;">-</button>
+
+                <span class="item-qty">{{ $cartItem->quantity }}</span>
+
+                <button class="increase-qty checkout-btn" style="padding:4px 8px;">+</button>
+            </div>
+
+            <span class="item-subtotal">
+                £{{ number_format($cartItem->subtotal, 2) }}
+            </span>
+        </div>
                 @endforeach
-                
+                  <hr>
+
+             <div style="display:flex;justify-content:space-between;font-weight:bold;font-size:18px;">
+               <span>Total:</span>
+               <span id="basket-total">£{{ number_format($cartItems->sum('subtotal'), 2) }}</span>
+             </div>
 
                 <button type="submit" class="checkout-btn">Place Order</button>
             </div>
@@ -61,5 +81,51 @@
         </form>
     </div>
 </div>
+<script>
+function updateTotals(parent, data) {
+    if (data.qty === 0) {
+        parent.remove();
+    } else {
+        parent.querySelector('.item-qty').textContent = data.qty;
+        parent.querySelector('.item-subtotal').textContent = "£" + data.subtotal.toFixed(2);
+    }
+
+    document.getElementById('basket-total').textContent = "£" + data.total.toFixed(2);
+}
+
+function sendUpdate(url, parent) {
+    fetch(url, {
+        method: "POST",
+        headers: { 
+            "Content-Type": "application/json",
+            "X-CSRF-TOKEN": "{{ csrf_token() }}" 
+        }
+    })
+    .then(res => res.json())
+    .then(data => updateTotals(parent, data))
+    .catch(err => console.error(err));
+}
+
+document.querySelectorAll('.increase-qty').forEach(btn => {
+    btn.addEventListener('click', function () {
+        let parent = this.closest('.summary-item');
+        let productId = parent.dataset.productId;
+        sendUpdate(`/basket/increase/${productId}`, parent);
+    });
+});
+
+document.querySelectorAll('.decrease-qty').forEach(btn => {
+    btn.addEventListener('click', function () {
+        let parent = this.closest('.summary-item');
+        let productId = parent.dataset.productId;
+        sendUpdate(`/basket/decrease/${productId}`, parent);
+    });
+});
+
+
+document.querySelector('.checkout-wrapper').addEventListener('submit', e => {
+    e.preventDefault();
+});
+</script>
 
 @endsection
