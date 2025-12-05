@@ -117,4 +117,7 @@ pnpm-debug.log*
 
 # Misc
 coverage/
-public/build/manifest.json
+
+# Laravel Vendor & Node Modules
+vendor/
+node_modules/

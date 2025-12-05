@@ -2,116 +2,104 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\LoginRequest;
-use App\Http\Requests\RegisterRequest;
-use App\Models\User;
-use App\Traits\ApiResponse;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Models\User;
+use Illuminate\Support\Str;
+use Illuminate\Validation\Rules;
 
 class AuthController extends Controller
 {
-    use ApiResponse;
-
-    /**
-     * Register a new user.
-     *
-     * @param RegisterRequest $request
-     * @return JsonResponse
-     */
-    public function register(RegisterRequest $request): JsonResponse
+    public function register(Request $request)
     {
-        try {
-            // Create new user
-            $user = User::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
-                'phone' => $request->phone,
-                'role' => 'customer', // Default role
-            ]);
-
-            // Create authentication token
-            $token = $user->createToken('auth-token')->plainTextToken;
-
-            return $this->successResponse([
-                'user' => [
-                    'user_id' => $user->user_id,
-                    'name' => $user->name,
-                    'email' => $user->email,
-                    'phone' => $user->phone,
-                    'role' => $user->role,
-                ],
-                'token' => $token,
-            ], 'Registration successful', 201);
-        } catch (\Exception $e) {
-            return $this->errorResponse('Registration failed: ' . $e->getMessage(), 500);
-        }
-    }
-
-    /**
-     * Login user and create token.
-     *
-     * @param LoginRequest $request
-     * @return JsonResponse
-     */
-    public function login(LoginRequest $request): JsonResponse
-    {
-        // Find user by email
-        $user = User::where('email', $request->email)->first();
-
-        // Check if user exists and password is correct
-        if (!$user || !Hash::check($request->password, $user->password)) {
-            return $this->unauthorizedResponse('Invalid credentials');
-        }
-
-        // Create authentication token
-        $token = $user->createToken('auth-token')->plainTextToken;
-
-        return $this->successResponse([
-            'user' => [
-                'user_id' => $user->user_id,
-                'name' => $user->name,
-                'email' => $user->email,
-                'phone' => $user->phone,
-                'role' => $user->role,
-            ],
-            'token' => $token,
-        ], 'Login successful');
-    }
-
-    /**
-     * Logout user (revoke token).
-     *
-     * @param Request $request
-     * @return JsonResponse
-     */
-    public function logout(Request $request): JsonResponse
-    {
-        // Revoke current token
-        $request->user()->currentAccessToken()->delete();
-
-        return $this->successResponse(null, 'Logout successful');
-    }
-
-    /**
-     * Get authenticated user.
-     *
-     * @param Request $request
-     * @return JsonResponse
-     */
-    public function user(Request $request): JsonResponse
-    {
-        $user = $request->user();
-
-        return $this->successResponse([
-            'user_id' => $user->user_id,
-            'name' => $user->name,
-            'email' => $user->email,
-            'phone' => $user->phone,
-            'role' => $user->role,
-            'created_at' => $user->created_at,
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => 'customer',
+        ]);
+
+        // Send Welcome Email
+        try {
+            \Illuminate\Support\Facades\Mail::to($user->email)->send(new \App\Mail\WelcomeMail($user));
+        } catch (\Exception $e) {
+            // Log error
+        }
+
+        return redirect()->route('login')->with('success', 'Registration successful! A confirmation email has been sent. Please login.');
+    }
+
+    public function login(Request $request)
+    {
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+
+        if (Auth::attempt($credentials, $request->remember)) {
+            $request->session()->regenerate();
+
+            return redirect()->intended('/dashboard')->with('success', 'You are logged in!');
+        }
+
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ])->onlyInput('email');
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/');
+    }
+
+    public function sendResetLinkEmail(Request $request)
+    {
+        $request->validate(['email' => 'required|email']);
+
+        $status = \Illuminate\Support\Facades\Password::sendResetLink(
+            $request->only('email')
+        );
+
+        return $status === \Illuminate\Support\Facades\Password::RESET_LINK_SENT
+                    ? back()->with(['status' => __($status)])
+                    : back()->withErrors(['email' => __($status)]);
+    }
+
+    public function resetPassword(Request $request)
+    {
+        $request->validate([
+            'token' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|confirmed|min:8',
+        ]);
+
+        $status = \Illuminate\Support\Facades\Password::reset(
+            $request->only('email', 'password', 'password_confirmation', 'token'),
+            function ($user, $password) {
+                $user->forceFill([
+                    'password' => Hash::make($password)
+                ])->setRememberToken(Str::random(60));
+
+                $user->save();
+
+                event(new \Illuminate\Auth\Events\PasswordReset($user));
+            }
+        );
+
+        return $status === \Illuminate\Support\Facades\Password::PASSWORD_RESET
+                    ? redirect()->route('login')->with('status', __($status))
+                    : back()->withErrors(['email' => [__($status)]]);
     }
 }
