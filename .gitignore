@@ -117,3 +117,4 @@ pnpm-debug.log*
 
 # Misc
 coverage/
+public/build/manifest.json
