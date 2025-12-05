@@ -1,0 +1,96 @@
+/* --- PAGE WRAPPER --- */
+.about-page {
+    width: 100%;
+    padding: 40px 0;
+    background-color: #EEE9D1; /* cream background */
+}
+
+/* --- FLEX ROW: IMAGE + TEXT --- */
+.about-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 60px;
+    width: 85%;
+    margin: 0 auto;
+}
+
+/* --- LOGO IMAGE --- */
+.about-image img {
+    width: 420px;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* --- RIGHT SIDE TEXT COLUMN --- */
+.about-text-wrapper {
+    width: 50%;
+}
+
+/* --- ABOUT US TITLE --- */
+.about-title {
+    text-align: center;
+    font-size: 38px;
+    color: #556046; /* dark sage */
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+/* --- SECTION HEADERS --- */
+.about-section h3 {
+    font-size: 22px;
+    margin-bottom: 8px;
+    color: #556046;
+    font-weight: 600;
+}
+
+/* --- PARAGRAPH TEXT --- */
+.about-section p {
+    font-size: 16px;
+    color: #333; /* dark grey */
+    line-height: 1.55;
+    margin-bottom: 25px;
+}
+
+/* --- VALUES SECTION --- */
+.values-section {
+    background-color: #556046; /* dark sage */
+    padding: 50px 0;
+    text-align: center;
+    margin-top: 60px;
+}
+
+.values-section h3 {
+    font-size: 28px;
+    color: #EEE9D1; /* cream */
+    margin-bottom: 30px;
+}
+
+/* --- VALUE BOXES WRAPPER --- */
+.values-container {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+}
+
+/* --- INDIVIDUAL VALUE BOX --- */
+.value-box {
+    background-color: #EEE9D1; /* cream */
+    padding: 25px 30px;
+    width: 250px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.value-box h3 {
+    color: #556046;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.value-box p {
+    color: #333;
+    font-size: 15px;
+}
