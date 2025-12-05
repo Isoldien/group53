@@ -2,59 +2,120 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YouZoo | Login</title>
-    <!-- <link rel="stylesheet" href="styles.css"> -->
-    @vite(['resources/css/styles.css'])
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
+    <style>
+        body { font-family: 'Quicksand', sans-serif; }
+    </style>
+    <script>
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark')
+        } else {
+            document.documentElement.classList.remove('dark')
+        }
+
+        function toggleDarkMode() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        }
+    </script>
 </head>
-<body>
+<body class="bg-gradient-to-br from-green-50 to-blue-50 dark:from-gray-900 dark:to-gray-800 min-h-screen text-gray-800 dark:text-gray-100 transition-colors duration-300">
 
-<nav class="navbar">
-    <div class="logo-area">
-    <img src="youzoo.png" class="logo-img">
-    <h2 class="logo">YouZoo</h2>
-   
-</div>
-
-   
-    <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="shop.html">Shop</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="contact.html">Contact</a></li>
-        <li><a href="#">Cart (0)</a></li>
-        <li><a href="login.html">Login</a></li>
-    </ul>
+<!-- NAV -->
+<nav class="bg-white dark:bg-gray-800 shadow-lg sticky top-0 z-50">
+    <div class="container mx-auto px-6 py-4">
+        <div class="flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">YouZoo</h2>
+            </div>
+            <div class="flex items-center space-x-6">
+                <ul class="flex space-x-6 items-center">
+                    <li><a href="{{ url('/') }}" class="text-gray-700 dark:text-gray-200 hover:text-green-600 dark:hover:text-green-400 transition-colors">Home</a></li>
+                    <li><a href="{{ url('/shoplisting') }}" class="text-gray-700 dark:text-gray-200 hover:text-green-600 dark:hover:text-green-400 transition-colors">Shop</a></li>
+                    <li><a href="#" class="text-gray-700 dark:text-gray-200 hover:text-green-600 dark:hover:text-green-400 transition-colors">Cart (0)</a></li>
+                </ul>
+                <button onclick="toggleDarkMode()" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors focus:outline-none">
+                    <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                    <svg class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                </button>
+            </div>
+        </div>
+    </div>
 </nav>
 
-<section class="login-section">
-    <div class="login-box">
-        <h3>LOGIN TO YOUR ACCOUNT</h3>
+<!-- LOGIN SECTION -->
+<section class="container mx-auto px-6 py-16">
+    <div class="max-w-md mx-auto">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 border border-gray-100 dark:border-gray-700">
+            <div class="text-center mb-8">
+                <h3 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">Welcome Back</h3>
+                <p class="text-gray-600 dark:text-gray-400">Login to your account</p>
+            </div>
 
-        <label>Email Address:</label>
-        <input type="email" id="email" placeholder="Enter your email">
+            <form class="space-y-6">
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Email Address</label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        placeholder="Enter your email"
+                        class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-green-500 dark:focus:ring-green-400 transition-colors"
+                    >
+                </div>
 
-        <label>Password:</label>
-        <input type="password" id="password" placeholder="Enter your password">
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Password</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        placeholder="Enter your password"
+                        class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-green-500 dark:focus:ring-green-400 transition-colors"
+                    >
+                </div>
 
-        <button onclick="loginUser()">Login</button>
+                <button 
+                    type="button"
+                    class="w-full py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg font-semibold transition-colors shadow-lg hover:shadow-xl"
+                >
+                    Login
+                </button>
+            </form>
 
-        <p class="small-links">
-            Forgot Password? <a href="resetpassword.html">Reset Link</a>
-        </p>
-
-        <p class="small-links">
-            Don't have an account? <a href="register.html">Register Here</a>
-        </p>
+            <div class="mt-6 space-y-3 text-center text-sm">
+                <p class="text-gray-600 dark:text-gray-400">
+                    Forgot Password? 
+                    <a href="{{ url('/resetpassword') }}" class="text-green-600 dark:text-green-400 hover:underline font-medium">Reset Link</a>
+                </p>
+                <p class="text-gray-600 dark:text-gray-400">
+                    Don't have an account? 
+                    <a href="{{ url('/register') }}" class="text-green-600 dark:text-green-400 hover:underline font-medium">Register Here</a>
+                </p>
+            </div>
+        </div>
     </div>
 </section>
 
-<footer>
-    <div class="footer-content">
-        <p>YouZoo © 2025 | About | Contact | Policies</p>
-        <p>Newsletter Signup: [Email] [Subscribe]</p>
+<!-- FOOTER -->
+<footer class="bg-gray-900 dark:bg-gray-950 text-white mt-16">
+    <div class="container mx-auto px-6 py-8">
+        <div class="text-center space-y-2">
+            <p class="text-gray-400">YouZoo © {{ date('Y') }} | <a href="#" class="hover:text-white transition-colors">About</a> | <a href="#" class="hover:text-white transition-colors">Contact</a> | <a href="#" class="hover:text-white transition-colors">Policies</a></p>
+        </div>
     </div>
 </footer>
 
-<script src="script.js"></script>
 </body>
 </html>

@@ -4,16 +4,24 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
 
+use App\Http\Controllers\ProductController;
+
+use App\Http\Controllers\CartController;
+
 Route::get('/', function () {
-    return Inertia::render('welcome', [
-        'canRegister' => Features::enabled(Features::registration()),
-    ]);
+    return view('homepage');
 })->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
-        return Inertia::render('dashboard');
+        return view('home');
     })->name('dashboard');
+
+    // Cart Routes
+    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+    Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
+    Route::post('/cart/update', [CartController::class, 'update'])->name('cart.update');
+    Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');
 });
 Route::get('/products/{category_id}',[ProductController::class,'showProductsUnderCategory'])->name('show_products');
 
@@ -34,7 +42,5 @@ Route::get('/register', function () {
 Route::get('/resetpassword', function () {
     return view('resetpassword');
 });
-Route::get('/shoplisting', function () {
-    return view('shoplisting');
-});
+Route::get('/shoplisting', [ProductController::class, 'index'])->name('shop.index');
 require __DIR__.'/settings.php';

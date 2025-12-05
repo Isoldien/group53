@@ -117,3 +117,7 @@ pnpm-debug.log*
 
 # Misc
 coverage/
+
+# Laravel Vendor & Node Modules
+vendor/
+node_modules/
