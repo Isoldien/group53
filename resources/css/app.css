@@ -1,6 +1,11 @@
-@import 'tailwindcss';
+@import './contact.css';
+@import './about.css';
+@import './checkout.css';
+@import './nav.css';
+@import './footer.css';
 
-@import "tw-animate-css";
+
+@import 'tailwindcss';
 
 @source '../views';
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';

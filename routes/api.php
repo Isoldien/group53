@@ -24,3 +24,4 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::get('/test', function(Request $request) {
     return "hello";
 });
+
