@@ -9,43 +9,58 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 
 Route::get('/', [ProductController::class, 'home'])->name('home');
+Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
 
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('dashboard', function () {
-        return view('home');
-    })->name('dashboard');
+Route::middleware(['auth'])->group(function () {
+    Route::get('dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
 
     // Cart Routes
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
     Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
     Route::post('/cart/update', [CartController::class, 'update'])->name('cart.update');
     Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');
+    Route::post('/cart/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
 });
+
+// Contact Routes
+Route::get('/contact', [App\Http\Controllers\ContactController::class, 'index'])->name('contact.index');
+Route::post('/contact', [App\Http\Controllers\ContactController::class, 'store'])->name('contact.store');
 Route::get('/products/{category_id}',[ProductController::class,'showProductsUnderCategory'])->name('show_products');
 
-/*
-@author: Habibur Rahman <240217006@aston.ac.uk>
-@Description: This route is used to test the database connection, shouldn't be used for production
-*/
+
 Route::get('/database-connection', [App\Http\Controllers\DatabaseConnectionController::class, 'index']);
 
-Route::get('/product/{product}',[ProductController::class,'showProductDetails'])->name('show_product_details');
 
+
+Route::post('/login', [App\Http\Controllers\AuthController::class, 'login'])->name('login.post');
 Route::get('/login', function () {
     return view('login');
-});
+})->name('login');
+
+Route::post('/register', [App\Http\Controllers\AuthController::class, 'register'])->name('register.post');
 Route::get('/register', function () {
     return view('register');
-});
+})->name('register');
+
+Route::post('/logout', [App\Http\Controllers\AuthController::class, 'logout'])->name('logout');
+
+Route::post('/forgot-password', [App\Http\Controllers\AuthController::class, 'sendResetLinkEmail'])->name('password.email');
+
+Route::get('/reset-password/{token}', function (string $token) {
+    return view('new-password', ['token' => $token]);
+})->name('password.reset');
+
+Route::post('/reset-password', [App\Http\Controllers\AuthController::class, 'resetPassword'])->name('password.update');
+
 Route::get('/resetpassword', function () {
     return view('resetpassword');
-});
+})->name('password.request');
 Route::get('/shoplisting', [ProductController::class, 'index'])->name('shop.index');
 
-Route::get('/contact', function () {
-    return view('contact');
-});
+
 Route::get('/about', function () {
     return view('about');
 })->name('about');
+
+
 require __DIR__.'/settings.php';

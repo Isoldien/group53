@@ -2,10 +2,7 @@
 
 namespace App\Http\Controllers;
 
-/*
-@Author: Habibur Rahman <240217006@aston.ac.uk>
-@Description: This is a controller to test the database connection, do not use this controller for production and if you do make sure only admin have access to this controller
-*/
+
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;

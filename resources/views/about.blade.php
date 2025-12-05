@@ -100,32 +100,28 @@
         </div>
     </div>
 
+    <!-- Our Location -->
+    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 border border-gray-100 dark:border-gray-700 text-center max-w-2xl mx-auto">
+        <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">Visit Us</h2>
+        <div class="flex flex-col items-center justify-center space-y-4">
+             <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center mb-2">
+                <svg class="w-8 h-8 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+            </div>
+            <p class="text-xl font-semibold text-gray-900 dark:text-white">YouZoo Headquarters</p>
+            <p class="text-gray-600 dark:text-gray-400">
+                <!-- Random Address -->
+                42 Barking Road<br>
+                Kensington<br>
+                London, SW7 2AZ<br>
+                United Kingdom
+            </p>
+        </div>
+    </div>
+
 </div>
 
 <!-- FOOTER -->
-<footer class="bg-gray-900 dark:bg-gray-950 text-white mt-auto">
-    <div class="container mx-auto px-6 py-12">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div>
-                <h3 class="text-2xl font-bold mb-4">YouZoo</h3>
-                <p class="text-gray-400">Quality pet products for your beloved companions.</p>
-            </div>
-            <div>
-                <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
-                <ul class="space-y-2">
-                    <li><a href="{{ url('/about') }}" class="text-white font-bold transition-colors">About</a></li>
-                    <li><a href="{{ url('/contact') }}" class="text-gray-400 hover:text-white transition-colors">Contact</a></li>
-                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Policies</a></li>
-                </ul>
-            </div>
-            <!-- Newsletter placeholder if needed -->
-        </div>
-
-        <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-            <p>© {{ date('Y') }} YouZoo. All rights reserved.</p>
-        </div>
-    </div>
-</footer>
+@include('partials.footer')
 
 </body>
 </html>

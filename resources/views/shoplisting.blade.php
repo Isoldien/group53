@@ -140,26 +140,30 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     @foreach($products as $product)
                         <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 border border-gray-100 dark:border-gray-700 flex flex-col">
-                            <div class="h-48 bg-gray-200 dark:bg-gray-700 relative overflow-hidden group">
-                                @if($product->image_url)
-                                    <img src="{{ $product->image_url }}" alt="{{ $product->product_name }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
-                                @else
-                                    <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-green-100 to-blue-100 dark:from-gray-700 dark:to-gray-600">
-                                        <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                                    </div>
-                                @endif
-                                
-                                @if($product->stock_quantity <= 0)
-                                    <div class="absolute inset-0 bg-black/50 flex items-center justify-center">
-                                        <span class="bg-red-600 text-white px-4 py-1 rounded-full font-bold transform -rotate-12 shadow-lg">SOLD OUT</span>
-                                    </div>
-                                @endif
-                            </div>
+                            <a href="{{ route('products.show', $product->product_id) }}" class="block">
+                                <div class="h-48 bg-gray-200 dark:bg-gray-700 relative overflow-hidden group">
+                                    @if($product->image_url)
+                                        <img src="{{ $product->image_url }}" alt="{{ $product->product_name }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
+                                    @else
+                                        <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-green-100 to-blue-100 dark:from-gray-700 dark:to-gray-600">
+                                            <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                        </div>
+                                    @endif
+                                    
+                                    @if($product->stock_quantity <= 0)
+                                        <div class="absolute inset-0 bg-black/50 flex items-center justify-center">
+                                            <span class="bg-red-600 text-white px-4 py-1 rounded-full font-bold transform -rotate-12 shadow-lg">SOLD OUT</span>
+                                        </div>
+                                    @endif
+                                </div>
+                            </a>
                             
                             <div class="p-4 flex-1 flex flex-col">
                                 <div class="mb-2">
                                     <span class="text-xs font-semibold text-green-600 dark:text-green-400 uppercase tracking-wider">{{ $product->category->category_name ?? 'Product' }}</span>
-                                    <h4 class="text-lg font-bold text-gray-900 dark:text-white leading-tight mt-1">{{ $product->product_name }}</h4>
+                                    <a href="{{ route('products.show', $product->product_id) }}" class="hover:text-green-600 dark:hover:text-green-400 transition-colors">
+                                        <h4 class="text-lg font-bold text-gray-900 dark:text-white leading-tight mt-1">{{ $product->product_name }}</h4>
+                                    </a>
                                 </div>
                                 
                                 <p class="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-2">{{ $product->description }}</p>
@@ -196,13 +200,8 @@
 </div>
 
 <!-- FOOTER -->
-<footer class="bg-gray-900 dark:bg-gray-950 text-white mt-16">
-    <div class="container mx-auto px-6 py-8">
-        <div class="text-center space-y-2">
-            <p class="text-gray-400">YouZoo © {{ date('Y') }} | <a href="#" class="hover:text-white transition-colors">About</a> | <a href="#" class="hover:text-white transition-colors">Contact</a> | <a href="#" class="hover:text-white transition-colors">Policies</a></p>
-        </div>
-    </div>
-</footer>
+<!-- FOOTER -->
+@include('partials.footer')
 
 </body>
 </html>

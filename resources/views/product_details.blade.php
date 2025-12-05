@@ -1,253 +1,162 @@
+<!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Product Details</title>
-        @vite(['resources/css/app.css','resources/css/product_details.css','resources/js/product_details.js'])
-       
+        <title>{{ $product->product_name }} - Details</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        <script>
+            tailwind.config = {
+                darkMode: 'class',
+            }
+        </script>
+        <style>
+            body { font-family: 'Quicksand', sans-serif; }
+        </style>
+        <script>
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark')
+            } else {
+                document.documentElement.classList.remove('dark')
+            }
+
+            function toggleDarkMode() {
+                if (document.documentElement.classList.contains('dark')) {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.theme = 'light';
+                } else {
+                    document.documentElement.classList.add('dark');
+                    localStorage.theme = 'dark';
+                }
+            }
+        </script>
+        
+        <!-- Assuming these are still needed or we can drop them if we move to tailwind completely -->
+        {{-- @vite(['resources/css/app.css','resources/css/product_details.css','resources/js/product_details.js']) --}} 
+        <!-- Commenting out vite assets to rely on CDN tailwind for consistency with other pages for now, 
+             unless the user explicitly wanted to keep the custom JS/CSS. 
+             The JS seems to handle reviews/stars. I'll include the JS logic for reviews if requested later, 
+             but for now focusing on structure and data. 
+        -->
     </head>
-    <body class="bg-white flex flex-col h-full">
+    <body class="bg-white dark:bg-gray-900 flex flex-col min-h-screen transition-colors duration-300">
 
+        <!-- NAV -->
+        @include('partials.navbar')
 
-        <header class="flex justify-between items-center h-12 w-full p-3 bg-green-primary dark:bg-black ">
+        <main class="flex flex-col items-center w-full gap-5 flex-1 container mx-auto px-6 py-8">
 
-
-            <!-- Logo -->
-            <div class="flex gap-2 items-center text-white font-bold">
-                <img src="{{ asset('/images/Logo.jpg') }}" alt="Logo" class="h-11 w-auto rounded-3xl"/>
-                <p> YOUZOO </p>
-            </div>
-
-
-            <!-- Navigation -->
-            <nav>
-                <ul class="flex gap-2.5 font-bold text-white" > <!-- TODO. Insert href links -->
-                    <li><a class=" hover:text-beige-third" href="x">Home</a></li>
-                    <li><a class=" hover:text-beige-third" href="x">Shop</a></li>
-                    <li><a class=" hover:text-beige-third" href="x">About</a></li>
-                    <li><a class=" hover:text-beige-third" href="x">Contact</a></li>
-                    <li><a name="cart1" class=" hover:text-beige-third" href="/cart_checkout">Cart</a></li>
-                    <li><a class=" hover:text-beige-third" href="x">Login</a></li>
-                </ul>
-            </nav>
-        </header>
-
-
-        <!-- Menu Tab for small screens -->
-        <div id="menu" class="mt-12 w-[20%] flex flex-col items-center p-5 bg-green-primary text-white fixed right-0" hidden>
-            <nav>
-                <ul class="flex w-full h-full flex-col gap-2.5 font-bold text-white" > <!-- TODO. Insert href links -->
-                    <li><a class=" hover:text-beige-third" href="x">Home</a></li>
-                    <li><a class=" hover:text-beige-third" href="x">Shop</a></li>
-                    <li><a class=" hover:text-beige-third" href="x">About</a></li>
-                    <li><a class=" hover:text-beige-third" href="x">Contact</a></li>
-                    <li><a name="cart2" class=" hover:text-beige-third" href="/cart_checkout">Cart</a></li>
-                    <li><a class=" hover:text-beige-third" href="x">Login</a></li>
-                </ul>
-            </nav>
-        </div>
-
-
-        <main class="flex flex-col items-center w-full gap-5 flex-1">
-
-
-            <div class="flex flex-col items-center">
+            <div class="flex flex-col items-center w-full">
                 <!-- Product Header -->
-                <h1 class="font-bold text-5xl text-green-secondary mt-5 text-center">Product Name Here</h1> <!-- PHP insertion. Include name of product -->
+                <h1 class="font-bold text-4xl md:text-5xl text-gray-900 dark:text-white mt-5 text-center">{{ $product->product_name }}</h1>
                
-                <!-- Secondary Navigation -->
-                <nav>
-                    <ul class="flex mb-5 font-bold text-black items-center" > <!-- TODO. Insert href links -->
-                        <li><a class="after:content-['›'] after:mx-3 hover:text-orange-primary " href="x">Home</a></li>
-                        <li><a class="after:content-['›'] after:mx-3 hover:text-orange-primary " href="x">Shop</a></li>
-                        <li><a class="hover:text-orange-primary " href="x">Category</a></li>
+                <!-- Secondary Navigation / Breadcrumbs -->
+                <nav class="mt-4">
+                    <ul class="flex mb-5 font-bold text-gray-600 dark:text-gray-400 items-center text-sm md:text-base">
+                        <li><a class="after:content-['›'] after:mx-3 hover:text-green-600 dark:hover:text-green-400" href="{{ route('home') }}">Home</a></li>
+                        <li><a class="after:content-['›'] after:mx-3 hover:text-green-600 dark:hover:text-green-400" href="{{ route('shop.index') }}">Shop</a></li>
+                        <li><span class="text-green-700 dark:text-green-300">{{ $product->category->category_name ?? 'Product' }}</span></li>
                     </ul>
                 </nav>
-
-
             </div>
 
 
-            <div class="flex w-[95%] mb-5 gap-3 max-sm:flex-wrap">
-
+            <div class="flex w-full mb-5 gap-8 flex-col md:flex-row">
 
                 <!-- Product Image -->
-                <img class="w-[50%] h-full rounded-2xl max-sm:w-full max-sm:h-[50%]" src="{{asset('images/placeholder1.png')}}" alt="product image"/> <!-- PHP insertion. Include image of product, set src and alt attributes -->
+                <div class="w-full md:w-1/2 h-96 md:h-[500px]">
+                     @if($product->image_url)
+                        <img class="w-full h-full object-cover rounded-2xl shadow-lg" src="{{ $product->image_url }}" alt="{{ $product->product_name }}"/>
+                    @else
+                        <div class="w-full h-full flex items-center justify-center bg-gray-200 dark:bg-gray-700 rounded-2xl shadow-lg text-gray-400">
+                             <svg class="w-24 h-24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                        </div>
+                    @endif
+                </div>
 
 
                 <!-- Product Details -->
-                <section class="flex flex-col w-[50%] max-h-full max-sm:w-full gap-3 p-5 bg-beige-primary rounded-3xl">
-                    <h3 class="text-2xl font-bold text-green-secondary"> Product Title </h2> <!-- PHP insertion. Include title of product -->
+                <section class="flex flex-col w-full md:w-1/2 gap-4 p-6 bg-gray-50 dark:bg-gray-800 rounded-3xl shadow-lg border border-gray-100 dark:border-gray-700">
+                    <h3 class="text-2xl font-bold text-gray-900 dark:text-white">{{ $product->product_name }}</h3> 
 
-
-                    <p class="font-bold text-2xl text-green-secondary"> £ Price </p> <!-- PHP insertion. Include price of product -->
+                    <div class="flex items-center justify-between">
+                         <p class="font-bold text-3xl text-green-600 dark:text-green-400">£{{ number_format($product->price, 2) }}</p>
+                         
+                         @if($product->stock_quantity > 0)
+                            <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">In Stock ({{ $product->stock_quantity }})</span>
+                         @else
+                             <span class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">Out of Stock</span>
+                         @endif
+                    </div>
                    
-                    <p class=" w-[90%] text-gray-900"> <!-- PHP insertion. Include short description of product [TODO: read more button is activated if the text is longer than 100 characters] -->
-                        Short description text here
+                    <p class="text-gray-700 dark:text-gray-300 text-lg leading-relaxed">
+                        {{ $product->description }}
                     </p>
 
-
-                    <form method=POST id="append_cart" class="flex flex-col gap-3 items-start">
-                        <div class="flex border-1 border-black rounded-[5px] p-1">
-                            <input type="button" name="decrease" value="-" class="w-5 m-0">
-                            <input type="number" name="quantity" min="0" value="0" class="w-10 font-bold text-center [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"> <!-- PHP insertion. Dynamically change the max quantity of the product [available items should decrease if added to cart (even if not bought yet) ] -->
-                            <input type="button" name="increase" value="+" class="w-5 m-0">
+                    @if($product->stock_quantity > 0)
+                    <form action="{{ route('cart.add') }}" method="POST" class="flex flex-col gap-3 items-start mt-4">
+                        @csrf
+                        <input type="hidden" name="product_id" value="{{ $product->product_id }}">
+                        
+                        <div class="flex items-center gap-3">
+                            <label for="quantity" class="text-gray-700 dark:text-gray-300 font-medium">Quantity:</label>
+                            <input type="number" name="quantity" id="quantity" min="1" max="{{ $product->stock_quantity }}" value="1" class="w-16 px-2 py-1 rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-center dark:text-white">
                         </div>
-                        <input type="submit" name="to_basket" value="Add to Cart" class="text-white font-medium px-8 p-1.5 bg-orange-primary hover:opacity-90 rounded-[10px]">
+                        
+                        <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-xl transition-colors shadow-md hover:shadow-lg flex items-center justify-center gap-2">
+                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                             Add to Cart
+                        </button>
                     </form>
+                    @else
+                        <button disabled class="w-full bg-gray-400 cursor-not-allowed text-white font-bold py-3 px-8 rounded-xl mt-4">
+                            Sold Out
+                        </button>
+                    @endif
 
 
-                    <div class="flex flex-col w-full bg-green-secondary p-5 text-white rounded-2xl">
-                        <h4 class="font-medium"> Highlights </h4>
-                        <ul class="list-disc pl-5"> <!-- PHP insertion. Include highlights of product -->
-                            <li> Feature 1 </li>
-                            <li> Feature 2 </li>
-                            <li> Feature 3 </li>
+                    <div class="flex flex-col w-full bg-green-50 dark:bg-green-900/20 p-5 rounded-2xl mt-4 border border-green-100 dark:border-green-800">
+                        <h4 class="font-bold text-green-800 dark:text-green-300 mb-2">Highlights</h4>
+                        <ul class="list-disc pl-5 text-gray-700 dark:text-gray-300 space-y-1">
+                            <li>Brand: {{ $product->brand ?? 'Generic' }}</li>
+                            <li>Pet Type: {{ $product->pet_type ?? 'All' }}</li>
+                            <li>Category: {{ $product->category->category_name ?? 'General' }}</li>
                         </ul>
                     </div>
                 </section>
             </div>
            
-            <!-- Product Details Part 2 -->
-            <section class="m-5">
-                <h2 class="text-3xl font-bold text-green-secondary"> FULL DESCRIPTION </h2>
-                <p class="text-center font-medium leading-relaxed"> [Long product description] </p> <!-- PHP insertion. Include long description of product [TODO. read more button will be displayed if text is longer than 300 characters] -->
-            </section>
-           
-            <hr class="mb-5 border-black border-[1.5px] w-[95%] h-[2px]">
+            <hr class="mb-5 border-gray-200 dark:border-gray-700 w-full">
 
 
             <!-- Create Review -->
-            <section class="flex flex-col gap-2 items-center w-full p-5 pb-4 bg-green-secondary"> <!-- TODO They need to be a signed in user to make a review. Reload page after login/signup. Generate new comment -->
-                <h2 class=" text-white text-3xl font-bold text-center"> WRITE A PRODUCT REVIEW </h2>
-
-
-                <div class="flex flex-col gap-2 items-start w-full">
-                    <input form="product_review" placeholder="Title" name="title" class="w-full bg-white text-black placeholder-black p-1 pl-4 text-[20px] rounded-[5px]" required>
-                    <label class="text-white font-medium" name="reviewdescription" > Share your experience with the product..</label>
-                </div>
-
-
-                <textarea form="product_review" name="reviewtextarea" style="resize: none;" placeholder="Share your experience with the product…" rows="3" class="bg-white shadow-xl border-2 border-beige-third rounded-[5px] text-black placeholder-stone-700 pl-1 w-full overflow-y-scroll" hidden required></textarea>
-               
-                <form id="product_review" class="flex flex-col w-full h-[30%] items-center gap-3 " hidden>
-
-
-                    <div class="flex gap-1 items-center">
-                        <label for="stars" class="font-bold text-white text-[20px]"> Your Rating: </label>
-                       
-                        <div class="flex flex-row" id="stars" >
-                            <label>
-                                <input class="hidden" name="star_1" type="radio"/>
-                                <img class="w-10 h-auto bg-transparent hover:opacity-80" src="{{asset('images/star_unselected.png')}}"/>
-                            </label>
-
-
-                            <label>
-                                <input class="hidden" name="star_2" type="radio"/>
-                                <img class="w-10 h-auto bg-transparent hover:opacity-80" src="{{asset('images/star_unselected.png')}}"/>
-                            </label>
-
-
-                            <label>
-                                <input class="hidden" name="star_3" type="radio"/>
-                                <img class="w-10 h-auto bg-transparent hover:opacity-80" src="{{asset('images/star_unselected.png')}}"/>
-                            </label>
-
-
-                            <label>
-                                <input class="hidden" name="star_4" type="radio"/>
-                                <img class="w-10 h-auto bg-transparent hover:opacity-80" src="{{asset('images/star_unselected.png')}}"/>
-                            </label>
-
-
-                            <label>
-                                <input class="hidden" name="star_5" type="radio"/>
-                                <img class="w-10 h-auto bg-transparent hover:opacity-80" src="{{asset('images/star_unselected.png')}}"/>
-                            </label>
-                        </div>
-                    </div>
-                       
-                </form>
-               
-                <input form="product_review" type="submit" class="p-1.5 px-6 rounded-[10px] bg-orange-primary text-white text-[18px] font-medium hover:opacity-90 " value="Submit Review"> <!-- TODO. Send error if button is clicked with fields empty --> <!-- PHP insertion. Send review info of form to db when button clicked -->
-
-
+            <!-- Placeholder for Review System -->
+            <section class="flex flex-col gap-4 items-center w-full max-w-2xl bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700"> 
+                <h2 class="text-gray-900 dark:text-white text-2xl font-bold text-center">Write a Product Review</h2>
+                
+                @auth
+                    <form class="w-full flex flex-col gap-4">
+                         <input type="text" placeholder="Review Title" class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 dark:text-white focus:ring-green-500 focus:border-green-500" required>
+                         <textarea placeholder="Share your experience..." rows="4" class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 dark:text-white focus:ring-green-500 focus:border-green-500" required></textarea>
+                         <button type="button" class="bg-gray-300 text-gray-700 font-bold py-2 px-6 rounded-lg cursor-not-allowed" title="Review submission not yet implemented">Submit Review (Coming Soon)</button>
+                    </form>
+                @else
+                    <p class="text-gray-600 dark:text-gray-400">Please <a href="{{ route('login') }}" class="text-green-600 hover:underline">login</a> to write a review.</p>
+                @endauth
             </section>
                
-            <hr class="mt-5 border-black border-[1.5px] w-[95%] h-[2px]">
-
-
             <!-- All Reviews -->
-            <div class="flex mt-5 flex-col items-center w-[95%] bg-beige-primary rounded-3xl pt-4 p-5"> <!-- TODO Say "no reviews" if there are none -->
-
-
-                <h2 class="text-3xl font-bold text-green-secondary"> CUSTOMER REVIEWS </h2>
-
-
-                <!-- Sort By/Filters Feature -->
-                <form class="flex w-full justify-end pr-5">
-                    <select id="filters" class="text-center text-black bg-white p-1 border-3 border-green-secondary rounded-[10px]">
-                            <option selected hidden class="text-white">Sort By</option>
-                            <option name="recent" value="recent">Most Recent</option>
-                            <option name="oldest" value="oldest">Oldest Review</option>
-                            <option name="ratings" value="ratings">Ratings</option>
-                    </select>
-                </form>
-
-
-                <!-- List of Reviews -->
-                <section id="reviewarticles" class="bg-white rounded-lg shadow-xl border w-[95%] mt-5 border-gray-200 p-5 text-black gap-2 flex flex-col"> <!-- PHP Insertion. Display Customer Reviews from db and use js to create new article -->
-                    <!-- If there are no reviews display this -->
-                    <p id="noreviews"> There are no reviews </p>
-                </section>
+            <div class="w-full max-w-2xl mt-8"> 
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Customer Reviews</h2>
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 text-center border border-gray-100 dark:border-gray-700">
+                    <p class="text-gray-500 dark:text-gray-400">No reviews yet.</p>
+                </div>
             </div>
         </main>
 
-
-        <footer class="flex items-center h-12 w-full mt-10 bg-green-primary dark:bg-black px-4">
-           
-            <!-- Logo -->
-            <div id="logofooter" class="flex gap-2 items-center justify-start text-white font-bold w-[calc(100%/3)]">
-                <img src="{{ asset('/images/Logo.jpg') }}" alt="Logo" class="h-11 w-auto rounded-3xl"/> <!-- Logo -->
-                <p> YOUZOO </p>
-            </div>
-
-
-            <!-- Links Navigation -->
-            <div id="linksfooter" class="font-bold justify-center items-center text-white flex gap-2 w-[calc(100%/3)]">
-                <p> [Links: </p>
-
-
-                <nav>
-                    <ul class="flex gap-1 w-full " > <!-- TODO. Insert href links -->
-                        <li><a class="after:content-['|'] after:mx-1 hover:text-orange-primary hover:after:text-white" href="x">About </a></li>
-                        <li><a class="after:content-['\|'] after:mx-1 hover:text-orange-primary hover:after:text-white" href="x">Contact</a></li>
-                        <li><a class="after:content-['\]'] after:mx-1 hover:text-orange-primary hover:after:text-white" href="x">Policies</a></li>
-                    </ul>
-                </nav>
-            </div>
-
-
-            <!-- Newspaper Signup Navigation -->
-            <div id="newsfooter" class="font-bold text-white items-center justify-end flex gap-2 w-[calc(100%/3)]">
-                <p> [Newspaper Signup: </p>
-
-
-                <nav>
-                    <a class=" hover:text-orange-primary after:content-['\]'] hover:after:text-white" href="x">Subscribe</a>  <!-- TODO. Insert href links -->
-                </nav>
-            </div>
-        </footer>
-
-
-        <!-- Image assets used in js -->
-        <div id="selectedstarconfig" data-star="{{ asset('images/star_selected3.png') }}" hidden></div>
-        <div id="unselectedstarconfig" data-star="{{ asset('images/star_unselected.png') }}" hidden></div>
-        <div id="placeholderconfig" data-star="{{ asset('images/placeholder5.png') }}" hidden></div>
-        <div id="closeconfig" data-star="{{ asset('images/x-mark.png') }}" hidden></div>
-        <div id="menuconfig" data-star="{{ asset('images/menu1.png') }}" hidden></div>
-
+        <!-- FOOTER -->
+        @include('partials.footer')
 
     </body>
 </html>

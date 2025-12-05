@@ -68,19 +68,33 @@
                 <p class="text-gray-600 dark:text-gray-400">Enter your email to receive a reset link</p>
             </div>
 
-            <form class="space-y-6">
+            <form class="space-y-6" action="{{ route('password.email') }}" method="POST">
+                @csrf
+                @if (session('status'))
+                    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+                        {{ session('status') }}
+                    </div>
+                @endif
+                @if($errors->any())
+                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                         <span class="block sm:inline">{{ $errors->first() }}</span>
+                    </div>
+                @endif
                 <div>
                     <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Email Address</label>
                     <input 
                         type="email" 
                         id="email" 
+                        name="email"
+                        required
+                        value="{{ old('email') }}"
                         placeholder="Enter your email"
                         class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-green-500 dark:focus:ring-green-400 transition-colors"
                     >
                 </div>
 
                 <button 
-                    type="button"
+                    type="submit"
                     class="w-full py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg font-semibold transition-colors shadow-lg hover:shadow-xl"
                 >
                     Send Reset Link

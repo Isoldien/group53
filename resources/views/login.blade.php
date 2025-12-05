@@ -47,12 +47,22 @@
                 <p class="text-gray-600 dark:text-gray-400">Login to your account</p>
             </div>
 
-            <form class="space-y-6">
+            <form class="space-y-6" action="{{ route('login.post') }}" method="POST">
+                @csrf
+                @if($errors->any())
+                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                        <strong class="font-bold">Error!</strong>
+                        <span class="block sm:inline">{{ $errors->first() }}</span>
+                    </div>
+                @endif
                 <div>
                     <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Email Address</label>
                     <input 
                         type="email" 
                         id="email" 
+                        name="email"
+                        required
+                        value="{{ old('email') }}"
                         placeholder="Enter your email"
                         class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-green-500 dark:focus:ring-green-400 transition-colors"
                     >
@@ -63,13 +73,24 @@
                     <input 
                         type="password" 
                         id="password" 
+                        name="password"
+                        required
                         placeholder="Enter your password"
                         class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-green-500 dark:focus:ring-green-400 transition-colors"
                     >
                 </div>
 
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <input id="remember_me" name="remember" type="checkbox" class="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded">
+                        <label for="remember_me" class="ml-2 block text-sm text-gray-900 dark:text-gray-300">
+                            Remember me
+                        </label>
+                    </div>
+                </div>
+
                 <button 
-                    type="button"
+                    type="submit"
                     class="w-full py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg font-semibold transition-colors shadow-lg hover:shadow-xl"
                 >
                     Login
@@ -91,13 +112,7 @@
 </section>
 
 <!-- FOOTER -->
-<footer class="bg-gray-900 dark:bg-gray-950 text-white mt-16">
-    <div class="container mx-auto px-6 py-8">
-        <div class="text-center space-y-2">
-            <p class="text-gray-400">YouZoo © {{ date('Y') }} | <a href="#" class="hover:text-white transition-colors">About</a> | <a href="#" class="hover:text-white transition-colors">Contact</a> | <a href="#" class="hover:text-white transition-colors">Policies</a></p>
-        </div>
-    </div>
-</footer>
+@include('partials.footer')
 
 </body>
 </html>

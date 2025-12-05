@@ -66,7 +66,7 @@
             </div>
             <div class="flex items-center justify-center">
                 <div class="w-full h-64 bg-gradient-to-br from-red-500 to-blue-500 dark:from-red-600 dark:to-blue-700 rounded-xl flex items-center justify-center text-white text-2xl font-bold shadow-2xl">
-                    
+                    <img src="{{ asset('images/placeholder1.png') }}" alt="Hero Image" class="w-full h-full object-cover rounded-xl">
                 </div>
             </div>
         </div>
@@ -101,14 +101,14 @@
     </div>
 </div>
 
-<!-- FEATURED PRODUCTS -->
+<!-- OUR PRODUCTS -->
 <div class="container mx-auto px-6 py-12">
     <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-8 text-center">Some of our products</h2>
     
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         @forelse($featuredProducts as $product)
         <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 border border-gray-100 dark:border-gray-700 flex flex-col">
-            <a href="{{ route('show_product_details', $product->product_id) }}" class="block">
+            <a href="{{ route('products.show', $product->product_id) }}" class="block">
                 @if($product->image_url)
                     <img src="{{ asset($product->image_url) }}" alt="{{ $product->product_name }}" class="w-full h-48 object-cover">
                 @else
@@ -117,20 +117,20 @@
                         {{ $loop->index % 3 == 1 ? 'bg-gradient-to-br from-yellow-400 to-orange-500 dark:from-yellow-600 dark:to-orange-700' : '' }}
                         {{ $loop->index % 3 == 2 ? 'bg-gradient-to-br from-green-400 to-teal-500 dark:from-green-600 dark:to-teal-700' : '' }}
                     ">
-                        [Image] {{ Str::limit($product->product_name, 15) }}
+                        {{ Str::limit($product->product_name, 15) }}
                     </div>
                 @endif
             </a>
             <div class="p-6 flex flex-col flex-grow">
                 <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                    <a href="{{ route('show_product_details', $product->product_id) }}" class="hover:text-green-600 transition-colors">
+                    <a href="{{ route('products.show', $product->product_id) }}" class="hover:text-green-600 transition-colors">
                         {{ $product->product_name }}
                     </a>
                 </h3>
                 <p class="text-gray-600 dark:text-gray-400 mb-4 flex-grow">{{ Str::limit($product->description, 60) }}</p>
                 <div class="flex justify-between items-center mt-auto">
                     <span class="text-2xl font-bold text-green-600 dark:text-green-400">£{{ number_format($product->price, 2) }}</span>
-                    <a href="{{ route('show_product_details', $product->product_id) }}" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-semibold transition-colors">
+                    <a href="{{ route('products.show', $product->product_id) }}" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-semibold transition-colors">
                         View Details
                     </a>
                 </div>
@@ -145,37 +145,7 @@
 </div>
 
 <!-- FOOTER -->
-<footer class="bg-gray-900 dark:bg-gray-950 text-white mt-16">
-    <div class="container mx-auto px-6 py-12">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div>
-                <h3 class="text-2xl font-bold mb-4">YouZoo</h3>
-                <p class="text-gray-400">Quality pet products for your beloved companions.</p>
-            </div>
-            <div>
-                <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
-                <ul class="space-y-2">
-                    <li><a href="{{ url('/about') }}" class="text-gray-400 hover:text-white transition-colors">About</a></li>
-                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Contact</a></li>
-                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Policies</a></li>
-                </ul>
-            </div>
-            <!-- @TODO Newsletter
-            <div>
-                <h4 class="text-lg font-semibold mb-4">Newsletter</h4>
-                <div class="flex space-x-2">
-                    <input type="email" id="emailInput" placeholder="Your email" class="flex-1 px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 text-white focus:outline-none focus:border-green-500">
-                    <button type="button" class="px-6 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-semibold transition-colors">Subscribe</button>
-                </div>
-            </div>
-            -->
-        </div>
-
-        <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-            <p>© {{ date('Y') }} YouZoo. All rights reserved.</p>
-        </div>
-    </div>
-</footer>
+@include('partials.footer')
 
 </body>
 </html>
