@@ -17,6 +17,7 @@ class UsersTableSeeder extends Seeder
         User::factory()->create([
             'name' => 'Test Admin',
             'email' => 'admin@youzoo.com',
+            'password' => 'password',
         ]);
 
         // Create additional random users

@@ -1,74 +1,89 @@
-# Group 53 — CS2TP Team Project (Aston University)
+# YouZoo E-Commerce Platform
 
-Repository for Group 53's E‑Commerce website project, developed as part of the CS2TP 2025–26 module.
+YouZoo is a modern, pet-focused e-commerce application built with Laravel. It connects pet owners with high-quality products for their furry, feathered, or scaled friends.
 
-## Quick summary
+## Features
 
-This project is an e‑commerce website focused on pet products (toys, food, clothing, healthcare, etc.). The goal is to design, implement, and deploy a functional full‑stack web application that meets the client requirements for product management, order processing and a polished user experience.
+-   **User Authentication**: Secure login and registration.
+-   **Product Catalog**: Browse products by category (Food, Toys, Accessories, Healthcare, Clothing).
+-   **Shopping Cart**: Add items, view cart, and proceed to checkout.
+-   **Order History**: Users can view their past orders on the dashboard.
+-   **Contact Form**: Users can get in touch with support.
+-   **Responsive Design**: Fully responsive layout using Tailwind CSS.
+-   **Dark Mode**: Built-in dark/light mode toggle.
 
-Status: In development — the repository will grow to include React components, Laravel backend and database configuration.
+## Prerequisites
 
-## What you'll find in this repository
+-   PHP 8.2 or higher
+-   Composer
+-   Node.js & NPM
+-   MySQL or SQLite
 
-- `index.html` — the current frontend entry (starting point).
-- `README.md` — this file.
+## Installation
 
-*Backend code, database schema and CI/deployment configuration will be added as development continues*
+1.  **Clone the repository:**
+    ```bash
+    git clone <repository_url>
+    cd group53
+    ```
 
-## Features & objectives
+2.  **Install PHP dependencies:**
+    ```bash
+    composer install
+    ```
 
-- Product catalogue and product detail pages
-- Inventory and product management (admin side)
-- Shopping cart and order processing
-- User-friendly responsive UI (desktop & mobile)
-- Deployment on the university provided server
+3.  **Install Node dependencies:**
+    ```bash
+    npm install
+    ```
 
-## Tech stack (planned)
+4.  **Set up environment variables:**
+    ```bash
+    cp .env.example .env
+    php artisan key:generate
+    ```
+    *Configure your database credentials in `.env` and email credentials in `.env`*
 
-- Frontend: HTML, Tailwind CSS, JavaScript and React
-- Backend: Laravel (PHP)
-- Database: To be decided (MySQL or PostgreSQL)
-- Hosting: University-provided server
-- Version control: Git (GitHub remote)
+5.  **Run migrations and seed the database:**
+    ```bash
+    php artisan migrate:fresh --seed
+    ```
 
-## Local preview (quick)
+6.  **Build frontend assets:**
+    ```bash
+    npm run build
+    ```
 
-If you want to preview the current static frontend quickly, you can open `index.html` directly in a browser or, if you use VS Code, install the Live Server extension and click "Go Live".
+7.  **Serve the application:**
+    ```bash
+    php artisan serve
+    ```
 
-## Development workflow
+## Test User Credentials
 
-- Branching: create feature branches off `develop` (e.g. `feature/login`, `feature/product-api`).
-- Commits: keep messages small and descriptive. Use PRs to merge into `develop` and `main` after review.
-- Tests & linting: will be decided later.
+To access the platform immediately for testing purposes, use the following credentials (seeded by `UsersTableSeeder`):
 
-## File / directory plan (expected)
+| Role  | Email              | Password |
+| :---  | :---               | :---     |
+| User  | **admin@youzoo.com** | **password** |
 
-As the project develops we'll likely have a structure similar to:
+*(Note: The default password for seeded users in Laravel factories is typically 'password' unless changed in the factory definition.)*
 
-```
-- frontend/
-	- public/
-	- src/ (React components)
-- backend/
-	- app/
-	- routes/
-	- database/
-	- composer.json
-- docs/
-```
+## Project Structure
 
-The layout will reflect the frameworks and tooling we adopt.
+-   `app/Http/Controllers`: Contains application logic (ProductController, CartController, etc.).
+-   `resources/views`: Blade templates for the UI.
+-   `routes/web.php`: Application routes.
+-   `database/seeders`: Seeders for populating the database with initial data.
 
-## Next steps / TODO
+## Contributing
 
-- Decide on the database engine and add configuration
-- Add backend and start working on Laravel and API endpoints
-- Convert static pages into React components
-- Testing and then deployment to the university server
+1.  Fork the repository.
+2.  Create your feature branch (`git checkout -b feature/AmazingFeature`).
+3.  Commit your changes (`git commit -m 'Add some AmazingFeature'`).
+4.  Push to the branch (`git push origin feature/AmazingFeature`).
+5.  Open a Pull Request.
 
-## Team
+## License
 
-Group 55 — CS2TP 25-26 (Aston University)
-
-Habibur Rahman (Isoldien) Email: **240217008@aston.ac.uk"** ID: *240217006*
-
+This project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
