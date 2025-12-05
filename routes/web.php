@@ -43,3 +43,7 @@ Route::middleware(['auth'])->group(function () {
 
 route::get('/products/{category_id}',[ProductController::class,'showProductsUnderCategory']);
 route::get('/products/{product}',[ProductController::class,'showProductDetails']);
+route::get('/',function (){
+    return view("homepage");
+});
+

@@ -26,7 +26,8 @@ Route::get('/test', function(Request $request) {
 });
 Route::middleware('auth:sanctum')->group(function () {
     
-    Route::post('/basket/add', [BasketController::class, 'addProduct']);
-    Route::post('/basket/increase', [BasketController::class, 'increaseQuantity']);
-    Route::post('/basket/decrease', [BasketController::class, 'decreaseQuantity']);
+    Route::post('/basket/add', [BasketController::class, 'addProduct'])->name("addProduct");
+    Route::post('/basket/increase', [BasketController::class, 'increaseQuantity'])->name("increaseAmount");
+    Route::post('/basket/decrease', [BasketController::class, 'decreaseQuantity'])->name("decreaseAmount");
+    Route::post('/basket/decrease', [OrderController::class, 'placeOrder'])->name("placeOrder");
 });
