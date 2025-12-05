@@ -94,6 +94,15 @@
     </div>
 </div>
 <script>
+
+function lockRow(parent, locked) {
+    parent.querySelectorAll("button").forEach(btn => {
+        btn.disabled = locked;
+        btn.style.opacity = locked ? "0.5" : "1";
+        btn.style.cursor = locked ? "not-allowed" : "pointer";
+    });
+}
+
 function updateTotals(parent, data) {
     if (data.qty === 0) {
         parent.remove();
@@ -106,16 +115,31 @@ function updateTotals(parent, data) {
 }
 
 function sendUpdate(url, parent) {
-    fetch(url, {
+    lockRow(parent, true); 
+
+    return fetch(url, {
         method: "POST",
         headers: { 
             "Content-Type": "application/json",
             "X-CSRF-TOKEN": "{{ csrf_token() }}" 
         }
     })
-    .then(res => res.json())
-    .then(data => updateTotals(parent, data))
-    .catch(err => console.error(err));
+    .then(async res => {
+       
+        if (!res.ok) {
+            const errorMsg = await res.text();
+            alert("Error: " + errorMsg);
+            return null;
+        }
+        return res.json();
+    })
+    .then(data => {
+        if (data) updateTotals(parent, data);
+    })
+    .catch(err => console.error(err))
+    .finally(() => {
+        lockRow(parent, false);
+    });
 }
 
 document.querySelectorAll('.increase-qty').forEach(btn => {
@@ -134,8 +158,7 @@ document.querySelectorAll('.decrease-qty').forEach(btn => {
     });
 });
 
-
-
 </script>
+
 
 @endsection

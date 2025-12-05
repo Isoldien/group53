@@ -38,6 +38,7 @@ Route::post('/contact', [App\Http\Controllers\ContactController::class, 'submit'
 Route::middleware(['auth'])->group(function () {
     Route::get('/basket', [BasketController::class, 'getCustomerBasket'])->name('checkout');
     Route::post('/basket/add/{productId}', [BasketController::class, 'addProduct']);
+    Route::post('/basket/remove/{productId}', [BasketController::class, 'removeProduct']);
     Route::post('/basket/increase/{productId}', [BasketController::class, 'increaseQuantity']);
     Route::post('/basket/decrease/{productId}', [BasketController::class, 'decreaseQuantity']);
     Route::post('/basket/place_order', [OrderController::class, 'placeOrder'])->name("placeOrder");
