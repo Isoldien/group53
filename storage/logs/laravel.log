@@ -11936,3 +11936,7 @@ Content-Transfer-Encoding: quoted-printable
 #53 /home/sol/Programming/group53/vendor/laravel/framework/src/Illuminate/Foundation/resources/server.php(23): require_once('/home/sol/Progr...')
 #54 {main}
 "} 
+[2025-12-05 23:14:43] local.ERROR: Cannot use App\Http\Controllers\ProductController as ProductController because the name is already in use {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Cannot use App\\Http\\Controllers\\ProductController as ProductController because the name is already in use at /home/sol/Programming/group53/routes/web.php:8)
+[stacktrace]
+#0 {main}
+"} 
