@@ -1,0 +1,33 @@
+a[name="cart1"]::after, a[name="cart2"]::after {
+    content: var(--after-content, '(0)');
+    margin-left: 2px;
+    display: inline-block
+}
+
+
+.miniwindow{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 99%;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    visibility: var(--visibility, hidden);
+}
+
+
+#stars label.checked-before-hover > img {
+    content: url("/public/images/star_selected3.png");
+}
+
+
+#stars label > input:checked + img {
+    content: url("/public/images/star_selected3.png");
+}
+
+
+#stars label > img {
+    content: url("/public/images/star_unselected.png");
+}
