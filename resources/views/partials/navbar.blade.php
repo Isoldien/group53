@@ -8,33 +8,38 @@
                 <ul class="flex space-x-6 items-center">
                     <li>
                         <a href="{{ url('/') }}" 
-                           class="{{ request()->is('/') ? 'text-green-800 dark:text-green-300 font-bold' : 'text-gray-700 dark:text-gray-200 font-medium' }} hover:text-green-600 dark:hover:text-green-400 transition-colors">
+                           class="{{ request()->is('/') ? 'text-green-800 dark:text-green-300 font-bold' : 'text-gray-700 dark:text-gray-200 font-medium' }} hover:text-green-600 dark:hover:text-green-400 transition-colors flex items-center gap-2">
+                           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
                            Home
                         </a>
                     </li>
                     <li>
                         <a href="{{ url('/about') }}" 
-                           class="{{ request()->is('about') ? 'text-green-800 dark:text-green-300 font-bold' : 'text-gray-700 dark:text-gray-200 font-medium' }} hover:text-green-600 dark:hover:text-green-400 transition-colors">
+                           class="{{ request()->is('about') ? 'text-green-800 dark:text-green-300 font-bold' : 'text-gray-700 dark:text-gray-200 font-medium' }} hover:text-green-600 dark:hover:text-green-400 transition-colors flex items-center gap-2">
+                           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                            About Us
                         </a>
                     </li>
                     <li>
                         <a href="{{ url('/shoplisting') }}" 
-                           class="{{ request()->is('shoplisting') || request()->is('shoplisting/*') ? 'text-green-800 dark:text-green-300 font-bold' : 'text-gray-700 dark:text-gray-200 font-medium' }} hover:text-green-600 dark:hover:text-green-400 transition-colors">
+                           class="{{ request()->is('shoplisting') || request()->is('shoplisting/*') ? 'text-green-800 dark:text-green-300 font-bold' : 'text-gray-700 dark:text-gray-200 font-medium' }} hover:text-green-600 dark:hover:text-green-400 transition-colors flex items-center gap-2">
+                           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
                            Shop
                         </a>
                     </li>
                     @guest
                     <li>
                         <a href="{{ url('/login') }}" 
-                           class="{{ request()->is('login') ? 'text-green-800 dark:text-green-300 font-bold' : 'text-gray-700 dark:text-gray-200 font-medium' }} hover:text-green-600 dark:hover:text-green-400 transition-colors">
+                           class="{{ request()->is('login') ? 'text-green-800 dark:text-green-300 font-bold' : 'text-gray-700 dark:text-gray-200 font-medium' }} hover:text-green-600 dark:hover:text-green-400 transition-colors flex items-center gap-2">
+                           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14"></path></svg>
                            Login
                         </a>
                     </li>
                     @else
                     <li>
                         <a href="{{ url('/dashboard') }}" 
-                           class="{{ request()->is('dashboard') ? 'text-green-800 dark:text-green-300 font-bold' : 'text-gray-700 dark:text-gray-200 font-medium' }} hover:text-green-600 dark:hover:text-green-400 transition-colors">
+                           class="{{ request()->is('dashboard') ? 'text-green-800 dark:text-green-300 font-bold' : 'text-gray-700 dark:text-gray-200 font-medium' }} hover:text-green-600 dark:hover:text-green-400 transition-colors flex items-center gap-2">
+                           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
                            Dashboard
                         </a>
                     </li>
