@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YouZoo | Set New Password</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             darkMode: 'class',
         }
     </script>
     <style>
-        body { font-family: 'Quicksand', sans-serif; }
+        body { font-family: 'Montserrat', sans-serif; }
     </style>
     <script>
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -32,7 +32,7 @@
         }
     </script>
 </head>
-<body class="bg-gradient-to-br from-green-50 to-blue-50 dark:from-gray-900 dark:to-gray-800 min-h-screen text-gray-800 dark:text-gray-100 transition-colors duration-300">
+<body class="bg-gradient-to-br from-green-50 to-blue-50 dark:bg-[#142624] dark:bg-none min-h-screen text-gray-800 dark:text-gray-100 transition-colors duration-300">
 
 <!-- NAV -->
 @include('partials.navbar')
@@ -40,7 +40,7 @@
 <!-- NEW PASSWORD SECTION -->
 <section class="container mx-auto px-6 py-16">
     <div class="max-w-md mx-auto">
-        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 border border-gray-100 dark:border-gray-700">
+        <div class="bg-white dark:bg-[#272e2d] rounded-2xl shadow-xl p-8 border border-gray-100 dark:border-gray-700">
             <div class="text-center mb-8">
                 <h3 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">Set New Password</h3>
                 <p class="text-gray-600 dark:text-gray-400">Please enter your new password below</p>

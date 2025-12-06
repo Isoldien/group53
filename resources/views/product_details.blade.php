@@ -5,14 +5,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{{ $product->product_name }} - Details</title>
         <script src="https://cdn.tailwindcss.com"></script>
-        <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-        <script>
-            tailwind.config = {
-                darkMode: 'class',
-            }
-        </script>
-        <style>
-            body { font-family: 'Quicksand', sans-serif; }
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
+    <style>
+        body { font-family: 'Montserrat', sans-serif; }
         </style>
         <script>
             if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -40,7 +40,7 @@
              but for now focusing on structure and data. 
         -->
     </head>
-    <body class="bg-white dark:bg-gray-900 flex flex-col min-h-screen transition-colors duration-300">
+    <body class="bg-gradient-to-br from-green-50 to-blue-50 dark:bg-[#142624] dark:bg-none min-h-screen text-gray-800 dark:text-gray-100 transition-colors duration-300">
 
         <!-- NAV -->
         @include('partials.navbar')
@@ -67,11 +67,12 @@
                 <!-- Product Image -->
                 <div class="w-full md:w-1/2 h-96 md:h-[500px]">
                      @if($product->image_url)
-                        <img class="w-full h-full object-cover rounded-2xl shadow-lg" src="{{ $product->image_url }}" alt="{{ $product->product_name }}"/>
+                        <img class="w-full h-full object-cover rounded-2xl shadow-lg" 
+                             src="{{ $product->image_url }}" 
+                             alt="{{ $product->product_name }}"
+                             onerror="this.onerror=null; this.src='{{ asset('images/placeholder1.png') }}';"/>
                     @else
-                        <div class="w-full h-full flex items-center justify-center bg-gray-200 dark:bg-gray-700 rounded-2xl shadow-lg text-gray-400">
-                             <svg class="w-24 h-24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                        </div>
+                        <img class="w-full h-full object-cover rounded-2xl shadow-lg" src="{{ asset('images/placeholder1.png') }}" alt="{{ $product->product_name }}"/>
                     @endif
                 </div>
 
@@ -132,7 +133,7 @@
 
             <!-- Create Review -->
             <!-- Placeholder for Review System -->
-            <section class="flex flex-col gap-4 items-center w-full max-w-2xl bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700"> 
+            <section class="flex flex-col gap-4 items-center w-full max-w-2xl bg-white dark:bg-[#272e2d] p-8 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700"> 
                 <h2 class="text-gray-900 dark:text-white text-2xl font-bold text-center">Write a Product Review</h2>
                 
                 @auth

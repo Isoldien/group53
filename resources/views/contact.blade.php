@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YouZoo | Contact Us</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             darkMode: 'class',
         }
     </script>
     <style>
-        body { font-family: 'Quicksand', sans-serif; }
+        body { font-family: 'Montserrat', sans-serif; }
     </style>
     <script>
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -32,7 +32,7 @@
         }
     </script>
 </head>
-<body class="bg-gradient-to-br from-green-50 to-blue-50 dark:from-gray-900 dark:to-gray-800 min-h-screen text-gray-800 dark:text-gray-100 transition-colors duration-300 flex flex-col">
+<body class="bg-gradient-to-br from-green-50 to-blue-50 dark:bg-[#142624] dark:bg-none min-h-screen text-gray-800 dark:text-gray-100 transition-colors duration-300 flex flex-col">
 
 <!-- NAV -->
 @include('partials.navbar')
@@ -57,7 +57,7 @@
             
             <!-- Contact Info -->
             <div class="space-y-8">
-                <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700">
+                <div class="bg-white dark:bg-[#272e2d] p-8 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700">
                     <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Contact Information</h3>
                     
                     <div class="space-y-6">
@@ -77,7 +77,7 @@
                             </div>
                             <div>
                                 <h4 class="font-semibold text-gray-900 dark:text-white">Email</h4>
-                                <p class="text-gray-600 dark:text-gray-400">support@youzoo.com</p>
+                                <p class="text-gray-600 dark:text-gray-400">youzoo@isoldien.com</p>
                             </div>
                         </div>
 
@@ -95,7 +95,7 @@
             </div>
 
             <!-- Contact Form -->
-            <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700">
+            <div class="bg-white dark:bg-[#272e2d] p-8 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700">
                 <form action="{{ route('contact.store') }}" method="POST" class="space-y-6">
                     @csrf
                     

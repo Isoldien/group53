@@ -98,8 +98,8 @@ class ProductController extends Controller
 
     public function home()
     {
-        $featuredProducts = Product::where('is_active', 1)->inRandomOrder()->take(3)->get();
-        $categories = \App\Models\Category::take(3)->get(); // Taking 3 to match the design layout
+        $featuredProducts = Product::where('is_active', 1)->inRandomOrder()->take(6)->get();
+        $categories = \App\Models\Category::all();
         return view('homepage', compact('featuredProducts', 'categories'));
     }
 }

@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YouZoo | Shopping Cart</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             darkMode: 'class',
         }
     </script>
     <style>
-        body { font-family: 'Quicksand', sans-serif; }
+        body { font-family: 'Montserrat', sans-serif; }
     </style>
     <script>
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -32,7 +32,7 @@
         }
     </script>
 </head>
-<body class="bg-gradient-to-br from-green-50 to-blue-50 dark:from-gray-900 dark:to-gray-800 min-h-screen text-gray-800 dark:text-gray-100 transition-colors duration-300 flex flex-col">
+<body class="bg-gradient-to-br from-green-50 to-blue-50 dark:bg-[#142624] dark:bg-none min-h-screen text-gray-800 dark:text-gray-100 transition-colors duration-300 flex flex-col">
 
 <!-- NAV -->
 @include('partials.navbar')
@@ -63,7 +63,7 @@
             <!-- Items List -->
             <div class="lg:col-span-2 space-y-4">
                 @foreach($cartItems as $item)
-                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden flex flex-col sm:flex-row border border-gray-100 dark:border-gray-700">
+                <div class="bg-white dark:bg-[#272e2d] rounded-xl shadow-md overflow-hidden flex flex-col sm:flex-row border border-gray-100 dark:border-gray-700">
                     <!-- Image -->
                     <div class="sm:w-32 h-32 bg-gray-200 dark:bg-gray-700 flex-shrink-0">
                         @if($item->image_url)
@@ -111,7 +111,7 @@
 
             <!-- Summary Card -->
             <div class="lg:col-span-1">
-                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-xl p-6 border border-gray-100 dark:border-gray-700 sticky top-24">
+                <div class="bg-white dark:bg-[#272e2d] rounded-xl shadow-xl p-6 border border-gray-100 dark:border-gray-700 sticky top-24">
                     <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Order Summary</h2>
                     
                     <div class="space-y-3 mb-6">

@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YouZoo | Shop</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             darkMode: 'class',
         }
     </script>
     <style>
-        body { font-family: 'Quicksand', sans-serif; }
+        body { font-family: 'Montserrat', sans-serif; }
     </style>
     <script>
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -32,7 +32,7 @@
         }
     </script>
 </head>
-<body class="bg-gradient-to-br from-green-50 to-blue-50 dark:from-gray-900 dark:to-gray-800 min-h-screen text-gray-800 dark:text-gray-100 transition-colors duration-300">
+<body class="bg-gradient-to-br from-green-50 to-blue-50 dark:bg-[#142624] dark:bg-none min-h-screen text-gray-800 dark:text-gray-100 transition-colors duration-300">
 
 <!-- NAVBAR -->
 <!-- NAVBAR -->
@@ -40,7 +40,7 @@
 
 <!-- PAGE HEADER -->
 <header class="container mx-auto px-6 py-8">
-    <h3 class="text-4xl font-bold text-gray-900 dark:text-white text-center">Shop All Products</h3>
+    <h3 class="text-4xl font-bold text-gray-900 dark:text-white text-center">Shop YouZoo</h3>
 </header>
 
 <!-- MAIN LAYOUT -->
@@ -49,18 +49,18 @@
 
         <!-- FILTER SIDEBAR -->
         <aside class="lg:col-span-1">
-            <form action="{{ route('shop.index') }}" method="GET" class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-100 dark:border-gray-700 sticky top-24">
+            <form action="{{ route('shop.index') }}" method="GET" class="bg-white dark:bg-[#272e2d] rounded-xl shadow-lg p-6 border border-gray-100 dark:border-gray-700 sticky top-24">
                 
                 <!-- SEARCH BOX -->
                 <div class="mb-6">
-                    <label for="search" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Search Products</label>
+                    <label for="search" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Search YouZoo</label>
                     <div class="relative">
                         <input 
                             id="search" 
                             name="search"
                             type="text" 
                             value="{{ request('search') }}"
-                            placeholder="Search..."
+                            placeholder="What are you looking for?"
                             class="w-full px-4 py-2 pr-10 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-green-500 dark:focus:ring-green-400"
                         >
                         @if(request('search'))
@@ -73,7 +73,7 @@
 
                 <!-- CATEGORY FILTER -->
                 <div class="mb-6">
-                    <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">Category</h4>
+                    <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">Filter by Our Categories</h4>
                     <div class="space-y-2">
                         @foreach($categories as $category)
                             <label class="flex items-center space-x-2 cursor-pointer">
@@ -86,7 +86,7 @@
 
                 <!-- PRICE FILTER -->
                 <div class="mb-6">
-                    <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">Price Range</h4>
+                    <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">Filter by price</h4>
                     <div class="space-y-2">
                         <label class="flex items-center space-x-2 cursor-pointer">
                             <input type="radio" name="price_range" value="low" {{ request('price_range') == 'low' ? 'checked' : '' }} class="text-green-600 focus:ring-green-500">
@@ -105,7 +105,7 @@
 
                 <!-- PET TYPE FILTER -->
                 <div class="mb-6">
-                    <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">Pet Type</h4>
+                    <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">Filter by pet type</h4>
                     <div class="space-y-2">
                         @foreach($petTypes as $type)
                             <label class="flex items-center space-x-2 cursor-pointer">
@@ -139,13 +139,13 @@
             @else
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     @foreach($products as $product)
-                        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 border border-gray-100 dark:border-gray-700 flex flex-col">
+                        <div class="bg-white dark:bg-[#272e2d] rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 border border-gray-100 dark:border-gray-700 flex flex-col">
                             <a href="{{ route('products.show', $product->product_id) }}" class="block">
                                 <div class="h-48 bg-gray-200 dark:bg-gray-700 relative overflow-hidden group">
                                     @if($product->image_url)
                                         <img src="{{ $product->image_url }}" alt="{{ $product->product_name }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
                                     @else
-                                        <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-green-100 to-blue-100 dark:from-gray-700 dark:to-gray-600">
+                                        <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-green-100 to-green-50 dark:from-gray-700 dark:to-gray-600">
                                             <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                                         </div>
                                     @endif

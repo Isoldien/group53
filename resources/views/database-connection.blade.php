@@ -10,14 +10,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Database Connection</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             darkMode: 'class',
         }
     </script>
     <style>
-        body { font-family: 'Quicksand', sans-serif; }
+        body { font-family: 'Montserrat', sans-serif; }
         .glass {
             background: rgba(153, 207, 148, 0.7);
             backdrop-filter: blur(10px);
@@ -50,7 +50,7 @@
 
 @include('partials.navbar')
 
-<body class="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 min-h-screen text-gray-800 dark:text-gray-100 transition-colors duration-300">
+<body class="bg-gradient-to-br from-green-50 to-blue-50 dark:bg-[#142624] dark:bg-none min-h-screen text-gray-800 dark:text-gray-100 transition-colors duration-300">
 
     <div class="container mx-auto px-4 py-8">
         
@@ -100,7 +100,7 @@
         <!-- Stats Grid -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10 ">
             <!-- Users Card -->
-            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 border border-gray-100 dark:border-gray-700 hover:shadow-md transition-shadow duration-300">
+            <div class="bg-white dark:bg-[#272e2d] rounded-xl shadow-sm p-6 border border-gray-100 dark:border-gray-700 hover:shadow-md transition-shadow duration-300">
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="text-gray-500 dark:text-gray-400 text-sm font-medium uppercase tracking-wider">Total Users</h3>
                     <div class="p-2 bg-blue-50 dark:bg-blue-900/30 rounded-lg">
@@ -114,7 +114,7 @@
             </div>
 
             <!-- Products Card -->
-            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 border border-gray-100 dark:border-gray-700 hover:shadow-md transition-shadow duration-300">
+            <div class="bg-white dark:bg-[#272e2d] rounded-xl shadow-sm p-6 border border-gray-100 dark:border-gray-700 hover:shadow-md transition-shadow duration-300">
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="text-gray-500 dark:text-gray-400 text-sm font-medium uppercase tracking-wider">Inventory Items</h3>
                     <div class="p-2 bg-purple-50 dark:bg-purple-900/30 rounded-lg">
@@ -128,7 +128,7 @@
             </div>
 
             <!-- Orders Card -->
-            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 border border-gray-100 dark:border-gray-700 hover:shadow-md transition-shadow duration-300">
+            <div class="bg-white dark:bg-[#272e2d] rounded-xl shadow-sm p-6 border border-gray-100 dark:border-gray-700 hover:shadow-md transition-shadow duration-300">
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="text-gray-500 dark:text-gray-400 text-sm font-medium uppercase tracking-wider">Total Orders</h3>
                     <div class="p-2 bg-orange-50 dark:bg-orange-900/30 rounded-lg">
@@ -146,7 +146,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10">
             
             <!-- Users List -->
-            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
+            <div class="bg-white dark:bg-[#272e2d] rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
                 <div class="px-6 py-4 border-b border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50">
                     <h3 class="font-semibold text-gray-800 dark:text-gray-200">Users</h3>
                 </div>
@@ -173,7 +173,7 @@
             </div>
 
             <!-- Products List -->
-            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
+            <div class="bg-white dark:bg-[#272e2d] rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
                 <div class="px-6 py-4 border-b border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50">
                     <h3 class="font-semibold text-gray-800 dark:text-gray-200">Products</h3>
                 </div>
@@ -202,7 +202,7 @@
             </div>
 
             <!-- Categories List -->
-            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
+            <div class="bg-white dark:bg-[#272e2d] rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
                 <div class="px-6 py-4 border-b border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50">
                     <h3 class="font-semibold text-gray-800 dark:text-gray-200">Categories</h3>
                 </div>
@@ -229,7 +229,7 @@
             </div>
 
             <!-- Reviews List -->
-            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
+            <div class="bg-white dark:bg-[#272e2d] rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
                 <div class="px-6 py-4 border-b border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50">
                     <h3 class="font-semibold text-gray-800 dark:text-gray-200">Recent Reviews</h3>
                 </div>
@@ -258,7 +258,7 @@
         </div>
 
         <!-- Recent Orders Table -->
-        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
+        <div class="bg-white dark:bg-[#272e2d] rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
             <div class="px-6 py-4 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center bg-gray-50 dark:bg-gray-800/50">
                 <h3 class="font-semibold text-gray-800 dark:text-gray-200">Recent Orders</h3>
                 <button class="text-sm text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium">View All</button>
