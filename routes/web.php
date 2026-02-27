@@ -7,6 +7,7 @@ use App\Http\Controllers\CartController;
 
 Route::get('/', [ProductController::class, 'home'])->name('home');
 Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
+Route::get('/privacy', [App\Http\Controllers\HomeController::class, 'privacy'])->name('privacy');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');

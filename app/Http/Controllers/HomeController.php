@@ -39,4 +39,11 @@ class HomeController extends Controller
 
         return view('userhome', compact('orders'));
     }
+     
+    public function privacy()
+    {
+        
+
+        return view('privacy');
+    }
 }
