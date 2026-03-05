@@ -75,10 +75,11 @@
     </div>
 </div>
 
+
 <!-- OUR PRODUCTS -->
 <div class="container mx-auto px-6 py-12">
     <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-8 text-center">Here are some YouZoo Products   </h2>
-    
+
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         @forelse($featuredProducts as $product)
         <div class="bg-white dark:bg-[#272e2d] rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 border border-gray-100 dark:border-gray-700 flex flex-col">
@@ -119,11 +120,11 @@
     <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-8 text-center">Perhaps you might like to browse our categories instead?</h2>
     <div class="relative group px-4">
         <!-- Left Button -->
-        <button onclick="document.getElementById('categories-container').scrollBy({left: -320, behavior: 'smooth'})" 
+        <button onclick="document.getElementById('categories-container').scrollBy({left: -320, behavior: 'smooth'})"
                 class="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white dark:bg-[#272e2d] p-3 rounded-full shadow-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-all opacity-0 group-hover:opacity-100 focus:opacity-100 -ml-2 hidden md:block border border-gray-200 dark:border-gray-700" aria-label="Scroll left">
             <svg class="w-6 h-6 text-gray-800 dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
         </button>
-        
+
         <!-- Carousel Container -->
         <div id="categories-container" class="flex overflow-x-auto gap-4 md:gap-6 pb-6 snap-x snap-mandatory scrollbar-hide -mx-4 px-4 scroll-smooth">
             @foreach($categories as $category)
@@ -132,7 +133,7 @@
                         <div class="bg-white dark:bg-[#272e2d] rounded-xl shadow-lg p-8 text-center hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100 dark:border-gray-700 h-full flex flex-col justify-center relative overflow-hidden">
                             <!-- Decorative background circle -->
                             <div class="absolute top-0 right-0 -mr-8 -mt-8 w-24 h-24 rounded-full opacity-10 bg-green-400"></div>
-                            
+
                             <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 relative z-10 bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400">
                                 @if($loop->index % 3 == 0)
                                     <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
@@ -151,7 +152,7 @@
         </div>
 
         <!-- Right Button -->
-        <button onclick="document.getElementById('categories-container').scrollBy({left: 320, behavior: 'smooth'})" 
+        <button onclick="document.getElementById('categories-container').scrollBy({left: 320, behavior: 'smooth'})"
                 class="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white dark:bg-gray-800 p-3 rounded-full shadow-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-all opacity-0 group-hover:opacity-100 focus:opacity-100 -mr-2 hidden md:block border border-gray-200 dark:border-gray-700" aria-label="Scroll right">
             <svg class="w-6 h-6 text-gray-800 dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
         </button>

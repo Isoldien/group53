@@ -13,12 +13,13 @@ use Illuminate\Notifications\Notifiable;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
-
+use App\enums\UserRole;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Validation\Rules\Enum;
 
 /**
  * Class User
- * 
+ *
  * @property int $user_id
  * @property string $full_name
  * @property string $email
@@ -27,9 +28,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $remember_token
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * 
+ * @property  Enum $role
  * @property Collection|Review[] $reviews
- *
  * @package App\Models
  */
 class User extends Authenticatable implements MustVerifyEmail
@@ -38,7 +38,7 @@ class User extends Authenticatable implements MustVerifyEmail
 	protected $table = 'users';
 	protected $primaryKey = 'user_id';
 
-   
+
 
 
 
@@ -62,18 +62,19 @@ class User extends Authenticatable implements MustVerifyEmail
         'remember_token',
     ];
 
-    
+
     protected function casts(): array
     {
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'two_factor_confirmed_at' => 'datetime',
+            'role' => UserRole::class
         ];
     }
 
 
-		
+
 
 	public function reviews():HasMany
 	{

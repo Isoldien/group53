@@ -21,9 +21,10 @@ Route::middleware(['auth'])->group(function () {
 });
 
 // Contact Routes
-Route::get('/contact', [App\Http\Controllers\ContactController::class, 'index'])->name('contact.index');
-Route::post('/contact', [App\Http\Controllers\ContactController::class, 'store'])->name('contact.store');
-Route::get('/products/{category_id}',[ProductController::class,'showProductsUnderCategory'])->name('show_products');
+
+    Route::get('/contact', [App\Http\Controllers\ContactController::class, 'index'])->name('contact.index');
+    Route::post('/contact', [App\Http\Controllers\ContactController::class, 'store'])->name('contact.store');
+    Route::get('/products/{category_id}', [ProductController::class, 'showProductsUnderCategory'])->name('show_products');
 
 
 Route::get('/database-connection', [App\Http\Controllers\DatabaseConnectionController::class, 'index']);
