@@ -21,7 +21,7 @@ class CartController extends Controller
 
         $userId = Auth::id();
         $cart = DB::table('carts')->where('user_id', $userId)->first();
-        
+
         $cartItems = [];
         $total = 0;
 
@@ -31,7 +31,7 @@ class CartController extends Controller
                 ->where('cart_id', $cart->cart_id)
                 ->select('cart_items.*', 'products.product_name', 'products.price', 'products.image_url', 'products.description')
                 ->get();
-            
+
             $total = $cart->total_amount;
         }
 
@@ -46,7 +46,7 @@ class CartController extends Controller
 
         $request->validate([
             'product_id' => 'required|exists:products,product_id',
-            'quantity' => 'nullable|integer|min:1' 
+            'quantity' => 'nullable|integer|min:1'
         ]);
 
         $quantity = $request->input('quantity', 1);
@@ -78,7 +78,7 @@ class CartController extends Controller
         if ($existingItem) {
             $newQuantity = $existingItem->quantity + $quantity;
             $newSubtotal = $product->price * $newQuantity;
-            
+
             DB::table('cart_items')
                 ->where('cart_item_id', $existingItem->cart_item_id)
                 ->update([
@@ -112,7 +112,7 @@ class CartController extends Controller
 
         $cartItem = DB::table('cart_items')->where('cart_item_id', $request->cart_item_id)->first();
         $product = DB::table('products')->where('product_id', $cartItem->product_id)->first();
-        
+
         $newSubtotal = $product->price * $request->quantity;
 
         DB::table('cart_items')
@@ -138,7 +138,7 @@ class CartController extends Controller
         ]);
 
         $cartItem = DB::table('cart_items')->where('cart_item_id', $request->cart_item_id)->first();
-        
+
         if ($cartItem) {
              DB::table('cart_items')->where('cart_item_id', $request->cart_item_id)->delete();
              $this->recalculateCartTotal($cartItem->cart_id);
@@ -155,7 +155,7 @@ class CartController extends Controller
 
         $userId = Auth::id();
         $cart = DB::table('carts')->where('user_id', $userId)->first();
-        
+
         if (!$cart || $cart->total_amount <= 0) {
             return redirect()->route('cart.index')->with('error', 'Your cart is empty.');
         }
@@ -195,7 +195,7 @@ class CartController extends Controller
         // Move Cart Items to Order Items
         foreach ($cartItems as $item) {
             $product = DB::table('products')->where('product_id', $item->product_id)->first();
-            
+
             DB::table('order_items')->insert([
                 'order_id' => $orderId,
                 'product_id' => $item->product_id,
@@ -205,7 +205,26 @@ class CartController extends Controller
 
             // Update Stock ? (Optional, but good for "realism")
             // DB::table('products')->where('product_id', $item->product_id)->decrement('stock_quantity', $item->quantity);
-        }
+            if($product -> stock_quantity <= $item->quantity) {
+
+                DB::table('products')
+                    ->where('product_id', $item->product_id)
+                    ->update([
+                        'stock_quantity' => 0
+
+                    ]);
+            }
+            else {
+                $newQuantity = $product->stock_quantity - $item->quantity;
+                DB::table('products')
+                    ->where('product_id', $item->product_id)
+                    ->update([
+                        'stock_quantity' => $newQuantity,
+
+                    ]);
+            }
+            }
+        
 
         // Clear Cart
         DB::table('cart_items')->where('cart_id', $cart->cart_id)->delete();
