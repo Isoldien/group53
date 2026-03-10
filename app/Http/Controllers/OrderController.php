@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\OrderStatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Cart;
@@ -11,16 +12,45 @@ use App\Models\OrderItem;
 use App\Models\InventoryTransaction;
 use App\Models\Product;
 use App\Models\Address;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
+    //Returns all pending orders; to be used by
+    public function getAllPendingOrders(){
+        if (!Auth::check()) {
+            return redirect()->route('login')->with('error', 'Please login to view your cart');
+        }
+
+        $orders = DB::table("orders")->where("status", "=",OrderStatus::Pending)->get();
+        return view('orders.pending', compact("orders"));
+
+    }
+
+    public function processAllPendingOrdersAsShipped(){
+        if (!Auth::check()) {
+            return redirect()->route('login')->with('error', 'Please login to view your cart');
+        }
+        DB::table("orders")->where("status", "=",OrderStatus::Pending)->update(["status"=>OrderStatus::Shipped]);
+    }
+
+    public function processAllShippedOrdersAsDelivered()
+    {
+        if (!Auth::check()) {
+            return redirect()->route('login')->with('error', 'Please login to view your cart');
+        }
+        DB::table("orders")->where("status", "=",OrderStatus::Shipped)->update(["status"=>OrderStatus::Delivered]);
+    }
+
+
+    /*
     public function placeOrder(Request $request)
     {
         $request->validate([
             'name'           => 'required|string|max:255',
             'email'          => 'required|email',
             'phone'          => 'required|string|max:20',
-            'adress_line'    => 'required|string|max:255',
+            'address_line'    => 'required|string|max:255',
             'city'           => 'required|string|max:100',
             'postcode'       => 'required|string|max:20',
             'country'        => 'required|string|max:100',
@@ -30,7 +60,7 @@ class OrderController extends Controller
         $user    = Auth::user();
         $userId  = $user->user_id;
 
-      
+
         $cart = Cart::where('user_id', $userId)->where('status', 'active')->first();
 
         if (!$cart) {
@@ -43,7 +73,7 @@ class OrderController extends Controller
             return back()->with('error', 'Your cart is empty.');
         }
 
-        
+
         $address = Address::firstOrCreate([
             'user_id'      => $userId,
             'adress_line'  => $request->adress_line,
@@ -52,13 +82,13 @@ class OrderController extends Controller
             'country'      => $request->country,
         ]);
 
-        
+
         $totalPrice = $cartItems->sum('subtotal');
 
         $order = Order::create([
             'user_id'        => $userId,
             'address_id'     => $address->address_id,
-            
+
             'total_price'    => $totalPrice,
             'status'         => 'pending',
             'payment_method' => $request->payment_method,
@@ -68,8 +98,8 @@ class OrderController extends Controller
         foreach ($cartItems as $item) {
             $product = $item->product;
 
-           
-            
+
+
             if ($product->stock_quantity < $item->quantity) {
                 return back()->with('error', "Not enough stock for {$product->product_name}.");
             }
@@ -106,7 +136,8 @@ class OrderController extends Controller
 
         CartItem::where('cart_id', $cart->cart_id)->delete();
 
-        
+
         return redirect()->route('getHomepage')->with('success', 'Order has been successfully placed!');
     }
+    */
 }

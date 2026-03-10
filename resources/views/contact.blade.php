@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YouZoo | Contact Us</title>
+    <script src="https://js.pusher.com/8.4.0/pusher.min.js"></script>
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <script>
@@ -31,6 +33,7 @@
             }
         }
     </script>
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 <body class="bg-gradient-to-br from-green-50 to-blue-50 dark:bg-[#142624] dark:bg-none min-h-screen text-gray-800 dark:text-gray-100 transition-colors duration-300 flex flex-col">
 
@@ -40,7 +43,7 @@
 <!-- CONTENT -->
 <div class="container mx-auto px-6 py-12 flex-grow">
     <div class="max-w-4xl mx-auto">
-        
+
         <div class="text-center mb-12">
             <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">Get in Touch</h1>
             <p class="text-xl text-gray-600 dark:text-gray-300">We'd love to hear from you. Please fill out this form.</p>
@@ -54,12 +57,12 @@
         @endif
 
         <div class="grid md:grid-cols-2 gap-12">
-            
+
             <!-- Contact Info -->
             <div class="space-y-8">
                 <div class="bg-white dark:bg-[#272e2d] p-8 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700">
                     <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Contact Information</h3>
-                    
+
                     <div class="space-y-6">
                         <div class="flex items-start space-x-4">
                             <div class="w-10 h-10 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center flex-shrink-0">
@@ -98,7 +101,7 @@
             <div class="bg-white dark:bg-[#272e2d] p-8 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700">
                 <form action="{{ route('contact.store') }}" method="POST" class="space-y-6">
                     @csrf
-                    
+
                     <div>
                         <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Full Name</label>
                         <input type="text" id="name" name="name" required class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-green-500 dark:focus:ring-green-400" placeholder="John Doe">
@@ -133,4 +136,18 @@
 @include('partials.footer')
 
 </body>
+
+//this script is here for testing purposes - it should be moved over to the blade on which the real-time change will occur and populated with the appropriate code inside the callback.
+<script>
+
+    window.addEventListener("load", () => {
+        Pusher.logToConsole = true;
+        Echo.private('stock-channel')
+            .listen('.stock_event', (e) => {
+                //This is a simple test case
+                //Also, do NOT forget to add the dot in front of the name of the event as defined in broadCastAs in the App/Events
+                alert(e.amount);
+            });
+    });
+</script>
 </html>
