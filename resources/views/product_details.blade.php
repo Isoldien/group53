@@ -66,9 +66,9 @@
 
                 <!-- Product Image -->
                 <div class="w-full md:w-1/2 h-96 md:h-[500px]">
-                     @if($product->image_url)
+                    @if($product->image_url)
                         <img class="w-full h-full object-cover rounded-2xl shadow-lg" 
-                             src="{{ $product->image_url }}" 
+                             src="{{ filter_var($product->image_url, FILTER_VALIDATE_URL) ? $product->image_url : asset($product->image_url) }}" 
                              alt="{{ $product->product_name }}"
                              onerror="this.onerror=null; this.src='{{ asset('images/placeholder1.png') }}';"/>
                     @else
