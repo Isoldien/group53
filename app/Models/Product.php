@@ -36,7 +36,7 @@ class Product extends Model
 {
 	protected $table = 'products';
 	protected $primaryKey = 'product_id';
-	public $incrementing = false;
+	public $incrementing = true;
 	public $timestamps = false;
 
 	protected $casts = [

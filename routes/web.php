@@ -70,6 +70,11 @@ Route::get('/test-event', function () {
 Route::get("/corrupt", function () {
     return view('corrupt');
 });
+Route::middleware(['auth', 'is_admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', [App\Http\Controllers\AdminController::class, 'index'])->name('dashboard');
+    Route::resource('inventory', App\Http\Controllers\Admin\InventoryController::class);
+});
+
 require __DIR__.'/settings.php';
 
 
