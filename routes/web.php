@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ContactController;
@@ -67,8 +68,14 @@ Route::get('/test-event', function () {
 
     return 'Event dispatched!';
 });
-Route::get("/corrupt", function () {
-    return view('corrupt');
+
+
+
+//Admin routes
+Route::middleware("admin")->group(function () {
+    Route::get("admin/users/index", [AdminController::class, "index_users"])->name("allUsers");
+    Route::post("admin/users/edit", [AdminController::class, "update_user"])->name("userEdited");
+    Route::get("admin/users/edit/{user}", [AdminController::class, "edit_user"])->name("editUser");
 });
 require __DIR__.'/settings.php';
 
