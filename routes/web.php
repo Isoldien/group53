@@ -72,7 +72,7 @@ Route::get('/test-event', function () {
 
 
 //Admin routes
-Route::middleware("admin")->group(function () {
+Route::middleware("is_admin")->group(function () {
     Route::get("admin/users/index", [AdminController::class, "index_users"])->name("allUsers");
     Route::post("admin/users/edit", [AdminController::class, "update_user"])->name("userEdited");
     Route::get("admin/users/edit/{user}", [AdminController::class, "edit_user"])->name("editUser");
