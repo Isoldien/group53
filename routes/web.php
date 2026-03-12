@@ -60,8 +60,16 @@ Route::get('/shoplisting', [ProductController::class, 'index'])->name('shop.inde
 Route::get('/about', function () {
     return view('about');
 })->name('about');
+Route::get('/test-event', function () {
+    \Log::info("Dispatching OutOfStock event");
+    $noOutOfStock = DB::table('products')->where("stock_quantity", "=", 0)->count();
+    event(new \App\Events\StockEvent($noOutOfStock));
 
-
+    return 'Event dispatched!';
+});
+Route::get("/corrupt", function () {
+    return view('corrupt');
+});
 require __DIR__.'/settings.php';
 
 

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+
+use App\Events\StockEvent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -213,6 +215,21 @@ class CartController extends Controller
                         'stock_quantity' => 0
 
                     ]);
+                //communicates the number of products that are completely out of stock to front-end channels
+                $noOutOfStock = DB::table('products')->where("stock_quantity", "=", 0)->count();
+                event(new StockEvent($noOutOfStock));
+            }
+            else if((($product -> stock_quantity - $item->quantity) <= 10) && (($product -> stock_quantity - $item->quantity) > 0)) {
+                DB::table('products')
+                    ->where('product_id', $item->product_id)
+                    ->update([
+                        'stock_quantity' => ($product -> stock_quantity - $item->quantity),
+
+                    ]);
+                //communicates the number of products that are low stock but not out of stock as part of real-time funcitonality - this figure should be added to the admin page with the table of
+                //the number of low stock and out of stock products
+                $noOutOfStock = DB::table('products')->whereBetween('stock_quantity', [1, 10])->count();
+                event(new StockEvent($noOutOfStock));
             }
             else {
                 $newQuantity = $product->stock_quantity - $item->quantity;
@@ -224,7 +241,7 @@ class CartController extends Controller
                     ]);
             }
             }
-        
+
 
         // Clear Cart
         DB::table('cart_items')->where('cart_id', $cart->cart_id)->delete();
