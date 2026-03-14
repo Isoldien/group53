@@ -15,7 +15,8 @@
         "laravel/ui": "^4.6",
         "pusher/pusher-php-server": "*",
         "spatie/laravel-data": "^4.18",
-        "ext-curl": "*"
+        "ext-curl": "*",
+        "ext-pdo": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
