@@ -73,9 +73,9 @@ Route::get('/test-event', function () {
 
 //Admin routes
 Route::middleware("is_admin")->group(function () {
-    Route::get("admin/users/index", [AdminController::class, "index_users"])->name("allUsers");
-    Route::post("admin/users/edit", [AdminController::class, "update_user"])->name("userEdited");
-    Route::get("admin/users/edit/{user}", [AdminController::class, "edit_user"])->name("editUser");
+    Route::get("/admin/users/index", [AdminController::class, "index_users"])->name("allUsers");
+    Route::post("/admin/users/edit", [AdminController::class, "update_user"])->name("userEdited");
+    Route::get("/admin/users/edit/{user}", [AdminController::class, "edit_user"])->name("editUser");
 });
 require __DIR__.'/settings.php';
 
