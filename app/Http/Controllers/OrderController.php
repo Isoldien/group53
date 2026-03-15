@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Enums\OrderStatus;
+
+use App\Events\StockEvent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Cart;
@@ -14,6 +16,7 @@ use App\Models\Product;
 use App\Models\Address;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
+use Throwable;
 
 class OrderController extends Controller
 {
@@ -60,21 +63,71 @@ class OrderController extends Controller
         $request->validate([
            "status" => ["required",Rule::enum(OrderStatus::class)]
         ]);
-        if(DB::table("orders")->where("order_id","=",$request->input("order_id"))->exists()){
+
             try {
                 DB::transaction(function () use ($request) {
-                    DB::table("orders")->where("order_id", "=", $request->input("order_id"))->update([
-                        "status" => $request->input("status")
-                    ]);
+                    $order = DB::table("orders")->where("order_id","=",$request->input("order_id"))->lockForUpdate()->first();
+                    if($request->input("status") !== OrderStatus::Pending->value && $order->status === OrderStatus::Pending->value) {
+                        DB::table("orders")->where("order_id", "=", $request->input("order_id"))->update([
+                            "status" => $request->input("status")
+                        ]);
+
+
+                        $orderItems = DB::table("order_items")->where("order_id", "=", $order->order_id)->lockForUpdate()->get();
+                        foreach ($orderItems as $orderItem) {
+                           $product = DB::table("products")->where("product_id", "=", $orderItem->product_id)->lockForUpdate()->first();
+                           if($product->stock_quantity < $orderItem->quantity){
+                            DB::table("products")->where("product_id", "=", $orderItem->product_id)->update([
+                                "stock_quantity" => 0
+                            ]);
+                               //communicates the number of products that are completely out of stock to front-end channel
+                               $noOutOfStock = DB::table('products')->where("stock_quantity", "=", 0)->count();
+                               event(new StockEvent($noOutOfStock));
+                           }
+                           elseif ($product->stock_quantity == $orderItem->quantity) {
+                               DB::table("products")->where("product_id", "=", $orderItem->product_id)->update([
+                                   "stock_quantity" => 0
+                               ]);
+                               //communicates the number of products that are completely out of stock to front-end channel
+                               $noOutOfStock = DB::table('products')->where("stock_quantity", "=", 0)->count();
+                               event(new StockEvent($noOutOfStock));
+                           }
+                           elseif (($product->stock_quantity - $orderItem->quantity) > 0 && ($product->stock_quantity - $orderItem->quantity) <= 10) {
+                               DB::table("products")->where("product_id", "=", $orderItem->product_id)->update([
+                                   "stock_quantity" => $product->stock_quantity - $orderItem->quantity
+                               ]);
+                               $noOutOfStock = DB::table('products')->whereBetween('stock_quantity', [1, 10])->count();
+                               event(new StockEvent($noOutOfStock));
+                           }
+                           else
+                           {
+                               DB::table("products")->where("product_id", "=", $orderItem->product_id)->update([
+                                   "stock_quantity" => $order->stock_quantity - $orderItem->quantity
+                               ]);
+                           }
+                        }
+                        DB::table("orders")->where("order_id","=",$request->input("order_id"))->update([
+                            "status" => $request->input("status")
+                        ]);
+                    }
+                    elseif($request->input("status") !== OrderStatus::Pending->value && $order->status !== OrderStatus::Pending->value)
+                    {
+                        DB::table("orders")->where("order_id","=",$request->input("order_id"))->update([
+                            "status" => $request->input("status")
+                        ]);
+                    }
+
+
+
                 });
-            } catch (\Throwable $e) {
+
+                return redirect()->route('orders.index')->with('success', 'Order status has been updated');
+            } catch (Throwable $e) {
 
                 return redirect()->route("orders.index")->with('error', "sorry an error occurred whilst processing your request.");
             }
-            return redirect()->route('orders.index')->with('success', 'Order status has been updated');
-        }
-        else
-            return redirect()->route('orders.index')->with('error', 'Order not found');
+
+
 
     }
     /*

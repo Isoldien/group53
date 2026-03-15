@@ -1,5 +1,6 @@
 <?php
 
+use App\enums\UserRole;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
@@ -65,7 +66,9 @@ Route::get('/about', function () {
 Route::get('/test-event', function () {
     \Log::info("Dispatching OutOfStock event");
     $noOutOfStock = \App\Models\Product::where("stock_quantity", "=", 0)->count();
-    event(new \App\Events\StockEvent($noOutOfStock));
+    $user = DB::table("users")->where("user_id","=", 14)->first();
+    event(new \App\Events\StockEvent($user->role === UserRole::Customer->value));
+
 
     return 'Event dispatched!';
 });

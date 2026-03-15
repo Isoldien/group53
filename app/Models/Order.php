@@ -25,7 +25,6 @@ use Illuminate\Validation\Rules\Enum;
  * @property string $payment_method
  * @property string|null $payment_status
  * @property string|null $tracking_number
- *
  * @property User $user
  * @property Address $address
  * @property Collection|InventoryTransaction[] $inventory_transactions
