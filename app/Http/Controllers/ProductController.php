@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -73,9 +74,9 @@ class ProductController extends Controller
         return view("shoplisting", compact('products', 'categories', 'petTypes'));
     }
 
-   
 
-   
+
+
 
     /**
      * Display the specified resource.
@@ -89,7 +90,7 @@ class ProductController extends Controller
 
 
 
-    
+
     public function show($id)
     {
         $product = Product::findOrFail($id);
@@ -101,5 +102,67 @@ class ProductController extends Controller
         $featuredProducts = Product::where('is_active', 1)->inRandomOrder()->take(6)->get();
         $categories = \App\Models\Category::all();
         return view('homepage', compact('featuredProducts', 'categories'));
+    }
+
+
+    //admin functionality goes here
+
+    public function index_admin(){
+        $products = DB::table("products")->where("is_active", "=",1)->get();
+
+        return view("admin.inventory.index", compact('products'));
+    }
+
+    public function edit_product($product){
+        try {
+            return view("admin.inventory.edit", compact('product'));
+        }
+        catch (\Exception $exception){
+
+            return redirect()->route("allInventory")->with("error", "an error occurred during processing");
+        }
+    }
+    public function update_product(Request $request){
+
+        try {
+            DB::transaction(function () use ($request) {
+                $product = DB::table('products')->where('product_id', $request->product_id)->lockForUpdate()->first();
+                if ($product) {
+                    $request->validate([
+                     "product_name" => "required|string|max:150",
+                     "description" => "required|string",
+                     "price" => "required|numeric",
+                     "stock_quantity" => "required|integer",
+                     "image_url" => "required|image|mimes:jpeg,png,jpg|max:2048",
+                     "brand" => "required|string|max:100",
+                     "pet_type" => "required|string|max:60",
+                     "is_active" => "required|int",
+
+
+                    ]);
+
+                    $productId = $request->input('product_id');
+                    DB::table('products')->where('product_id', "=", $productId)->update([
+                        'product_name' => $request->input('product_name'),
+                        'description' => $request->input('description'),
+                        'price' => $request->input('price'),
+                        'stock_quantity' => $request->input('stock_quantity'),
+                        'image_url' => $request->input('image_url'),
+                        'brand' => $request->input('brand'),
+                        'pet_type' => $request->input('pet_type'),
+                        'is_active' => $request->input('is_active'),
+
+
+                    ]);
+
+
+                } else
+                    throw new \Exception("Product does not exist");
+            });
+            return redirect()->route("allInventory")->with('success', "successfully updated product");
+        } catch (\Throwable $e) {
+            return redirect()->route("allInventory")->with("error", "sorry an error occurred");
+        }
+
     }
 }

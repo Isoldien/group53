@@ -268,6 +268,7 @@ class CartController extends Controller
 
     private function recalculateCartTotal($cartId)
     {
+
         $total = DB::table('cart_items')->where('cart_id', $cartId)->sum('subtotal');
         DB::table('carts')->where('cart_id', $cartId)->update(['total_amount' => $total]);
     }

@@ -64,7 +64,7 @@ Route::get('/about', function () {
 })->name('about');
 Route::get('/test-event', function () {
     \Log::info("Dispatching OutOfStock event");
-    $noOutOfStock = DB::table('products')->where("stock_quantity", "=", 0)->count();
+    $noOutOfStock = \App\Models\Product::where("stock_quantity", "=", 0)->count();
     event(new \App\Events\StockEvent($noOutOfStock));
 
     return 'Event dispatched!';
@@ -78,11 +78,17 @@ Route::middleware("is_admin")->group(function () {
     Route::get("/admin/orders/index",[OrderController::class, 'getAllOrders'])->name('orders.index');
     Route::post("/admin/orders/deliver_all",[OrderController::class, 'processAllShippedOrdersAsDelivered'])->name('orders.deliver_all');
     Route::post("/admin/orders/ship_all",[OrderController::class, 'processAllPendingOrdersAsShipped'])->name('orders.ship_all');
+    Route::get("admin/orders/edit/{order}",[OrderController::class, 'open_process_order'])->name('orders.edit');
+    Route::post("admin/orders/update",[OrderController::class, 'process_order'])->name('orders.update');
     //There are all the actions for managing users
     Route::get("/admin/users/index", [AdminController::class, "index_users"])->name("allUsers");
     Route::post("/admin/users/edit", [AdminController::class, "update_user"])->name("userEdited");
     Route::get("/admin/users/edit/{user}", [AdminController::class, "edit_user"])->name("editUser");
     Route::Post("/admin/users/delete/{user}", [AdminController::class, "delete_user"])->name("deleteUser");
+    //There are all the admin actions for managing products
+    Route::get("admin/inventory/index", [ProductController::class, "index_admin"])->name("allInventory");
+    Route::get("admin/inventory/edit/{inventory}", [ProductController::class, "edit_product"])->name("editInventory");
+    Route::post("admin/inventory/update", [ProductController::class, "update_product"])->name("updateInventory");
 });
 require __DIR__.'/settings.php';
 
