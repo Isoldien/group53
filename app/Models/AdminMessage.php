@@ -25,5 +25,5 @@ class AdminMessage extends Model
 
         ];
     }
-    
+
 }

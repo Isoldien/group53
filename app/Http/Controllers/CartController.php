@@ -199,59 +199,16 @@ class CartController extends Controller
                 foreach ($cartItems as $item) {
 
                     $product = DB::table('products')->where('product_id', $item->product_id)->lockForUpdate()->first();
-
+                    DB::table('order_items')->insert([
+                        'order_id' => $orderId,
+                        'product_id' => $item->product_id,
+                        'quantity' => $product->stock_quantity,
+                        'price_at_purchase' => $product->price
+                    ]);
 
                     // Update Stock ? (Optional, but good for "realism")
                     // DB::table('products')->where('product_id', $item->product_id)->decrement('stock_quantity', $item->quantity);
-                    if ($product->stock_quantity <= $item->quantity) {
 
-                        DB::table('products')
-                            ->where('product_id', $item->product_id)
-                            ->update([
-                                'stock_quantity' => 0
-
-                            ]);
-                        DB::table('order_items')->insert([
-                            'order_id' => $orderId,
-                            'product_id' => $item->product_id,
-                            'quantity' => $product->stock_quantity,
-                            'price_at_purchase' => $product->price
-                        ]);
-                        //communicates the number of products that are completely out of stock to front-end channels
-                        $noOutOfStock = DB::table('products')->where("stock_quantity", "=", 0)->count();
-                        event(new StockEvent($noOutOfStock));
-                    } else if ((($product->stock_quantity - $item->quantity) <= 10) && (($product->stock_quantity - $item->quantity) > 0)) {
-                        DB::table('products')
-                            ->where('product_id', $item->product_id)
-                            ->update([
-                                'stock_quantity' => ($product->stock_quantity - $item->quantity),
-
-                            ]);
-                        DB::table('order_items')->insert([
-                            'order_id' => $orderId,
-                            'product_id' => $item->product_id,
-                            'quantity' => $item->quantity,
-                            'price_at_purchase' => $product->price
-                        ]);
-                        //communicates the number of products that are low stock but not out of stock as part of real-time funcitonality - this figure should be added to the admin page with the table of
-                        //the number of low stock and out of stock products
-                        $noOutOfStock = DB::table('products')->whereBetween('stock_quantity', [1, 10])->count();
-                        event(new StockEvent($noOutOfStock));
-                    } else {
-                        $newQuantity = $product->stock_quantity - $item->quantity;
-                        DB::table('products')
-                            ->where('product_id', $item->product_id)
-                            ->update([
-                                'stock_quantity' => $newQuantity,
-
-                            ]);
-                        DB::table('order_items')->insert([
-                            'order_id' => $orderId,
-                            'product_id' => $item->product_id,
-                            'quantity' => $item->quantity,
-                            'price_at_purchase' => $product->price
-                        ]);
-                    }
                 }
             });
         } catch (\Throwable $e) {

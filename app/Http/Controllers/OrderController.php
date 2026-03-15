@@ -96,6 +96,8 @@ class OrderController extends Controller
                                DB::table("products")->where("product_id", "=", $orderItem->product_id)->update([
                                    "stock_quantity" => $product->stock_quantity - $orderItem->quantity
                                ]);
+                               //communicates the number of products that are low stock but not out of stock as part of real-time funcitonality - this figure should be added to the admin page with the table of
+                               //the number of low stock and out of stock products
                                $noOutOfStock = DB::table('products')->whereBetween('stock_quantity', [1, 10])->count();
                                event(new StockEvent($noOutOfStock));
                            }
