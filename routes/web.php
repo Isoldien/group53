@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ContactController;
@@ -73,9 +74,15 @@ Route::get('/test-event', function () {
 
 //Admin routes
 Route::middleware("is_admin")->group(function () {
+    //There are all the actions for processing orders
+    Route::get("/admin/orders/index",[OrderController::class, 'getAllOrders'])->name('orders.index');
+    Route::post("/admin/orders/deliver_all",[OrderController::class, 'processAllShippedOrdersAsDelivered'])->name('orders.deliver_all');
+    Route::post("/admin/orders/ship_all",[OrderController::class, 'processAllPendingOrdersAsShipped'])->name('orders.ship_all');
+    //There are all the actions for managing users
     Route::get("/admin/users/index", [AdminController::class, "index_users"])->name("allUsers");
     Route::post("/admin/users/edit", [AdminController::class, "update_user"])->name("userEdited");
     Route::get("/admin/users/edit/{user}", [AdminController::class, "edit_user"])->name("editUser");
+    Route::Post("/admin/users/delete/{user}", [AdminController::class, "delete_user"])->name("deleteUser");
 });
 require __DIR__.'/settings.php';
 

@@ -13,17 +13,18 @@ use App\Models\InventoryTransaction;
 use App\Models\Product;
 use App\Models\Address;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 class OrderController extends Controller
 {
-    //Returns all pending orders; to be used by
-    public function getAllPendingOrders(){
+    //Returns all pending orders; to be used by Admin
+    public function getAllOrders(){
         if (!Auth::check()) {
             return redirect()->route('login')->with('error', 'Please login to view your cart');
         }
 
-        $orders = DB::table("orders")->where("status", "=",OrderStatus::Pending)->get();
-        return view('orders.pending', compact("orders"));
+        $orders = DB::table("orders")->where("status","!=",OrderStatus::Delivered->value)->get();
+        return view('admin.orders.index', compact("orders"));
 
     }
 
@@ -32,6 +33,7 @@ class OrderController extends Controller
             return redirect()->route('login')->with('error', 'Please login to view your cart');
         }
         DB::table("orders")->where("status", "=",OrderStatus::Pending)->update(["status"=>OrderStatus::Shipped]);
+        return redirect()->route('orders.index')->with('success', 'All pending orders have been shipped');
     }
 
     public function processAllShippedOrdersAsDelivered()
@@ -40,9 +42,41 @@ class OrderController extends Controller
             return redirect()->route('login')->with('error', 'Please login to view your cart');
         }
         DB::table("orders")->where("status", "=",OrderStatus::Shipped)->update(["status"=>OrderStatus::Delivered]);
+        return redirect()->route('orders.index')->with('success', 'All shipped orders have been delivered');
+
     }
 
+    public function open_process_order($order){
+        if(DB::table("orders")->where("order_id","=",$order->order_id)->exists()){
+            return view("admin.orders.edit", compact("order"));
+        }
+        else
+            return redirect()->route('orders.index')->with('error', 'Order not found');
 
+    }
+
+    public function process_order(Request $request){
+
+        $request->validate([
+           "status" => ["required",Rule::enum(OrderStatus::class)]
+        ]);
+        if(DB::table("orders")->where("order_id","=",$request->input("order_id"))->exists()){
+            try {
+                DB::transaction(function () use ($request) {
+                    DB::table("orders")->where("order_id", "=", $request->input("order_id"))->update([
+                        "status" => $request->input("status")
+                    ]);
+                });
+            } catch (\Throwable $e) {
+
+                return redirect()->route("orders.index")->with('error', "sorry an error occurred whilst processing your request.");
+            }
+            return redirect()->route('orders.index')->with('success', 'Order status has been updated');
+        }
+        else
+            return redirect()->route('orders.index')->with('error', 'Order not found');
+
+    }
     /*
     public function placeOrder(Request $request)
     {
@@ -140,4 +174,5 @@ class OrderController extends Controller
         return redirect()->route('getHomepage')->with('success', 'Order has been successfully placed!');
     }
     */
+
 }
