@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Events\StockEvent;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -133,7 +134,7 @@ class ProductController extends Controller
                      "description" => "required|string",
                      "price" => "required|numeric",
                      "stock_quantity" => "required|integer",
-                     "image_url" => "required|image|mimes:jpeg,png,jpg|max:2048",
+                     "image_url" => "required|image|mimes:jpeg,png,jpg|max:2048000",
                      "brand" => "required|string|max:100",
                      "pet_type" => "required|string|max:60",
                      "is_active" => "required|int",
@@ -154,6 +155,16 @@ class ProductController extends Controller
 
 
                     ]);
+                    if($request->input("stock_quantity") <= 10 && $product->stock_quantity > 10){
+                        $noOutOfStock = DB::table('products')->where("stock_quantity", "=", 0)->count();
+                        $noOfLowStock = DB::table('products')->whereBetween('stock_quantity', [1, 10])->count();
+                        event(new StockEvent($noOfLowStock,$noOutOfStock));
+                    }
+                    elseif($request->input("stock_quantity") > 10 && $product->stock_quantity <= 10){
+                        $noOutOfStock = DB::table('products')->where("stock_quantity", "=", 0)->count();
+                        $noOfLowStock = DB::table('products')->whereBetween('stock_quantity', [1, 10])->count();
+                        event(new StockEvent($noOfLowStock,$noOutOfStock));
+                    }
 
 
                 } else

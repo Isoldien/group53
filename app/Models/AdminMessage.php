@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class AdminMessage extends Model
 {
     //
+
     protected $table = 'admin_messages';
     protected $primaryKey = 'message_id';
 

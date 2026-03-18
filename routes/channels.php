@@ -11,3 +11,4 @@ Broadcast::channel('stock-channel', function (User $user) {
     return $user->role->value === \App\enums\UserRole::Admin->value;
 
 });
+

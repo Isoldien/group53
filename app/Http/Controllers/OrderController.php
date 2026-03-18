@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Enums\OrderStatus;
 
+use App\Events\MessageEvent;
 use App\Events\StockEvent;
+use App\Models\AdminMessage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Cart;
@@ -82,7 +84,13 @@ class OrderController extends Controller
                             ]);
                                //communicates the number of products that are completely out of stock to front-end channel
                                $noOutOfStock = DB::table('products')->where("stock_quantity", "=", 0)->count();
-                               event(new StockEvent($noOutOfStock));
+                               $noOfLowStock = DB::table('products')->whereBetween('stock_quantity', [1, 10])->count();
+                               $message = AdminMessage::create([
+                                   'message' => "\"".$product->product_name."\"". "with ID ".$product->product_id. "is out of stock",
+                                   'title' => "new out of stock incident"
+                               ]);
+                               event(new StockEvent($noOfLowStock,$noOutOfStock,$message));
+
                            }
                            elseif ($product->stock_quantity == $orderItem->quantity) {
                                DB::table("products")->where("product_id", "=", $orderItem->product_id)->update([
@@ -90,7 +98,12 @@ class OrderController extends Controller
                                ]);
                                //communicates the number of products that are completely out of stock to front-end channel
                                $noOutOfStock = DB::table('products')->where("stock_quantity", "=", 0)->count();
-                               event(new StockEvent($noOutOfStock));
+                               $noOfLowStock = DB::table('products')->whereBetween('stock_quantity', [1, 10])->count();
+                               $message = AdminMessage::create([
+                                   'message' => "\"".$product->product_name."\"". "with ID ".$product->product_id. "is out of stock",
+                                   'title' => "new out of stock incident"
+                               ]);
+                               event(new StockEvent($noOfLowStock,$noOutOfStock, $message));
                            }
                            elseif (($product->stock_quantity - $orderItem->quantity) > 0 && ($product->stock_quantity - $orderItem->quantity) <= 10) {
                                DB::table("products")->where("product_id", "=", $orderItem->product_id)->update([
@@ -98,8 +111,13 @@ class OrderController extends Controller
                                ]);
                                //communicates the number of products that are low stock but not out of stock as part of real-time funcitonality - this figure should be added to the admin page with the table of
                                //the number of low stock and out of stock products
-                               $noOutOfStock = DB::table('products')->whereBetween('stock_quantity', [1, 10])->count();
-                               event(new StockEvent($noOutOfStock));
+                               $noOutOfStock = DB::table('products')->where("stock_quantity", "=", 0)->count();
+                               $noOfLowStock = DB::table('products')->whereBetween('stock_quantity', [1, 10])->count();
+                               $message = AdminMessage::create([
+                                   'message' => "\"".$product->product_name."\"". "with ID ".$product->product_id. "is low stock",
+                                   'title' => "new low stock incident"
+                               ]);
+                               event(new StockEvent($noOfLowStock,$noOutOfStock, $message));
                            }
                            else
                            {
