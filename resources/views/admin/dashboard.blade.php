@@ -41,7 +41,6 @@
             </div>
             <h3 class="text-gray-500 dark:text-gray-400 text-sm font-medium">Orders</h3>
             <p class="text-3xl font-bold text-gray-900 dark:text-white mt-1">{{ $orderCount }}</p>
-            <a href="#" class="text-green-600 dark:text-green-400 text-sm mt-4 inline-block hover:underline">Manage Orders →</a>
         </div>
 
         <div class="bg-white dark:bg-[#272e2d] rounded-2xl shadow-xl p-6 border border-gray-100 dark:border-gray-700">
@@ -52,7 +51,6 @@
             </div>
             <h3 class="text-gray-500 dark:text-gray-400 text-sm font-medium">Users</h3>
             <p class="text-3xl font-bold text-gray-900 dark:text-white mt-1">{{ $userCount }}</p>
-            <a href="#" class="text-purple-600 dark:text-purple-400 text-sm mt-4 inline-block hover:underline">Manage Users →</a>
         </div>
     </div>
 
