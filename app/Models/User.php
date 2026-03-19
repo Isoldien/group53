@@ -15,6 +15,8 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use App\enums\UserRole;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Validation\Rules\Enum;
 
 /**
@@ -78,26 +80,26 @@ class User extends Authenticatable implements MustVerifyEmail
 
 	public function reviews():HasMany
 	{
-		return $this->hasMany(Review::class);
+		return $this->hasMany(Review::class, 'user_id', 'user_id');
 	}
     public function contactMessages():HasMany
 	{
-		return $this->hasMany(ContactMessage::class);
+		return $this->hasMany(ContactMessage::class, 'user_id', 'user_id');
 	}
     public function addresses():HasMany
 	{
-		return $this->hasMany(Address::class);
+		return $this->hasMany(Address::class, 'user_id', 'user_id');
 	}
     public function orders():HasMany
 	{
-		return $this->hasMany(Order::class);
+		return $this->hasMany(Order::class, 'user_id', 'user_id');
 	}
     public function cart():HasMany
 	{
-		return $this->hasMany(Cart::class);
+		return $this->hasMany(Cart::class, 'user_id', 'user_id');
 	}
     public function returnRequests():HasMany
 	{
-		return $this->hasMany(ReturnRequest::class);
+		return $this->hasMany(ReturnRequest::class, 'user_id', 'user_id');
 	}
 }
