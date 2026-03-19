@@ -75,6 +75,7 @@ Route::get("/corrupt", function () {
 });
 Route::middleware(['auth', 'is_admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [App\Http\Controllers\AdminController::class, 'index'])->name('dashboard');
+    Route::delete('/users/{user}', [App\Http\Controllers\AdminController::class, 'deleteUser'])->name('users.destroy');
     Route::resource('inventory', App\Http\Controllers\Admin\InventoryController::class);
 });
 
