@@ -18,20 +18,18 @@ class ProductFactory extends Factory
     public function definition(): array
     {
 
-        $category = Category::firstOrCreate(
-            ['category_name' => 'Food'],
-            ['description' => 'Pet food and treats']
-        );
+        $product_type = ['Dog','Bird','Cat','Hamster','Fish'];
+        $selected_type = fake()->randomElement($product_type);
 
         return [
-            'category_id' => $category -> category_id,
-            'product_name' => 'Kitten Milk Replacer',
-            'description' => 'Nutrient-rich milk formula for young kittens.',
-            'price' => fake()->randomFloat(2, 2, 25),
-            'stock_quantity' => fake()->numberBetween(1,25),
-            'image_url' => 'https://m.media-amazon.com/images/I/71y6k9Zp5RL._AC_SL1500_.jpg',
-            'brand' => 'Whiskas',
-            'pet_type' => 'Cat'
+            'category_id' => Category::factory(),
+            'product_name' => fake() -> words(3, true),
+            'description' => fake() -> sentence(),
+            'price' => fake() -> randomFloat(2, 2, 15),
+            'stock_quantity' => fake() -> numberBetween(1,10),
+            'image_url' => 'https://placehold.co/800x600?text=' . urlencode($selected_type . ' Item'),
+            'brand' => fake() -> word(),
+            'pet_type' => $selected_type
         ];
 
     }

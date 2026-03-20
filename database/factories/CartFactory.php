@@ -18,10 +18,8 @@ class CartFactory extends Factory
     public function definition(): array
     {
 
-        $user = User::first() ?? User::factory()->create();
-
-        return [ // can override any with create([]);
-            'user_id' => $user -> user_id
+        return [
+            'user_id' => User::factory()
         ];
     }
 }

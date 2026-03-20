@@ -18,15 +18,11 @@ class CartItemFactory extends Factory
      */
     public function definition(): array
     {
-        $cart = Cart::first() ?? Cart::factory()->create();
-        $product = Product::first() ?? Product::factory()->create();
-        $quantity = 1;
 
-        return [ // can override any with create([]);
-            'cart_id' => $cart -> cart_id,
-            'product_id' => $product -> product_id,
-            'quantity' => $quantity,
-            'subtotal' => $product -> price * $quantity
+        return [
+            'cart_id' => Cart::factory(),
+            'product_id' => Product::factory(),
+            'quantity' => 1
         ];
     }
 }
