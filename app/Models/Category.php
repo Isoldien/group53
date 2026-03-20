@@ -25,7 +25,7 @@ class Category extends Model
 {
 	protected $table = 'categories';
 	protected $primaryKey = 'category_id';
-	public $incrementing = false;
+	public $incrementing = true;
 	public $timestamps = false;
 
 	protected $casts = [
