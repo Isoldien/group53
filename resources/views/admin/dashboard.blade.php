@@ -116,6 +116,12 @@
                     </div>
                     <span class="font-medium">Full Inventory View</span>
                 </a>
+                <a href="{{ route('admin.reviews.index') }}" class="flex items-center p-3 text-gray-700 dark:text-gray-200 bg-gray-50 dark:bg-gray-800/50 rounded-xl hover:bg-yellow-50 dark:hover:bg-yellow-900/20 transition-colors group">
+                    <div class="w-10 h-10 bg-yellow-100 dark:bg-yellow-900/30 rounded-lg flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
+                        <svg class="w-5 h-5 text-yellow-600 dark:text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+                    </div>
+                    <span class="font-medium">Manage Reviews</span>
+                </a>
             </div>
         </div>
     </div>

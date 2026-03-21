@@ -58,4 +58,18 @@ class AdminController extends Controller
 
         return redirect()->back()->with('success', 'User deleted successfully. An email has been dispatched notifying them.');
     }
+
+    public function reviews()
+    {
+        $reviews = \App\Models\Review::with(['user', 'product'])->orderBy('review_date', 'desc')->paginate(10);
+        return view('admin.reviews', compact('reviews'));
+    }
+
+    public function deleteReview($id)
+    {
+        $review = \App\Models\Review::findOrFail($id);
+        $review->delete();
+
+        return redirect()->back()->with('success', 'Review deleted successfully.');
+    }
 }

@@ -28,4 +28,35 @@ class ReviewController extends Controller
 
         return redirect()->back()->with('success', 'Review submitted successfully!');
     }
+
+    public function update(Request $request, Review $review)
+    {
+        if (Auth::id() !== $review->user_id) {
+            return redirect()->back()->withErrors(['error' => 'You are not authorized to edit this review.']);
+        }
+
+        $request->validate([
+            'rating' => 'required|integer|min:1|max:5',
+            'comment' => 'required|string|max:1000',
+        ]);
+
+        $review->update([
+            'rating' => $request->rating,
+            'comment' => $request->comment,
+            'review_date' => now(),
+        ]);
+
+        return redirect()->back()->with('success', 'Review updated successfully!');
+    }
+
+    public function destroy(Review $review)
+    {
+        if (Auth::id() !== $review->user_id) {
+            return redirect()->back()->withErrors(['error' => 'You are not authorized to delete this review.']);
+        }
+
+        $review->delete();
+
+        return redirect()->back()->with('success', 'Review deleted successfully!');
+    }
 }

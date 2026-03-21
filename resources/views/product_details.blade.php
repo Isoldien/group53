@@ -193,7 +193,42 @@
                                 </div>
                             </div>
                             <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">{{ \Carbon\Carbon::parse($review->review_date)->format('F j, Y') }}</p>
-                            <p class="text-gray-700 dark:text-gray-300">{{ $review->comment }}</p>
+                            
+                            <div id="review-display-{{ $review->review_id }}">
+                                <p class="text-gray-700 dark:text-gray-300 mb-4">{{ $review->comment }}</p>
+                                @if(auth()->check() && auth()->id() === $review->user_id)
+                                    <div class="flex gap-3">
+                                        <button type="button" onclick="document.getElementById('review-display-{{ $review->review_id }}').classList.add('hidden'); document.getElementById('review-edit-{{ $review->review_id }}').classList.remove('hidden');" class="text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline">Edit</button>
+                                        <form action="{{ route('reviews.destroy', $review->review_id) }}" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to delete this review?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="text-sm font-medium text-red-600 dark:text-red-400 hover:underline">Delete</button>
+                                        </form>
+                                    </div>
+                                @endif
+                            </div>
+
+                            @if(auth()->check() && auth()->id() === $review->user_id)
+                                <div id="review-edit-{{ $review->review_id }}" class="hidden mt-4">
+                                    <form action="{{ route('reviews.update', $review->review_id) }}" method="POST" class="flex flex-col gap-3">
+                                        @csrf
+                                        @method('PUT')
+                                        <div>
+                                            <label for="rating-{{ $review->review_id }}" class="sr-only">Rating</label>
+                                            <select name="rating" id="rating-{{ $review->review_id }}" class="px-3 py-1.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 dark:text-white text-sm" required>
+                                                @for($r = 5; $r >= 1; $r--)
+                                                    <option value="{{ $r }}" {{ $review->rating == $r ? 'selected' : '' }}>{{ $r }} Star{{ $r > 1 ? 's' : '' }}</option>
+                                                @endfor
+                                            </select>
+                                        </div>
+                                        <textarea name="comment" rows="3" class="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 dark:text-white text-sm" required>{{ $review->comment }}</textarea>
+                                        <div class="flex gap-2">
+                                            <button type="submit" class="px-4 py-2 bg-green-600 text-white text-sm font-medium rounded-lg hover:bg-green-700">Save</button>
+                                            <button type="button" onclick="document.getElementById('review-edit-{{ $review->review_id }}').classList.add('hidden'); document.getElementById('review-display-{{ $review->review_id }}').classList.remove('hidden');" class="px-4 py-2 bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-200 text-sm font-medium rounded-lg hover:bg-gray-300 dark:hover:bg-gray-500">Cancel</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            @endif
                         </div>
                         @endforeach
                     </div>
