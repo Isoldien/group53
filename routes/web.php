@@ -108,7 +108,7 @@ Route::middleware(['auth','is_admin'])->group(function () {
     Route::post("admin/orders/update",[OrderController::class, 'process_order'])->name('orders.update');
     //There are all the actions for managing users
     Route::get("/admin/users/index", [AdminController::class, "index_users"])->name("allUsers");
-    Route::post("/admin/users/edit", [AdminController::class, "update_user"])->name("userEdited");
+    Route::post("/admin/users/edit/{id}", [AdminController::class, "update_user"])->name("userEdited");
     Route::get("/admin/users/edit/{id}", [AdminController::class, "edit_user"])->name("editUser");
     Route::Post("/admin/users/delete/{id}", [AdminController::class, "delete_user"])->name("deleteUser");
     //There are all the admin actions for managing products

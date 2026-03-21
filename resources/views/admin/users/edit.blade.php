@@ -11,7 +11,7 @@
 
 
                 <!-- Edit User Form -->
-                <form action="{{ route('userEdited') }}" method="POST" class="space-y-4">
+                <form action="{{ route('userEdited',$user->user_id)}}" method="POST" class="space-y-4">
                     @csrf
 
                     <!-- Name -->
@@ -23,14 +23,7 @@
                         @enderror
                     </div>
 
-                    <!-- Email -->
-                    <div class="relative">
-                        <label for="email" class="block text-sm font-semibold text-gray-700 dark:text-gray-200">Email</label>
-                        <input type="email" name="email" id="email" value="{{ old('email', $user->email) }}" class="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-green-500 transition-all" required>
-                        @error('email')
-                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
+
 
                     <!-- Role -->
                     <div class="relative">

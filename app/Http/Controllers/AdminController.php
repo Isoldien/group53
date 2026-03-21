@@ -26,11 +26,12 @@ class AdminController extends Controller
 
         $query = User::query();
         if($request->filled('search')){
-            $query->where("name", "LIKE", "%{$request->search}%")->
-                orWhere("email", "LIKE", "%{$request->search}%");
+            $search = $request->input('search');
+            $query->where("name", "LIKE", "%{$search}%")->
+                orWhere("email", "LIKE", "%{$search}%");
         }
         if($request->filled('role')){
-            $query->where("role", "=",$request->role);
+            $query->where("role", "=",$request->input("role"));
         }
         $users = $query->withCount(["orders","reviews"])->orderBy("user_id", "desc")->paginate(5,["*"],"user_page");
         return view("admin.users.index", compact("users"));
@@ -38,18 +39,11 @@ class AdminController extends Controller
 
    public function edit_user($id)
    {
-     try {
-         $user = User::findOrFail($id);
 
-         if ($this->user_exists($user->user_id)) {
-             return view("admin.users.edit", compact("user"));
-         } else
-             return redirect()->route("allUsers")->with("error", "User does not exist");
-     }
-     catch (\Exception $exception)
-     {
-         return redirect()->route("allUsers")->with("error", "sorry an error occurred");
-     }
+         $user = User::findOrFail($id);
+         return view("admin.users.edit", compact("user"));
+
+
    }
    public function delete_user($id)
    {
@@ -57,11 +51,11 @@ class AdminController extends Controller
 
 
            try {
-               $user = User::findOrFail($id);
+               $user = User::lockForUpdate()->findOrFail($id);
                DB::transaction(function () use ($user) {
                    $order = DB::table("orders")->where("user_id", "=", $user->user_id)->lockForUpdate()->first();
                    if($order) {
-                       DB::table("order_items")->where("order_id", "=", $order->id)->lockForUpdate()->delete();
+                       DB::table("order_items")->where("order_id", "=", $order->order_id)->lockForUpdate()->delete();
                        DB::table("orders")->where("user_id", "=", $user->user_id)->lockForUpdate()->delete();
                    }
                    DB::table("reviews")->where("user_id", "=", $user->user_id)->lockForUpdate()->delete();
@@ -87,28 +81,40 @@ class AdminController extends Controller
 
    }
    //This method will also be used to make a user an admin of course
-   public function update_user(Request $request){
+   public function update_user(Request $request, $id){
        try {
-           DB::transaction(function () use ($request) {
-               $user = DB::table('users')->where('user_id', $request->user_id)->lockForUpdate()->first();
+           DB::transaction(function () use ($request,$id) {
+               $user = User::where('user_id',"=", $id)->lockForUpdate()->first();
                if ($user) {
                    $request->validate([
                        'name' => ['required', 'string', 'max:255'],
-                       'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-                       'password' => ['required', 'confirmed', Rules\Password::defaults()],
+
+
                        'role' => ['required', Rule::enum(UserRole::class)],
 
                    ]);
-                   if ($request->input("role") === UserRole::Admin->value && $user->role !== UserRole::Admin->value) {
-                       $user = DB::table("users")->where("user_id", "=", $request->input("user_id"))->first();
-                       Mail::to($request->input("email"))->send(new AdminCreationEmail($user));
+                   if ($request->input("role") === UserRole::Admin->value && $user->role->value !== UserRole::Admin->value) {
+
+                       $user->update([
+                           "name" => $request->input("name"),
+                           "role" => UserRole::Admin->value,
+                       ]);
+                       Mail::to($user->email)->send(new AdminCreationEmail($user));
                    }
-                   $userId = $request->input('user_id');
-                   DB::table('users')->where('user_id', "=", $userId)->update([
-                       'name' => $request->input('name'),
-                       'email' => $request->input('email'),
-                       'password' => Hash::make($request->input('password')),
-                   ]);
+                   elseif($request->input("role") !== UserRole::Admin->value && $user->role->value === UserRole::Admin->value) {
+                        $user->update([
+                            "name" => $request->input("name"),
+                            "role" => UserRole::Customer->value,
+                        ]);
+                   }
+                   else{
+                       $user->update([
+                           "name" => $request->input("name"),
+                           "role" => UserRole::Admin->value,
+                       ]);
+                   }
+
+
 
 
                } else
@@ -150,34 +156,42 @@ class AdminController extends Controller
 
     public function deleteUser($id)
     {
-        $user = \App\Models\User::findOrFail($id);
-
-        // Manually cascade deletions due to database restrictions
-        if (method_exists($user, 'orders')) {
-            foreach ($user->orders as $order) {
-                if (method_exists($order, 'order_items')) {
-                    $order->order_items()->delete();
-                }
-                $order->delete();
-            }
-        }
-
-        $relations = ['addresses', 'reviews', 'cart', 'returnRequests', 'contactMessages'];
-        foreach ($relations as $relation) {
-            if (method_exists($user, $relation)) {
-                $user->$relation()->delete();
-            }
-        }
-
         try {
-            \Illuminate\Support\Facades\Mail::to($user->email)->send(new \App\Mail\UserBannedMail($user->name ?? $user->full_name ?? 'User'));
-        } catch (\Exception $e) {
-            \Illuminate\Support\Facades\Log::error("Failed to send ban email: " . $e->getMessage());
+            DB::transaction(function () use ($id) {
+                $user = \App\Models\User::lockForUpdate()->findOrFail($id);
+
+                // Manually cascade deletions due to database restrictions
+                if (method_exists($user, 'orders')) {
+                    $orders = $user->orders()->lockForUpdate();
+                    foreach ($orders as $order) {
+                        if (method_exists($order, 'order_items')) {
+                            $order->order_items()->lockForUpdate()->delete();
+                        }
+                        $order->delete();
+                    }
+                }
+
+                $relations = ['addresses', 'reviews', 'cart', 'returnRequests', 'contactMessages'];
+                foreach ($relations as $relation) {
+                    if (method_exists($user, $relation)) {
+                        $user->$relation()->lockForUpdate()->delete();
+                    }
+                }
+
+                try {
+                    \Illuminate\Support\Facades\Mail::to($user->email)->send(new \App\Mail\UserBannedMail($user->name ?? $user->full_name ?? 'User'));
+                } catch (\Exception $e) {
+                    \Illuminate\Support\Facades\Log::error("Failed to send ban email: " . $e->getMessage());
+                }
+
+                $user->delete();
+            });
+            return redirect()->back()->with('success', 'User deleted successfully. An email has been dispatched notifying them.');
+        } catch (\Throwable $e) {
+            return redirect()->back()->with('error', 'Sorry an error occurred');
         }
 
-        $user->delete();
 
-        return redirect()->back()->with('success', 'User deleted successfully. An email has been dispatched notifying them.');
     }
 
     public function reviews()
