@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\InventoryTransaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class InventoryController extends Controller
 {
@@ -82,7 +83,7 @@ class InventoryController extends Controller
     public function update(Request $request, $id)
     {
         $product = Product::findOrFail($id);
-        
+
         $validated = $request->validate([
             'product_name' => 'required|string|max:150',
             'category_id' => 'required|exists:categories,category_id',
@@ -97,9 +98,9 @@ class InventoryController extends Controller
 
         $oldStock = $product->stock_quantity;
         $product->update($validated);
-        
+
         $newStock = (int)$request->input('stock_quantity');
-        
+
         if ($oldStock !== $newStock) {
             InventoryTransaction::create([
                 'product_id' => $product->product_id,
@@ -115,9 +116,14 @@ class InventoryController extends Controller
 
     public function destroy($id)
     {
-        $product = Product::findOrFail($id);
-        $product->delete();
-
+        try {
+            DB::transaction(function () use ($id) {
+                $product = Product::findOrFail($id);
+                $product->delete();
+            });
+        } catch (\Throwable $e) {
+            return redirect()->route('admin.inventory.index')->with('error', 'An error occurred while deleting the product.');
+        }
         return redirect()->route('admin.inventory.index')->with('success', 'Product deleted successfully.');
     }
 }

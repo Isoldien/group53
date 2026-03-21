@@ -24,8 +24,15 @@ class AdminController extends Controller
     public function index_users(Request $request)
     {
 
-        $users = DB::table("users")->get();
-
+        $query = User::query();
+        if($request->filled('search')){
+            $query->where("name", "LIKE", "%{$request->search}%")->
+                orWhere("email", "LIKE", "%{$request->search}%");
+        }
+        if($request->filled('role')){
+            $query->where("role", "=",$request->role);
+        }
+        $users = $query->withCount(["orders","reviews"])->orderBy("user_id", "desc")->paginate(5,["*"],"user_page");
         return view("admin.users.index", compact("users"));
     }
 
@@ -124,7 +131,9 @@ class AdminController extends Controller
     public function index()
     {
         $productCount = \App\Models\Product::count();
-        $lowStockCount = \App\Models\Product::where('stock_quantity', '<=', 10)->count();
+        $lowStockCount = \App\Models\Product::whereBetween("stock_quantity", [1,10])->count();
+
+        $outOfStockCount = \App\Models\Product::where("stock_quantity", "=", "0")->count();
         $orderCount = \App\Models\Order::count();
         $userCount = \App\Models\User::count();
 
@@ -136,7 +145,7 @@ class AdminController extends Controller
         $orders = \App\Models\Order::with('user', 'order_items.product')->orderBy('order_date', 'desc')->paginate(5, ['*'], 'orders_page');
         $users = \App\Models\User::withCount(['orders', 'reviews'])->orderBy('user_id', 'desc')->paginate(5, ['*'], 'users_page');
 
-        return view('admin.dashboard', compact('productCount', 'lowStockCount', 'orderCount', 'userCount', 'recentTransactions', 'orders', 'users'));
+        return view('admin.dashboard', compact('productCount', 'lowStockCount', 'orderCount', 'userCount', 'recentTransactions', 'orders', 'users','outOfStockCount'));
     }
 
     public function deleteUser($id)

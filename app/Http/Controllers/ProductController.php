@@ -5,6 +5,7 @@ use App\Events\MessageEvent;
 use App\Events\StockEvent;
 use App\Models\AdminMessage;
 use App\Models\Category;
+use App\Models\InventoryTransaction;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -154,28 +155,30 @@ class ProductController extends Controller
             return redirect()->route("allInventory")->with("error", "an error occurred during processing");
         }
     }
-    public function update_product(Request $request){
+    public function update_product(Request $request, $id){
 
         try {
-            DB::transaction(function () use ($request) {
-                $product = DB::table('products')->where('product_id', $request->product_id)->lockForUpdate()->first();
+            DB::transaction(function () use ($id, $request) {
+                $product = DB::table('products')->where('product_id',"=", $id)->lockForUpdate()->first();
                 if ($product) {
                     $request->validate([
-                     "product_name" => "required|string|max:150",
-                     "description" => "required|string",
-                     "price" => "required|numeric",
-                     "stock_quantity" => "required|integer",
-                     "image_url" => "nullable|url",
-                     "brand" => "required|string|max:100",
-                     "pet_type" => "required|string|max:60",
-                     "is_active" => "required|int",
-
-
+                        'product_name' => 'required|string|max:150',
+                        'category_id' => 'required|exists:categories,category_id',
+                        'description' => 'nullable|string',
+                        'price' => 'required|numeric|min:0',
+                        'stock_quantity' => 'required|integer|min:0',
+                        'brand' => 'nullable|string|max:100',
+                        'pet_type' => 'nullable|string|max:60',
+                        'image_url' => 'nullable|url',
+                        'is_active' => 'boolean',
                     ]);
 
-                    $productId = $request->input('product_id');
-                    DB::table('products')->where('product_id', "=", $productId)->update([
+                    $oldStock = (int)$product->stock_quantity;
+
+
+                    DB::table('products')->where('product_id', "=", $id)->update([
                         'product_name' => $request->input('product_name'),
+                        'category_id' => $request->input('category_id'),
                         'description' => $request->input('description'),
                         'price' => $request->input('price'),
                         'stock_quantity' => $request->input('stock_quantity'),
@@ -186,7 +189,16 @@ class ProductController extends Controller
 
 
                     ]);
-
+                    $newStock = (int)$request->input('stock_quantity');
+                    if($oldStock != $newStock){
+                        InventoryTransaction::create([
+                            'product_id' => $product->product_id,
+                            'user_id' => Auth::id(),
+                            'quantity_change' => $newStock - $oldStock,
+                            'type' => 'adjustment',
+                            'note' => 'Manual stock update',
+                        ]);
+                    }
                     if($request->input("stock_quantity") <= 10 && $product->stock_quantity > 10){
                         $noOutOfStock = DB::table('products')->where("stock_quantity", "=", 0)->count();
                         $noOfLowStock = DB::table('products')->whereBetween('stock_quantity', [1, 10])->count();
@@ -202,9 +214,9 @@ class ProductController extends Controller
                 } else
                     throw new \Exception("Product does not exist");
             });
-            return redirect()->route("allInventory")->with('success', "successfully updated product");
+            return redirect()->route("admin.inventory.index")->with('success', "successfully updated product");
         } catch (\Throwable $e) {
-            return redirect()->route("allInventory")->with("error", "sorry an error occurred");
+            return redirect()->route("admin.inventory.index")->with("error", "sorry an error occurred");
         }
 
     }

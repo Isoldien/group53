@@ -114,14 +114,14 @@ Route::middleware(['auth','is_admin'])->group(function () {
     //There are all the admin actions for managing products
     Route::get("admin/inventory/index", [ProductController::class, "index_admin"])->name("allInventory");
     Route::get("admin/inventory/edit/{id}", [ProductController::class, "edit_product"])->name("editInventory");
-    Route::post("admin/inventory/update", [ProductController::class, "update_product"])->name("updateInventory");
+    Route::put("admin/inventory/update/{id}", [ProductController::class, "update_product"])->name("updateInventory");
     Route::get("admin/messages/index", [InventoryController::class, "index"])->name("index")->name("allMessages");
 });
 Route::middleware(['auth', 'is_admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [App\Http\Controllers\AdminController::class, 'index'])->name('dashboard');
     Route::delete('/users/{user}', [App\Http\Controllers\AdminController::class, 'deleteUser'])->name('users.destroy');
     Route::resource('inventory', App\Http\Controllers\Admin\InventoryController::class);
-    
+
     // Admin Review Routes
     Route::get('/reviews', [App\Http\Controllers\AdminController::class, 'reviews'])->name('reviews.index');
     Route::delete('/reviews/{review}', [App\Http\Controllers\AdminController::class, 'deleteReview'])->name('reviews.destroy');

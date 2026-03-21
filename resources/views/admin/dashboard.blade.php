@@ -22,6 +22,7 @@
             <a href="{{ route('admin.inventory.index') }}" class="text-blue-600 dark:text-blue-400 text-sm mt-4 inline-block hover:underline">View All →</a>
         </div>
 
+
         <div class="bg-white dark:bg-[#272e2d] rounded-2xl shadow-xl p-6 border border-gray-100 dark:border-gray-700">
             <div class="flex items-center justify-between mb-4">
                 <div class="w-12 h-12 bg-red-100 dark:bg-red-900/30 rounded-lg flex items-center justify-center">
@@ -31,6 +32,16 @@
             <h3 class="text-gray-500 dark:text-gray-400 text-sm font-medium">Low Stock</h3>
             <p class="text-3xl font-bold text-red-600 dark:text-red-400 mt-1">{{ $lowStockCount }}</p>
             <a href="{{ route('admin.inventory.index', ['stock_status' => 'low']) }}" class="text-red-600 dark:text-red-400 text-sm mt-4 inline-block hover:underline">View List →</a>
+        </div>
+        <div class="bg-white dark:bg-[#272e2d] rounded-2xl shadow-xl p-6 border border-gray-100 dark:border-gray-700">
+            <div class="flex items-center justify-between mb-4">
+                <div class="w-12 h-12 bg-red-100 dark:bg-red-900/30 rounded-lg flex items-center justify-center">
+                    <svg class="w-6 h-6 text-red-600 dark:text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                </div>
+            </div>
+            <h3 class="text-gray-500 dark:text-gray-400 text-sm font-medium">Out of Stock</h3>
+            <p class="text-3xl font-bold text-red-600 dark:text-red-400 mt-1">{{ $outOfStockCount }}</p>
+            <a href="{{ route('admin.inventory.index', ['stock_status' => 'out']) }}" class="text-red-600 dark:text-red-400 text-sm mt-4 inline-block hover:underline">View List →</a>
         </div>
 
         <div class="bg-white dark:bg-[#272e2d] rounded-2xl shadow-xl p-6 border border-gray-100 dark:border-gray-700">
@@ -116,20 +127,34 @@
                     </div>
                     <span class="font-medium">Full Inventory View</span>
                 </a>
+                <a href="{{ route('orders.index') }}" class="flex items-center p-3 text-gray-700 dark:text-gray-200 bg-gray-50 dark:bg-gray-800/50 rounded-xl hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors group">
+                    <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
+                        <svg class="w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                    </div>
+                    <span class="font-medium">Manage orders</span>
+                </a>
                 <a href="{{ route('admin.reviews.index') }}" class="flex items-center p-3 text-gray-700 dark:text-gray-200 bg-gray-50 dark:bg-gray-800/50 rounded-xl hover:bg-yellow-50 dark:hover:bg-yellow-900/20 transition-colors group">
                     <div class="w-10 h-10 bg-yellow-100 dark:bg-yellow-900/30 rounded-lg flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
                         <svg class="w-5 h-5 text-yellow-600 dark:text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
                     </div>
                     <span class="font-medium">Manage Reviews</span>
                 </a>
+                <!-- Manage Users (New Link Added) -->
+                <a href="{{ route('allUsers') }}" class="flex items-center p-3 text-gray-700 dark:text-gray-200 bg-gray-50 dark:bg-gray-800/50 rounded-xl hover:bg-purple-50 dark:hover:bg-purple-900/20 transition-colors group">
+                    <div class="w-10 h-10 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
+                        <svg class="w-5 h-5 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                    </div>
+                    <span class="font-medium">Manage Users</span>
+                </a>
             </div>
         </div>
     </div>
 
     <!-- Orders Management -->
+
     <div class="mt-8 bg-white dark:bg-[#272e2d] rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700 overflow-hidden">
         <div class="px-6 py-4 border-b border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50 flex justify-between items-center">
-            <h2 class="font-bold text-gray-800 dark:text-gray-200 text-xl">Order Management</h2>
+            <h2 class="font-bold text-gray-800 dark:text-gray-200 text-xl">Quick Order Management</h2>
         </div>
         <div class="p-6 overflow-x-auto">
             <table class="w-full text-left">
@@ -169,7 +194,7 @@
     <!-- Users Management -->
     <div class="mt-8 bg-white dark:bg-[#272e2d] rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700 overflow-hidden">
         <div class="px-6 py-4 border-b border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50 flex justify-between items-center">
-            <h2 class="font-bold text-gray-800 dark:text-gray-200 text-xl">User Management</h2>
+            <h2 class="font-bold text-gray-800 dark:text-gray-200 text-xl">Quick User Management</h2>
         </div>
         <div class="p-6 overflow-x-auto">
             @if(session('success'))

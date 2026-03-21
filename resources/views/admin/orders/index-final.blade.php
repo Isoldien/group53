@@ -44,7 +44,23 @@
                         {{ session('error') }}
                     </div>
                 @endif
-
+                <!-- Actions: Ship all pending orders or deliver all shipped orders -->
+                <div class="actions mb-6">
+                    <form action="{{ route('orders.ship_all') }}" method="POST" style="display: inline;">
+                        @csrf
+                        <button type="submit" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-semibold transition-colors flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                            Mark All Pending as Shipped
+                        </button>
+                    </form>
+                    <form action="{{ route('orders.deliver_all') }}" method="POST" style="display: inline;">
+                        @csrf
+                        <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition-colors flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                            Mark All Shipped as Delivered
+                        </button>
+                    </form>
+                </div>
 
                 <!-- Orders Table -->
                 <div class="overflow-x-auto">
