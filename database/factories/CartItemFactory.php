@@ -19,10 +19,14 @@ class CartItemFactory extends Factory
     public function definition(): array
     {
 
+        $product = Product::factory()->create();
+        $quantity = 1;
+
         return [
             'cart_id' => Cart::factory(),
-            'product_id' => Product::factory(),
-            'quantity' => 1
+            'product_id' => $product,
+            'quantity' => $quantity,
+            'subtotal' => $product->price * $quantity
         ];
     }
 }
