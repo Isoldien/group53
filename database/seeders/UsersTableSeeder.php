@@ -16,9 +16,9 @@ class UsersTableSeeder extends Seeder
     {
         // Create or update a known admin user
         User::updateOrCreate(
-            ['email' => 'admin@youzoo.com'],
+            ['email' => 'youzoo@isoldien.com'],
             [
-                'name' => 'Test Admin',
+                'name' => 'YouZoo Admin',
                 'password' => \Hash::make('password'),
                 'role' => UserRole::Admin,
                 'email_verified_at' => now(),
