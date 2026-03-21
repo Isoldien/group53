@@ -8,18 +8,7 @@
             </div>
 
             <div class="p-6">
-                <!-- Display Session Error or Success -->
-                @if(session('error'))
-                    <div class="mb-6 p-4 bg-red-100 dark:bg-red-900/30 border-l-4 border-red-500 text-red-700 dark:text-red-300 rounded-r-lg">
-                        {{ session('error') }}
-                    </div>
-                @endif
 
-                @if(session('success'))
-                    <div class="mb-6 p-4 bg-green-100 dark:bg-green-900/30 border-l-4 border-green-500 text-green-700 dark:text-green-300 rounded-r-lg">
-                        {{ session('success') }}
-                    </div>
-                @endif
 
                 <!-- Edit User Form -->
                 <form action="{{ route('userEdited') }}" method="POST" class="space-y-4">

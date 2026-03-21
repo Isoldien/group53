@@ -1,6 +1,18 @@
 @extends("layouts.admin", ["title" => "User Management"])
 
 @section("content")
+
+    @if(session('error'))
+        <div class="mb-6 p-4 bg-red-100 dark:bg-red-900/30 border-l-4 border-red-500 text-red-700 dark:text-red-300 rounded-r-lg">
+            {{ session('error') }}
+        </div>
+    @endif
+
+    @if(session('success'))
+        <div class="mb-6 p-4 bg-green-100 dark:bg-green-900/30 border-l-4 border-green-500 text-green-700 dark:text-green-300 rounded-r-lg">
+            {{ session('success') }}
+        </div>
+    @endif
     <div class="mt-8 bg-white dark:bg-[#272e2d] rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700 overflow-hidden">
         <div class="px-6 py-4 border-b border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50 flex justify-between items-center">
             <h2 class="font-bold text-gray-800 dark:text-gray-200 text-xl">Quick User Management</h2>
@@ -32,13 +44,6 @@
                 </div>
             </form>
 
-            <!-- Success Message -->
-            @if(session('success'))
-                <div class="mb-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative">
-                    {{ session('success') }}
-                </div>
-            @endif
-
             <!-- Users Table -->
             <table class="w-full text-left">
                 <thead>
@@ -60,17 +65,17 @@
                         <td class="py-4 px-2 text-gray-600 dark:text-gray-400">{{ $user->email }}</td>
                         <td class="py-4 px-2 text-gray-600 dark:text-gray-400">{{ $user->orders_count ?? 0 }}</td>
                         <td class="py-4 px-2 text-gray-600 dark:text-gray-400">{{ $user->reviews_count ?? 0 }}</td>
-                        <td class="py-4 px-2 text-gray-600 dark:text-gray-400">{{ \App\enums\UserRole::from($user->role)->name }}</td>
+                        <td class="py-4 px-2 text-gray-600 dark:text-gray-400">{{ \App\enums\UserRole::from($user->role->value)->name }}</td>
                         <td class="py-4 px-2 text-right">
-                            @if(auth()->id() !== $user->user_id)
+                            <a href="{{ route('editUser', $user->user_id) }}" class="text-blue-600 hover:text-blue-800 transition-colors font-bold px-3 py-1 rounded border border-blue-200 dark:border-blue-900/50 hover:bg-blue-50 dark:hover:bg-blue-900/20">
+                                Edit
+                            </a>
                                 <form action="{{ route('admin.users.destroy', $user->user_id) }}" method="POST" onsubmit="return confirm('Are you sure you want to ban and delete this user? An email will be sent to them.');" class="inline-block">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="text-red-600 dark:text-red-400 hover:text-red-800 font-bold px-3 py-1 rounded border border-red-200 dark:border-red-900/50 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors">Ban / Delete</button>
                                 </form>
-                            @else
-                                <span class="text-gray-400 italic">Current User</span>
-                            @endif
+
                         </td>
                     </tr>
                 @empty
