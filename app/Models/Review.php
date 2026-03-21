@@ -25,6 +25,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  *
  * @package App\Models
  */
+/**
+ * Model representing customer feedback and ratings left on specific products.
+ */
 class Review extends Model
 {
 	protected $table = 'reviews';

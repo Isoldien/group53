@@ -7,12 +7,11 @@ use App\Events\StockEvent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use App\Models\Product; // Assuming Product model exists
-// We need Cart and CartItem models. If they don't exist, I should use DB facade or create them.
-// Let's assume I need to create them as well or check if they exist.
-// User didn't ask to create models, but good practice.
-// I'll check first.
+use App\Models\Product;
 
+/**
+ * Controller responsible for managing user shopping carts, adding/removing items, and checkout processing.
+ */
 class CartController extends Controller
 {
     public function index()

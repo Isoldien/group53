@@ -34,6 +34,9 @@ use Illuminate\Validation\Rules\Enum;
  * @property Collection|Review[] $reviews
  * @package App\Models
  */
+/**
+ * Model representing a registered user, managing their profile data and authentication.
+ */
 class User extends Authenticatable implements MustVerifyEmail
 {
 	use HasFactory, Notifiable;

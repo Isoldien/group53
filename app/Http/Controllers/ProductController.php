@@ -8,6 +8,9 @@ use Illuminate\View\View;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
+/**
+ * Controller that handles displaying product listings, filtering, and individual product details.
+ */
 class ProductController extends Controller
 {
     /**

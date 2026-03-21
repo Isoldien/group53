@@ -14,6 +14,9 @@ use App\Models\Product;
 use App\Models\Address;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * Controller managing order placements, tracking, and updating order fulfillment statuses.
+ */
 class OrderController extends Controller
 {
     //Returns all pending orders; to be used by

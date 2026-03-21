@@ -6,6 +6,10 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    /**
+     * Run the migrations.
+     * Creates the 'carts' table which holds active shopping sessions for users.
+     */
     public function up(): void
     {
         Schema::create('carts', function (Blueprint $table) {

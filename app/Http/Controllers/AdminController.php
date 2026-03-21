@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+/**
+ * Controller for managing the administrative dashboard and user moderation features.
+ */
 class AdminController extends Controller
 {
     public function index()

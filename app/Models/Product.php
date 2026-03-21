@@ -32,6 +32,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  *
  * @package App\Models
  */
+/**
+ * Model representing an individual item available for purchase in the store.
+ */
 class Product extends Model
 {
 	protected $table = 'products';
