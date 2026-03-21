@@ -17,7 +17,7 @@ class AdminController extends Controller
     //
 
 
-    public function index_users()
+    public function index_users(Request $request)
     {
 
         $users = DB::table("users")->get();
@@ -25,10 +25,10 @@ class AdminController extends Controller
         return view("admin.users.index", compact("users"));
     }
 
-   public function edit_user($user)
+   public function edit_user($id)
    {
      try {
-
+         $user = User::findOrFail($id);
 
          if ($this->user_exists($user->user_id)) {
              return view("admin.users.edit", compact("user"));
@@ -40,12 +40,13 @@ class AdminController extends Controller
          return redirect()->route("allUsers")->with("error", "sorry an error occurred");
      }
    }
-   public function delete_user($user)
+   public function delete_user($id)
    {
        //deleting all associated user information
 
 
            try {
+               $user = User::findOrFail($id);
                DB::transaction(function () use ($user) {
                    $order = DB::table("orders")->where("user_id", "=", $user->user_id)->lockForUpdate()->first();
                    if($order) {

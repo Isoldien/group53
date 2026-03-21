@@ -202,7 +202,7 @@ class CartController extends Controller
                     DB::table('order_items')->insert([
                         'order_id' => $orderId,
                         'product_id' => $item->product_id,
-                        'quantity' => $product->stock_quantity,
+                        'quantity' => $item->quantity,
                         'price_at_purchase' => $product->price
                     ]);
 

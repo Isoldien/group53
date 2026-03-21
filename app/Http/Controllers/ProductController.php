@@ -1,7 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Events\MessageEvent;
 use App\Events\StockEvent;
+use App\Models\AdminMessage;
+use App\Models\Category;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -108,14 +111,39 @@ class ProductController extends Controller
 
     //admin functionality goes here
 
-    public function index_admin(){
-        $products = DB::table("products")->where("is_active", "=",1)->get();
+    public function index_admin(Request $request){
+        $query = Product::query()->with("category");
 
-        return view("admin.inventory.index", compact('products'));
+        if($request->filled('search')){
+            $search = $request->input('search');
+           $query->where("product_name", "like", "%{$search}%")
+           ->orWhere("brand", "like", "%{$search}%");
+        }
+        if($request->filled('category')){
+          $query->where("category_id","=", request()->input('category'));
+        }
+        if($request->filled("stock_status"))
+        {
+            if($request->input('stock_status') === "low")
+            {
+                $query->whereBetween("stock_quantity",[1,10]);
+            }
+            elseif($request->input('stock_status') === "out")
+            {
+                $query->where("stock_quantity","=",0);
+            }
+        }
+
+        $products = $query->paginate(15);
+        $categories = Category::all();
+
+
+        return view("admin.inventory.index", compact('products','categories'));
     }
 
-    public function edit_product($product){
+    public function edit_product($id){
         try {
+            $product = Product::findOrFail($id);
             return view("admin.inventory.edit", compact('product'));
         }
         catch (\Exception $exception){
@@ -134,7 +162,7 @@ class ProductController extends Controller
                      "description" => "required|string",
                      "price" => "required|numeric",
                      "stock_quantity" => "required|integer",
-                     "image_url" => "required|image|mimes:jpeg,png,jpg|max:2048000",
+                     "image_url" => "nullable|url",
                      "brand" => "required|string|max:100",
                      "pet_type" => "required|string|max:60",
                      "is_active" => "required|int",
@@ -155,6 +183,7 @@ class ProductController extends Controller
 
 
                     ]);
+
                     if($request->input("stock_quantity") <= 10 && $product->stock_quantity > 10){
                         $noOutOfStock = DB::table('products')->where("stock_quantity", "=", 0)->count();
                         $noOfLowStock = DB::table('products')->whereBetween('stock_quantity', [1, 10])->count();

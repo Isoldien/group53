@@ -8,10 +8,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class Address
- * 
+ *
  * @property int $address_id
  * @property int $user_id
  * @property string $address_line
@@ -19,7 +21,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $postal_code
  * @property string $country
  * @property bool|null $is_default
- * 
+ *
  * @property User $user
  * @property Collection|Order[] $orders
  *
@@ -47,11 +49,11 @@ class Address extends Model
 
 	public function user():BelongsTo
 	{
-		return $this->belongsTo(User::class);
+		return $this->belongsTo(User::class, 'user_id', 'user_id');
 	}
 
 	public function orders():HasMany
 	{
-		return $this->hasMany(Order::class);
+		return $this->hasMany(Order::class, 'address_id', 'address_id');
 	}
 }

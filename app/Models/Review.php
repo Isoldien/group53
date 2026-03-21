@@ -8,17 +8,18 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Class Review
- * 
+ *
  * @property int $review_id
  * @property int|null $product_id
  * @property int|null $rating
  * @property string|null $comment
  * @property Carbon|null $review_date
  * @property int $user_id
- * 
+ *
  * @property Product|null $product
  * @property User $user
  *
@@ -49,11 +50,11 @@ class Review extends Model
 
 	public function product():BelongsTo
 	{
-		return $this->belongsTo(Product::class);
+		return $this->belongsTo(Product::class, 'product_id', 'product_id');
 	}
 
 	public function user():BelongsTo
 	{
-		return $this->belongsTo(User::class);
+		return $this->belongsTo(User::class, 'user_id', 'user_id');
 	}
 }

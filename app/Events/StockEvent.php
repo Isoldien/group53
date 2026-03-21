@@ -21,21 +21,20 @@ class StockEvent implements ShouldBroadcast
     public int $no_of_low_stock;
     public int $no_out_of_stock;
 
-    public AdminMessage $admin_message;
-    public function __construct(int $no_of_low_stock, int $no_out_of_stock, AdminMessage $message)
+
+    public function __construct(int $no_of_low_stock, int $no_out_of_stock)
     {
         //
         $this->no_of_low_stock = $no_of_low_stock;
         $this->no_out_of_stock = $no_out_of_stock;
-        $this->admin_message = $message;
+
     }
     public function broadcastWith():array
     {
         return [
             'no_of_low_stock' => $this->no_of_low_stock,
             'no_out_of_stock' => $this->no_out_of_stock,
-            'message' => $this->admin_message->message,
-            'title' => $this->admin_message->title
+
         ];
     }
     public function broadcastAs():string

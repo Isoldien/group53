@@ -8,6 +8,8 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -79,26 +81,26 @@ class User extends Authenticatable implements MustVerifyEmail
 
 	public function reviews():HasMany
 	{
-		return $this->hasMany(Review::class);
+		return $this->hasMany(Review::class, "user_id", "user_id");
 	}
     public function contactMessages():HasMany
 	{
-		return $this->hasMany(ContactMessage::class);
+		return $this->hasMany(ContactMessage::class, "user_id", "user_id");
 	}
-    public function addresses():HasMany
+    public function addresses():HasOne
 	{
-		return $this->hasMany(Address::class);
+		return $this->hasOne(Address::class, "user_id", "user_id");
 	}
     public function orders():HasMany
 	{
-		return $this->hasMany(Order::class);
+		return $this->hasMany(Order::class, "user_id", "user_id");
 	}
-    public function cart():HasMany
+    public function cart():HasOne
 	{
-		return $this->hasMany(Cart::class);
+		return $this->hasOne(Cart::class, "user_id", "user_id");
 	}
     public function returnRequests():HasMany
 	{
-		return $this->hasMany(ReturnRequest::class);
+		return $this->hasMany(ReturnRequest::class, "user_id", "user_id");
 	}
 }

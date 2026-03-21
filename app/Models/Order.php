@@ -11,6 +11,8 @@ use App\enums\OrderStatus;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Validation\Rules\Enum;
 
 /**
@@ -61,21 +63,21 @@ class Order extends Model
 
 	public function user():BelongsTo
 	{
-		return $this->belongsTo(User::class);
+		return $this->belongsTo(User::class,"user_id","user_id");
 	}
 
 	public function address():BelongsTo
 	{
-		return $this->belongsTo(Address::class);
+		return $this->belongsTo(Address::class,"address_id","address_id");
 	}
 
 	public function inventory_transactions():HasMany
 	{
-		return $this->hasMany(InventoryTransaction::class);
+		return $this->hasMany(InventoryTransaction::class, "order_id", "order_id");
 	}
 
 	public function order_items():HasMany
 	{
-		return $this->hasMany(OrderItem::class);
+		return $this->hasMany(OrderItem::class, "order_id", "order_id");
 	}
 }

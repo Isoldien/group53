@@ -8,10 +8,11 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Class ContactMessage
- * 
+ *
  * @property int $message_id
  * @property int|null $user_id
  * @property string|null $name
@@ -20,7 +21,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $message
  * @property string|null $status
  * @property Carbon $date_sent
- * 
+ *
  * @property User|null $user
  *
  * @package App\Models
@@ -48,6 +49,6 @@ class ContactMessage extends Model
 
 	public function user():BelongsTo
 	{
-		return $this->belongsTo(User::class);
+		return $this->belongsTo(User::class, 'user_id', 'user_id');
 	}
 }

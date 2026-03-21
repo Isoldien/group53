@@ -8,10 +8,11 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Class ReturnRequest
- * 
+ *
  * @property int $return_id
  * @property int $order_item_id
  * @property int $user_id
@@ -21,7 +22,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon|null $resolution_date
  * @property float|null $refund_amount
  * @property string|null $admin_notes
- * 
+ *
  * @property OrderItem $order_item
  * @property User $user
  *
@@ -54,11 +55,11 @@ class ReturnRequest extends Model
 
 	public function order_item():BelongsTo
 	{
-		return $this->belongsTo(OrderItem::class);
+		return $this->belongsTo(OrderItem::class, 'order_item_id', 'order_item_id');
 	}
 
 	public function user():BelongsTo
 	{
-		return $this->belongsTo(User::class);
+		return $this->belongsTo(User::class, 'user_id', 'user_id');
 	}
 }

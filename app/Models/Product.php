@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class Product
- * 
+ *
  * @property int $product_id
  * @property int $category_id
  * @property string $product_name
@@ -26,7 +26,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string $pet_type
  * @property Carbon $date_added
  * @property bool|null $is_active
- * 
+ *
  * @property Category $category
  * @property Collection|Review[] $reviews
  *
@@ -68,6 +68,6 @@ class Product extends Model
 
 	public function reviews():HasMany
 	{
-		return $this->hasMany(Review::class);
+		return $this->hasMany(Review::class, 'product_id', 'product_id');
 	}
 }
