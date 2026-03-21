@@ -3,7 +3,7 @@
         <div class="flex justify-between items-center relative">
             
             <!-- Left Navigation (Desktop) -->
-            <div class="hidden md:flex items-center space-x-6">
+            <div class="hidden xl:flex items-center space-x-6">
                 <a href="{{ url('/') }}" 
                    class="{{ request()->is('/') ? 'text-green-800 dark:text-green-300 font-bold' : 'text-gray-700 dark:text-gray-200 font-medium' }} text-lg hover:text-green-600 dark:hover:text-green-400 transition-colors flex items-center gap-2">
                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
@@ -24,7 +24,7 @@
             </div>
 
             <!-- Centered Title & Icon -->
-            <div class="flex flex-col items-center md:absolute md:left-1/2 md:transform md:-translate-x-1/2">
+            <div class="flex flex-col items-center xl:absolute xl:left-1/2 xl:transform xl:-translate-x-1/2">
                 <h2 class="text-4xl font-bold text-gray-900 dark:text-white tracking-tight leading-none">YouZoo</h2>
                 <svg class="w-6 h-6 text-green-700 dark:text-green-400 mt-1" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 2C13.65 2 15 3.35 15 5C15 6.65 13.65 8 12 8C10.35 8 9 6.65 9 5C9 3.35 10.35 2 12 2ZM6.5 6C7.88 6 9 7.12 9 8.5C9 9.88 7.88 11 6.5 11C5.12 11 4 9.88 4 8.5C4 7.12 5.12 6 6.5 6ZM17.5 6C18.88 6 20 7.12 20 8.5C20 9.88 18.88 11 17.5 11C16.12 11 15 9.88 15 8.5C15 7.12 16.12 6 17.5 6ZM12 10C15 10 17 12 17 15C17 16.5 16 18.5 14 20C13 20.75 12 22 12 22C12 22 11 20.75 10 20C8 18.5 7 16.5 7 15C7 12 9 10 12 10Z"></path>
@@ -32,7 +32,7 @@
             </div>
             
             <!-- Right Navigation (Desktop) -->
-            <div class="hidden md:flex items-center space-x-6">
+            <div class="hidden xl:flex items-center space-x-6">
                 @guest
                     <a href="{{ url('/login') }}" 
                        class="{{ request()->is('login') ? 'text-green-800 dark:text-green-300 font-bold' : 'text-gray-700 dark:text-gray-200 font-medium' }} text-lg hover:text-green-600 dark:hover:text-green-400 transition-colors flex items-center gap-2">
@@ -81,7 +81,7 @@
             </div>
 
             <!-- Mobile Menu Button -->
-            <div class="flex items-center space-x-4 md:hidden ml-auto">
+            <div class="flex items-center space-x-4 xl:hidden ml-auto">
                  <!-- Dark Mode Toggle (Mobile) -->
                  <button onclick="toggleDarkMode()" class="p-2 rounded-full bg-gray-200/50 dark:bg-gray-700/50 text-gray-600 dark:text-gray-300 hover:bg-gray-300/50 dark:hover:bg-gray-600/50 transition-colors focus:outline-none backdrop-blur-sm">
                     <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
@@ -96,7 +96,7 @@
         </div>
 
         <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4 transition-all duration-300 ease-in-out">
+        <div id="mobile-menu" class="hidden xl:hidden mt-4 pb-4 transition-all duration-300 ease-in-out">
             <ul class="flex flex-col space-y-4">
                 <li>
                     <a href="{{ url('/') }}" 

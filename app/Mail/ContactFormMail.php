@@ -10,6 +10,9 @@ use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Mail\Mailables\Address;
 
+/**
+ * Mailable class for sending contact form submissions to site administrators.
+ */
 class ContactFormMail extends Mailable
 {
     use Queueable, SerializesModels;
@@ -17,7 +20,9 @@ class ContactFormMail extends Mailable
     public $data;
 
     /**
-     * Create a new message instance.
+     * Create a new message instance with the submitted contact form data.
+     * 
+     * @param array $data Contains form input fields like subject, email, message, etc.
      */
     public function __construct($data)
     {
@@ -25,7 +30,7 @@ class ContactFormMail extends Mailable
     }
 
     /**
-     * Get the message envelope.
+     * Get the message envelope, setting the subject line using the form's subject.
      */
     public function envelope(): Envelope
     {
@@ -35,7 +40,7 @@ class ContactFormMail extends Mailable
     }
 
     /**
-     * Get the message content definition.
+     * Get the message content definition, linking it to the confirmation email blade template.
      */
     public function content(): Content
     {

@@ -26,6 +26,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  *
  * @package App\Models
  */
+/**
+ * Model representing a user's active shopping cart session and its total amount.
+ */
 class Cart extends Model
 {
 	protected $table = 'carts';

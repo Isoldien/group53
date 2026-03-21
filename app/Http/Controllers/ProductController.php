@@ -13,6 +13,9 @@ use Illuminate\View\View;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
+/**
+ * Controller that handles displaying product listings, filtering, and individual product details.
+ */
 class ProductController extends Controller
 {
     /**
@@ -97,7 +100,7 @@ class ProductController extends Controller
 
     public function show($id)
     {
-        $product = Product::findOrFail($id);
+        $product = Product::with('reviews.user')->findOrFail($id);
         return view("product_details", compact('product'));
     }
 

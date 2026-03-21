@@ -27,6 +27,11 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/cart/update', [CartController::class, 'update'])->name('cart.update');
     Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');
     Route::post('/cart/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
+
+    // Review Routes
+    Route::post('/products/{id}/reviews', [App\Http\Controllers\ReviewController::class, 'store'])->name('reviews.store');
+    Route::put('/reviews/{review}', [App\Http\Controllers\ReviewController::class, 'update'])->name('reviews.update');
+    Route::delete('/reviews/{review}', [App\Http\Controllers\ReviewController::class, 'destroy'])->name('reviews.destroy');
 });
 
 // Contact Routes
@@ -112,6 +117,16 @@ Route::middleware(['auth','is_admin'])->group(function () {
     Route::post("admin/inventory/update", [ProductController::class, "update_product"])->name("updateInventory");
     Route::get("admin/messages/index", [InventoryController::class, "index"])->name("index")->name("allMessages");
 });
+Route::middleware(['auth', 'is_admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', [App\Http\Controllers\AdminController::class, 'index'])->name('dashboard');
+    Route::delete('/users/{user}', [App\Http\Controllers\AdminController::class, 'deleteUser'])->name('users.destroy');
+    Route::resource('inventory', App\Http\Controllers\Admin\InventoryController::class);
+    
+    // Admin Review Routes
+    Route::get('/reviews', [App\Http\Controllers\AdminController::class, 'reviews'])->name('reviews.index');
+    Route::delete('/reviews/{review}', [App\Http\Controllers\AdminController::class, 'deleteReview'])->name('reviews.destroy');
+});
+
 require __DIR__.'/settings.php';
 
 

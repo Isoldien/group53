@@ -99,9 +99,9 @@
                     </a>
                 </h3>
                 <p class="text-gray-600 dark:text-gray-400 mb-4 flex-grow">{{ Str::limit($product->description, 60) }}</p>
-                <div class="flex justify-between items-center mt-auto">
+                <div class="flex flex-wrap justify-between items-center mt-auto gap-4">
                     <span class="text-2xl font-bold text-green-600 dark:text-green-400">£{{ number_format($product->price, 2) }}</span>
-                    <a href="{{ route('products.show', $product->product_id) }}" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-semibold transition-colors">
+                    <a href="{{ route('products.show', $product->product_id) }}" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-semibold transition-colors whitespace-nowrap">
                         View Details
                     </a>
                 </div>

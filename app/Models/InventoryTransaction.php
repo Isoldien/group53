@@ -38,7 +38,8 @@ class InventoryTransaction extends Model
 		'product_id' => 'int',
 		'order_id' => 'int',
 		'user_id' => 'int',
-		'quantity_change' => 'int'
+		'quantity_change' => 'int',
+		'created_at' => 'datetime'
 	];
 
 	protected $fillable = [

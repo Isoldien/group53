@@ -8,6 +8,7 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
+     * Creates the core authenticatable 'users' table and associated session/token tables.
      */
     public function up(): void
     {

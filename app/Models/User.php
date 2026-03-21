@@ -17,6 +17,8 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use App\enums\UserRole;
 use Illuminate\Database\Eloquent\Model;
+
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Validation\Rules\Enum;
 
 /**
@@ -33,6 +35,9 @@ use Illuminate\Validation\Rules\Enum;
  * @property  Enum $role
  * @property Collection|Review[] $reviews
  * @package App\Models
+ */
+/**
+ * Model representing a registered user, managing their profile data and authentication.
  */
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -81,26 +86,38 @@ class User extends Authenticatable implements MustVerifyEmail
 
 	public function reviews():HasMany
 	{
+
 		return $this->hasMany(Review::class, "user_id", "user_id");
 	}
     public function contactMessages():HasMany
 	{
 		return $this->hasMany(ContactMessage::class, "user_id", "user_id");
+
+
 	}
+
     public function addresses():HasOne
 	{
+
 		return $this->hasOne(Address::class, "user_id", "user_id");
 	}
     public function orders():HasMany
 	{
 		return $this->hasMany(Order::class, "user_id", "user_id");
+
+
 	}
+
     public function cart():HasOne
 	{
+
 		return $this->hasOne(Cart::class, "user_id", "user_id");
 	}
     public function returnRequests():HasMany
 	{
 		return $this->hasMany(ReturnRequest::class, "user_id", "user_id");
+
+
 	}
+
 }

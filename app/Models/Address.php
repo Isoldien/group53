@@ -27,6 +27,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  *
  * @package App\Models
  */
+/**
+ * Model for storing shipping or billing addresses associated with a user account.
+ */
 class Address extends Model
 {
 	protected $table = 'addresses';

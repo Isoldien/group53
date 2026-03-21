@@ -25,11 +25,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  *
  * @package App\Models
  */
+/**
+ * Model representing customer feedback and ratings left on specific products.
+ */
 class Review extends Model
 {
 	protected $table = 'reviews';
 	protected $primaryKey = 'review_id';
-	public $incrementing = false;
+	public $incrementing = true;
 	public $timestamps = false;
 
 	protected $casts = [

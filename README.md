@@ -65,7 +65,7 @@ To access the platform immediately for testing purposes, use the following crede
 
 | Role  | Email              | Password |
 | :---  | :---               | :---     |
-| User  | **admin@youzoo.com** | **password** |
+| User  | **youzoo@isoldien.com** | **password** |
 
 *(Note: The default password for seeded users in Laravel factories is typically 'password' unless changed in the factory definition.)*
 

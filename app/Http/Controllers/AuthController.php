@@ -9,6 +9,9 @@ use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules;
 
+/**
+ * Controller handling user registration, authentication, and password resets.
+ */
 class AuthController extends Controller
 {
     public function register(Request $request)

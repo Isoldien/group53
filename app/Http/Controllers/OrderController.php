@@ -22,6 +22,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Throwable;
 
+/**
+ * Controller managing order placements, tracking, and updating order fulfillment statuses.
+ */
 class OrderController extends Controller
 {
     //Returns all pending orders; to be used by Admin

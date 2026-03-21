@@ -136,11 +136,37 @@
             <section class="flex flex-col gap-4 items-center w-full max-w-2xl bg-white dark:bg-[#272e2d] p-8 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700"> 
                 <h2 class="text-gray-900 dark:text-white text-2xl font-bold text-center">Write a Product Review</h2>
                 
+                @if(session('success'))
+                    <div class="w-full bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+                        {{ session('success') }}
+                    </div>
+                @endif
+                @if($errors->any())
+                    <div class="w-full bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                        <ul class="list-disc pl-5">
+                            @foreach($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
                 @auth
-                    <form class="w-full flex flex-col gap-4">
-                         <input type="text" placeholder="Review Title" class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 dark:text-white focus:ring-green-500 focus:border-green-500" required>
-                         <textarea placeholder="Share your experience..." rows="4" class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 dark:text-white focus:ring-green-500 focus:border-green-500" required></textarea>
-                         <button type="button" class="bg-gray-300 text-gray-700 font-bold py-2 px-6 rounded-lg cursor-not-allowed" title="Review submission not yet implemented">Submit Review (Coming Soon)</button>
+                    <form action="{{ route('reviews.store', $product->product_id) }}" method="POST" class="w-full flex flex-col gap-4">
+                         @csrf
+                         <div class="flex flex-col gap-2">
+                             <label for="rating" class="font-medium text-gray-700 dark:text-gray-300">Rating</label>
+                             <select name="rating" id="rating" class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 dark:text-white focus:ring-green-500 focus:border-green-500" required>
+                                 <option value="" disabled selected>Select a rating</option>
+                                 <option value="5">5 Stars - Excellent</option>
+                                 <option value="4">4 Stars - Good</option>
+                                 <option value="3">3 Stars - Average</option>
+                                 <option value="2">2 Stars - Poor</option>
+                                 <option value="1">1 Star - Terrible</option>
+                             </select>
+                         </div>
+                         <textarea name="comment" placeholder="Share your experience..." rows="4" class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 dark:text-white focus:ring-green-500 focus:border-green-500" required></textarea>
+                         <button type="submit" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition-colors">Submit Review</button>
                     </form>
                 @else
                     <p class="text-gray-600 dark:text-gray-400">Please <a href="{{ route('login') }}" class="text-green-600 hover:underline">login</a> to write a review.</p>
@@ -150,9 +176,67 @@
             <!-- All Reviews -->
             <div class="w-full max-w-2xl mt-8"> 
                 <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Customer Reviews</h2>
-                <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 text-center border border-gray-100 dark:border-gray-700">
-                    <p class="text-gray-500 dark:text-gray-400">No reviews yet.</p>
-                </div>
+                @if($product->reviews->count() > 0)
+                    <div class="space-y-4">
+                        @foreach($product->reviews->sortByDesc('review_date') as $review)
+                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 border border-gray-100 dark:border-gray-700">
+                            <div class="flex items-center justify-between mb-2">
+                                <h3 class="font-bold text-gray-900 dark:text-white">{{ $review->user->name ?? $review->user->full_name ?? 'User' }}</h3>
+                                <div class="text-yellow-400">
+                                    @for($i = 1; $i <= 5; $i++)
+                                        @if($i <= $review->rating)
+                                            ★
+                                        @else
+                                            <span class="text-gray-300 dark:text-gray-600">★</span>
+                                        @endif
+                                    @endfor
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">{{ \Carbon\Carbon::parse($review->review_date)->format('F j, Y') }}</p>
+                            
+                            <div id="review-display-{{ $review->review_id }}">
+                                <p class="text-gray-700 dark:text-gray-300 mb-4">{{ $review->comment }}</p>
+                                @if(auth()->check() && auth()->id() === $review->user_id)
+                                    <div class="flex gap-3">
+                                        <button type="button" onclick="document.getElementById('review-display-{{ $review->review_id }}').classList.add('hidden'); document.getElementById('review-edit-{{ $review->review_id }}').classList.remove('hidden');" class="text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline">Edit</button>
+                                        <form action="{{ route('reviews.destroy', $review->review_id) }}" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to delete this review?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="text-sm font-medium text-red-600 dark:text-red-400 hover:underline">Delete</button>
+                                        </form>
+                                    </div>
+                                @endif
+                            </div>
+
+                            @if(auth()->check() && auth()->id() === $review->user_id)
+                                <div id="review-edit-{{ $review->review_id }}" class="hidden mt-4">
+                                    <form action="{{ route('reviews.update', $review->review_id) }}" method="POST" class="flex flex-col gap-3">
+                                        @csrf
+                                        @method('PUT')
+                                        <div>
+                                            <label for="rating-{{ $review->review_id }}" class="sr-only">Rating</label>
+                                            <select name="rating" id="rating-{{ $review->review_id }}" class="px-3 py-1.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 dark:text-white text-sm" required>
+                                                @for($r = 5; $r >= 1; $r--)
+                                                    <option value="{{ $r }}" {{ $review->rating == $r ? 'selected' : '' }}>{{ $r }} Star{{ $r > 1 ? 's' : '' }}</option>
+                                                @endfor
+                                            </select>
+                                        </div>
+                                        <textarea name="comment" rows="3" class="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 dark:text-white text-sm" required>{{ $review->comment }}</textarea>
+                                        <div class="flex gap-2">
+                                            <button type="submit" class="px-4 py-2 bg-green-600 text-white text-sm font-medium rounded-lg hover:bg-green-700">Save</button>
+                                            <button type="button" onclick="document.getElementById('review-edit-{{ $review->review_id }}').classList.add('hidden'); document.getElementById('review-display-{{ $review->review_id }}').classList.remove('hidden');" class="px-4 py-2 bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-200 text-sm font-medium rounded-lg hover:bg-gray-300 dark:hover:bg-gray-500">Cancel</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            @endif
+                        </div>
+                        @endforeach
+                    </div>
+                @else
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 text-center border border-gray-100 dark:border-gray-700">
+                        <p class="text-gray-500 dark:text-gray-400">No reviews yet.</p>
+                    </div>
+                @endif
             </div>
         </main>
 

@@ -168,7 +168,7 @@
                                 
                                 <p class="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-2">{{ $product->description }}</p>
                                 
-                                <div class="mt-auto flex items-center justify-between">
+                                <div class="mt-auto flex flex-wrap items-center justify-between gap-2">
                                     <span class="text-2xl font-bold text-gray-900 dark:text-white">£{{ number_format($product->price, 2) }}</span>
                                     
                                     @if($product->stock_quantity > 0)
