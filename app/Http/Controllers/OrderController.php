@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enums\OrderStatus;
 
+use App\Events\DashboardEvent;
 use App\Events\MessageEvent;
 use App\Events\StockEvent;
 use App\Mail\RefundMail;
@@ -158,12 +159,23 @@ class OrderController extends Controller
                                ]);
                            }
                         }
+                        if(($request->input("status") === OrderStatus::Delivered->value && $order->status !== OrderStatus::Delivered->value)||($request->input("status") !== OrderStatus::Delivered->value && $order->status === OrderStatus::Delivered->value)){
+                          $event = new DashboardEvent();
+                          $event->orderCount = Order::where("status","!=",OrderStatus::Delivered)->count();
+                          event($event);
+                        }
                         DB::table("orders")->where("order_id","=",$request->input("order_id"))->update([
                             "status" => $request->input("status")
                         ]);
+
                     }
                     elseif($request->input("status") !== OrderStatus::Pending->value && $order->status !== OrderStatus::Pending->value)
                     {
+                        if(($request->input("status") === OrderStatus::Delivered->value && $order->status !== OrderStatus::Delivered->value)||($request->input("status") !== OrderStatus::Delivered->value && $order->status === OrderStatus::Delivered->value)){
+                            $event = new DashboardEvent();
+                            $event->orderCount = Order::where("status","!=",OrderStatus::Delivered)->count();
+                            event($event);
+                        }
                         DB::table("orders")->where("order_id","=",$request->input("order_id"))->update([
                             "status" => $request->input("status")
                         ]);

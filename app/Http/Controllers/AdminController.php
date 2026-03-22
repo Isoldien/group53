@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\OrderStatus;
 use App\enums\UserRole;
+use App\Events\DashboardEvent;
 use App\Mail\AdminCreationEmail;
+use App\Models\Order;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -140,7 +143,7 @@ class AdminController extends Controller
         $lowStockCount = \App\Models\Product::whereBetween("stock_quantity", [1,10])->count();
 
         $outOfStockCount = \App\Models\Product::where("stock_quantity", "=", "0")->count();
-        $orderCount = \App\Models\Order::count();
+        $orderCount = \App\Models\Order::where("status","!=",OrderStatus::Delivered)->count();
         $userCount = \App\Models\User::count();
 
         $recentTransactions = \App\Models\InventoryTransaction::with(['product', 'user'])
@@ -185,6 +188,10 @@ class AdminController extends Controller
                 }
 
                 $user->delete();
+                $event = new DashboardEvent();
+                $event->userCount = User::count();
+                $event->orderCount = Order::where("status","!=", OrderStatus::Delivered)->count();
+                event($event);
             });
             return redirect()->back()->with('success', 'User deleted successfully. An email has been dispatched notifying them.');
         } catch (\Throwable $e) {

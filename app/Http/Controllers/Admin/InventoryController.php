@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Events\DashboardEvent;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\Category;
@@ -69,7 +70,9 @@ class InventoryController extends Controller
             'type' => 'adjustment',
             'note' => 'Initial stock on creation',
         ]);
-
+        $event = new DashboardEvent();
+        $event->productCount = Product::count();
+        event($event);
         return redirect()->route('admin.inventory.index')->with('success', 'Product added successfully.');
     }
 
@@ -120,10 +123,14 @@ class InventoryController extends Controller
             DB::transaction(function () use ($id) {
                 $product = Product::findOrFail($id);
                 $product->delete();
+                $event = new DashboardEvent();
+                $event->productCount = Product::count();
+                event($event);
             });
         } catch (\Throwable $e) {
             return redirect()->route('admin.inventory.index')->with('error', 'An error occurred while deleting the product.');
         }
+
         return redirect()->route('admin.inventory.index')->with('success', 'Product deleted successfully.');
     }
 }

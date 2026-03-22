@@ -18,7 +18,7 @@
                 </div>
             </div>
             <h3 class="text-gray-500 dark:text-gray-400 text-sm font-medium">Total Products</h3>
-            <p class="text-3xl font-bold text-gray-900 dark:text-white mt-1">{{ $productCount }}</p>
+            <p id="productCount" class="text-3xl font-bold text-gray-900 dark:text-white mt-1">{{ $productCount }}</p>
             <a href="{{ route('admin.inventory.index') }}" class="text-blue-600 dark:text-blue-400 text-sm mt-4 inline-block hover:underline">View All →</a>
         </div>
 
@@ -30,7 +30,7 @@
                 </div>
             </div>
             <h3 class="text-gray-500 dark:text-gray-400 text-sm font-medium">Low Stock</h3>
-            <p class="text-3xl font-bold text-red-600 dark:text-red-400 mt-1">{{ $lowStockCount }}</p>
+            <p id="lowStockCount" class="text-3xl font-bold text-red-600 dark:text-red-400 mt-1">{{ $lowStockCount }}</p>
             <a href="{{ route('admin.inventory.index', ['stock_status' => 'low']) }}" class="text-red-600 dark:text-red-400 text-sm mt-4 inline-block hover:underline">View List →</a>
         </div>
         <div class="bg-white dark:bg-[#272e2d] rounded-2xl shadow-xl p-6 border border-gray-100 dark:border-gray-700">
@@ -40,7 +40,7 @@
                 </div>
             </div>
             <h3 class="text-gray-500 dark:text-gray-400 text-sm font-medium">Out of Stock</h3>
-            <p class="text-3xl font-bold text-red-600 dark:text-red-400 mt-1">{{ $outOfStockCount }}</p>
+            <p id="outOfStock" class="text-3xl font-bold text-red-600 dark:text-red-400 mt-1">{{ $outOfStockCount }}</p>
             <a href="{{ route('admin.inventory.index', ['stock_status' => 'out']) }}" class="text-red-600 dark:text-red-400 text-sm mt-4 inline-block hover:underline">View List →</a>
         </div>
 
@@ -51,7 +51,7 @@
                 </div>
             </div>
             <h3 class="text-gray-500 dark:text-gray-400 text-sm font-medium">Orders</h3>
-            <p class="text-3xl font-bold text-gray-900 dark:text-white mt-1">{{ $orderCount }}</p>
+            <p id="orderCount" class="text-3xl font-bold text-gray-900 dark:text-white mt-1">{{ $orderCount }}</p>
         </div>
 
         <div class="bg-white dark:bg-[#272e2d] rounded-2xl shadow-xl p-6 border border-gray-100 dark:border-gray-700">
@@ -61,7 +61,7 @@
                 </div>
             </div>
             <h3 class="text-gray-500 dark:text-gray-400 text-sm font-medium">Users </h3>
-            <p class="text-3xl font-bold text-gray-900 dark:text-white mt-1">{{ $userCount }}</p>
+            <p id="userCount" class="text-3xl font-bold text-gray-900 dark:text-white mt-1">{{ $userCount }}</p>
         </div>
     </div>
 
@@ -197,11 +197,7 @@
             <h2 class="font-bold text-gray-800 dark:text-gray-200 text-xl">Quick User Management</h2>
         </div>
         <div class="p-6 overflow-x-auto">
-            @if(session('success'))
-                <div class="mb-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative">
-                    {{ session('success') }}
-                </div>
-            @endif
+
             <table class="w-full text-left">
                 <thead>
                     <tr class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider border-b border-gray-100 dark:border-gray-700">
@@ -242,4 +238,41 @@
         </div>
     </div>
 </div>
+<script>
+
+    window.addEventListener("load", () => {
+        Pusher.logToConsole = true;
+
+        Echo.private('stock-channel')
+            .listen('.stock_event', (e) => {
+                //This is a simple test case
+                //Also, do NOT forget to add the dot in front of the name of the event as defined in broadCastAs in the App/Events
+
+                document.getElementById("lowStockCount").innerHTML = e.no_of_low_stock;
+                document.getElementById("outOfStock").innerHTML = e.no_out_of_stock;
+
+            })
+            .listen('.message_event', (e) => {
+                alert(e.message);
+                alert(e.title);
+            })
+            .listen('.dashboard_event', (e) =>{
+                if(e.order_count != 0)
+                {
+                    document.getElementById("orderCount").innerHTML = e.order_count;
+                }
+                if(e.user_count != 0)
+                {
+                    document.getElementById("userCount").innerHTML = e.user_count;
+                }
+                if(e.product_count != 0)
+                {
+                    document.getElementById("productCount").innerHTML = e.product_count;
+                }
+
+              });
+
+    });
+
+</script>
 @endsection

@@ -13,7 +13,7 @@
             {{ session('success') }}
         </div>
     @endif
-    <div class="mt-8 bg-white dark:bg-[#272e2d] rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700 overflow-hidden">
+    <div class="mt-8 bg-white dark:bg-[#272e2d] rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700 overflow-x-auto">
         <div class="px-6 py-4 border-b border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50 flex justify-between items-center">
             <h2 class="font-bold text-gray-800 dark:text-gray-200 text-xl">Quick User Management</h2>
         </div>

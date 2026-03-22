@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 
+use App\Enums\OrderStatus;
+use App\Events\DashboardEvent;
 use App\Events\StockEvent;
+use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -214,7 +217,9 @@ class CartController extends Controller
             return redirect()->route('cart.index')->with('error', "sorry an error occurred whilst processing your request.");
         }
 
-
+        $event = new DashboardEvent();
+        $event->orderCount = Order::where("status","!=",OrderStatus::Delivered)->count();
+        event($event);
         // Clear Cart
         DB::table('cart_items')->where('cart_id', $cart->cart_id)->delete();
         DB::table('carts')->where('cart_id', $cart->cart_id)->update(['total_amount' => 0]);
